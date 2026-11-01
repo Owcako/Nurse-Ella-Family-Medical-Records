@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1930" viewBox="0 0 1440 1930" role="img" aria-labelledby="title desc">
+<title id="title">Which component owns each responsibility?</title><desc id="desc">This is a dependency map. The workflow and chat coordinate storage; the AI client cannot save records itself. Blue cards describe the main flow; amber cards explain safeguards. Source comments use the same node IDs.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="context-stroke"/></marker></defs>
+<style>text {font-family:'Segoe UI','Microsoft JhengHei',Arial,sans-serif} text,polyline {pointer-events:none}</style>
+<rect width="100%" height="100%" fill="#f4f7fa"/>
+<text x="48" y="38" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#245f81">FAMILY MEDICAL RECORDS · VIEW 01</text>
+<text x="48" y="80" font-family="Segoe UI,Arial" font-size="30" font-weight="600" fill="#233646">Which component owns each responsibility?</text>
+<text x="48" y="111" font-family="Segoe UI,Arial" font-size="16" fill="#5c6d7c">This is a dependency map. The workflow and chat coordinate storage; the AI client cannot save records itself.</text>
+<text x="48" y="143" font-family="Segoe UI,Arial" font-size="13" fill="#5c6d7c">Read top to bottom. Solid blue = sequence/call; dashed amber = related safeguard, not an extra processing stage.</text>
+<g id="O1" data-node="O1" data-x="48" data-y="180" data-width="340" data-height="232">
+<rect x="48" y="180" width="340" height="232" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="207" font-size="13" fill="#245f81" font-weight="700">O1</text>
+<text x="70" y="237" font-size="21" fill="#233646" font-weight="600">Workspace and user actions</text>
+<text x="70" y="264" font-size="13" fill="#5c6d7c" font-weight="400">src/App.tsx + Workspace.tsx</text>
+<text x="70" y="291" font-size="16" fill="#233646" font-weight="400">Own member selection, snapshots,</text>
+<text x="70" y="315" font-size="16" fill="#233646" font-weight="400">open document, dirty-state guards</text>
+<text x="70" y="339" font-size="16" fill="#233646" font-weight="400">and panel layout.</text>
+<text x="70" y="363" font-size="16" fill="#233646" font-weight="400">Children: LibraryBrowser,</text>
+<text x="70" y="387" font-size="16" fill="#233646" font-weight="400">ImportPanel, Viewer, ChatPanel.</text>
+</g>
+<g id="O2" data-node="O2" data-x="48" data-y="650" data-width="340" data-height="184">
+<rect x="48" y="650" width="340" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="677" font-size="13" fill="#245f81" font-weight="700">O2</text>
+<text x="70" y="707" font-size="21" fill="#233646" font-weight="600">Browser HTTP client</text>
+<text x="70" y="734" font-size="13" fill="#5c6d7c" font-weight="400">src/import/api.ts</text>
+<text x="70" y="761" font-size="16" fill="#233646" font-weight="400">Use relative /api URLs. Decode</text>
+<text x="70" y="785" font-size="16" fill="#233646" font-weight="400">confirmed receipts or display an</text>
+<text x="70" y="809" font-size="16" fill="#233646" font-weight="400">error; keep drafts on failure.</text>
+</g>
+<g id="O3" data-node="O3" data-x="448" data-y="180" data-width="620" data-height="184">
+<rect x="448" y="180" width="620" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="470" y="207" font-size="13" fill="#245f81" font-weight="700">O3</text>
+<text x="470" y="237" font-size="21" fill="#233646" font-weight="600">FastAPI boundary</text>
+<text x="470" y="264" font-size="13" fill="#5c6d7c" font-weight="400">backend/api.py + models.py</text>
+<text x="470" y="291" font-size="16" fill="#233646" font-weight="400">Validate requests; save uploads before scheduling one worker.</text>
+<text x="470" y="315" font-size="16" fill="#233646" font-weight="400">Serve reads, explicit human mutations, rechecks, and synchronous</text>
+<text x="470" y="339" font-size="16" fill="#233646" font-weight="400">chat calls.</text>
+</g>
+<g id="O4" data-node="O4" data-x="448" data-y="490" data-width="280" data-height="232">
+<rect x="448" y="490" width="280" height="232" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="470" y="517" font-size="13" fill="#245f81" font-weight="700">O4</text>
+<text x="470" y="547" font-size="21" fill="#233646" font-weight="600">Filing workflow</text>
+<text x="470" y="574" font-size="13" fill="#5c6d7c" font-weight="400">backend/filing.py</text>
+<text x="470" y="601" font-size="16" fill="#233646" font-weight="400">Claim → extract → check →</text>
+<text x="470" y="625" font-size="16" fill="#233646" font-weight="400">classify → validate →</text>
+<text x="470" y="649" font-size="16" fill="#233646" font-weight="400">commit.</text>
+<text x="470" y="673" font-size="16" fill="#233646" font-weight="400">Only guarded writes can</text>
+<text x="470" y="697" font-size="16" fill="#233646" font-weight="400">establish filed status.</text>
+</g>
+<g id="O9" data-node="O9" data-x="768" data-y="490" data-width="300" data-height="232">
+<rect x="768" y="490" width="300" height="232" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="790" y="517" font-size="13" fill="#245f81" font-weight="700">O9</text>
+<text x="790" y="547" font-size="21" fill="#233646" font-weight="600">Evidence conversation</text>
+<text x="790" y="574" font-size="13" fill="#5c6d7c" font-weight="400">backend/chat.py</text>
+<text x="790" y="601" font-size="16" fill="#233646" font-weight="400">Scope → catalog → read</text>
+<text x="790" y="625" font-size="16" fill="#233646" font-weight="400">reports → validate claims →</text>
+<text x="790" y="649" font-size="16" fill="#233646" font-weight="400">review → answer.</text>
+<text x="790" y="673" font-size="16" fill="#233646" font-weight="400">Chat reads evidence; normal</text>
+<text x="790" y="697" font-size="16" fill="#233646" font-weight="400">questions cannot mutate it.</text>
+</g>
+<g id="O6" data-node="O6" data-x="448" data-y="900" data-width="620" data-height="208">
+<rect x="448" y="900" width="620" height="208" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="470" y="927" font-size="13" fill="#245f81" font-weight="700">O6</text>
+<text x="470" y="957" font-size="21" fill="#233646" font-weight="600">Authoritative library</text>
+<text x="470" y="984" font-size="13" fill="#5c6d7c" font-weight="400">backend/storage.py + schema.sql</text>
+<text x="470" y="1011" font-size="16" fill="#233646" font-weight="400">SQLite stores original bytes, text revisions, members, archives,</text>
+<text x="470" y="1035" font-size="16" fill="#233646" font-weight="400">metadata and indexes.</text>
+<text x="470" y="1059" font-size="16" fill="#233646" font-weight="400">Transactions, source immutability and durable index jobs protect</text>
+<text x="470" y="1083" font-size="16" fill="#233646" font-weight="400">saved work.</text>
+</g>
+<g id="O5" data-node="O5" data-x="448" data-y="1250" data-width="620" data-height="208">
+<rect x="448" y="1250" width="620" height="208" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="470" y="1277" font-size="13" fill="#245f81" font-weight="700">O5</text>
+<text x="470" y="1307" font-size="21" fill="#233646" font-weight="600">Document and AI operations</text>
+<text x="470" y="1334" font-size="13" fill="#5c6d7c" font-weight="400">backend/processing.py + debug_log.py</text>
+<text x="470" y="1361" font-size="16" fill="#233646" font-weight="400">Decode text, render PDF pages, request</text>
+<text x="470" y="1385" font-size="16" fill="#233646" font-weight="400">extraction/check/classification, validate tool output.</text>
+<text x="470" y="1409" font-size="16" fill="#233646" font-weight="400">Functions return results or errors; they do not own library</text>
+<text x="470" y="1433" font-size="16" fill="#233646" font-weight="400">transactions.</text>
+</g>
+<g id="O8" data-node="O8" data-x="1128" data-y="1250" data-width="264" data-height="232">
+<rect x="1128" y="1250" width="264" height="232" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="1150" y="1277" font-size="13" fill="#98621e" font-weight="700">O8</text>
+<text x="1150" y="1307" font-size="21" fill="#233646" font-weight="600">Primary AI service</text>
+<text x="1150" y="1334" font-size="13" fill="#5c6d7c" font-weight="400">processing.client / model</text>
+<text x="1150" y="1361" font-size="16" fill="#233646" font-weight="400">Server-only OPENAI</text>
+<text x="1150" y="1385" font-size="16" fill="#233646" font-weight="400">settings.</text>
+<text x="1150" y="1409" font-size="16" fill="#233646" font-weight="400">One configured primary</text>
+<text x="1150" y="1433" font-size="16" fill="#233646" font-weight="400">provider; no quota</text>
+<text x="1150" y="1457" font-size="16" fill="#233646" font-weight="400">fallback.</text>
+</g>
+<g id="O7" data-node="O7" data-x="448" data-y="1595" data-width="620" data-height="208">
+<rect x="448" y="1595" width="620" height="208" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="470" y="1622" font-size="13" fill="#245f81" font-weight="700">O7</text>
+<text x="470" y="1652" font-size="21" fill="#233646" font-weight="600">Shared boundary contracts</text>
+<text x="470" y="1679" font-size="13" fill="#5c6d7c" font-weight="400">models.py · chat.py contracts · src/import/types.ts</text>
+<text x="470" y="1706" font-size="16" fill="#233646" font-weight="400">Strict runtime validation for HTTP and tool inputs; TypeScript</text>
+<text x="470" y="1730" font-size="16" fill="#233646" font-weight="400">shapes for UI data.</text>
+<text x="470" y="1754" font-size="16" fill="#233646" font-weight="400">These constrain every boundary above; they do not make unsupported</text>
+<text x="470" y="1778" font-size="16" fill="#233646" font-weight="400">medical claims true.</text>
+</g>
+<polyline data-edge="true" points="218,412 218,650" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="388,730 418,730 418,275 448,275" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="720,364 720,445 588,445 588,490" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="800,364 800,445 918,445 918,490" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="588,722 588,900" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="918,722 918,900" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="1068,275 1100,275 1100,1000 1068,1000" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="448,650 434,650 434,1360 448,1360" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="1068,650 1084,650 1084,1218 980,1218 980,1250" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="1068,1360 1128,1360" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="48" y="1890" font-size="15" fill="#5c6d7c" font-weight="400">Open the numbered detail views in docs/code-walkthrough.md. Browser presentation is separate from persistent medical evidence.</text>
+</svg>

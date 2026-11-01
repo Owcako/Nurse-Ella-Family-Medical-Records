@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="2122" viewBox="0 0 1440 2122" role="img" aria-labelledby="title desc">
+<title id="title">How Nurse Ella answers from current reports</title><desc id="desc">The main UI sends read-only questions. Tool constraints and source checks surround the model; they cannot guarantee medical truth. Blue cards describe the main flow; amber cards explain safeguards. Source comments use the same node IDs.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="context-stroke"/></marker></defs>
+<style>text {font-family:'Segoe UI','Microsoft JhengHei',Arial,sans-serif} text,polyline {pointer-events:none}</style>
+<rect width="100%" height="100%" fill="#f4f7fa"/>
+<text x="48" y="38" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#245f81">FAMILY MEDICAL RECORDS · VIEW 07</text>
+<text x="48" y="80" font-family="Segoe UI,Arial" font-size="30" font-weight="600" fill="#233646">How Nurse Ella answers from current reports</text>
+<text x="48" y="111" font-family="Segoe UI,Arial" font-size="16" fill="#5c6d7c">The main UI sends read-only questions. Tool constraints and source checks surround the model; they cannot guarantee medical truth.</text>
+<text x="48" y="143" font-family="Segoe UI,Arial" font-size="13" fill="#5c6d7c">Read top to bottom. Solid blue = sequence/call; dashed amber = related safeguard, not an extra processing stage.</text>
+<g id="C1" data-node="C1" data-x="48" data-y="180" data-width="740" data-height="160">
+<rect x="48" y="180" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="207" font-size="13" fill="#245f81" font-weight="700">C1</text>
+<text x="70" y="237" font-size="21" fill="#233646" font-weight="600">Send the question and conversation context</text>
+<text x="70" y="264" font-size="13" fill="#5c6d7c" font-weight="400">ChatPanel.send → /api/chat → Question</text>
+<text x="70" y="291" font-size="16" fill="#233646" font-weight="400">Send message, member filter, full history, language and optional viewed document</text>
+<text x="70" y="315" font-size="16" fill="#233646" font-weight="400">ID. Retain an unsent draft on failure.</text>
+</g>
+<g id="C11" data-node="C11" data-x="876" data-y="180" data-width="516" data-height="235">
+<rect x="876" y="180" width="516" height="235" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="207" font-size="13" fill="#98621e" font-weight="700">C11</text>
+<text x="898" y="237" font-size="21" fill="#233646" font-weight="600">Why bounded errors instead of a guessed</text>
+<text x="898" y="264" font-size="21" fill="#233646" font-weight="600">answer?</text>
+<text x="898" y="291" font-size="13" fill="#5c6d7c" font-weight="400">chat context / tool loop + processing.service_error</text>
+<text x="898" y="318" font-size="16" fill="#233646" font-weight="400">Reject oversized context instead of silently</text>
+<text x="898" y="342" font-size="16" fill="#233646" font-weight="400">truncating it. Limit tool steps/reads; surface rate</text>
+<text x="898" y="366" font-size="16" fill="#233646" font-weight="400">limits and provider failures while saved records</text>
+<text x="898" y="390" font-size="16" fill="#233646" font-weight="400">remain unchanged.</text>
+</g>
+<polyline data-edge="true" points="788,245 876,245" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="C2" data-node="C2" data-x="48" data-y="463" data-width="740" data-height="160">
+<rect x="48" y="463" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="490" font-size="13" fill="#245f81" font-weight="700">C2</text>
+<text x="70" y="520" font-size="21" fill="#233646" font-weight="600">Resolve the selected member scope</text>
+<text x="70" y="547" font-size="13" fill="#5c6d7c" font-weight="400">scope_files + linked_profile</text>
+<text x="70" y="574" font-size="16" fill="#233646" font-weight="400">Use confirmed member links and exact aliases. Assign unresolved documents</text>
+<text x="70" y="598" font-size="16" fill="#233646" font-weight="400">separate identities so claims cannot mix them with a named person.</text>
+</g>
+<polyline data-edge="true" points="418,340 418,463" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="C3" data-node="C3" data-x="48" data-y="671" data-width="740" data-height="160">
+<rect x="48" y="671" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="698" font-size="13" fill="#245f81" font-weight="700">C3</text>
+<text x="70" y="728" font-size="21" fill="#233646" font-weight="600">Supply the complete scoped catalog</text>
+<text x="70" y="755" font-size="13" fill="#5c6d7c" font-weight="400">chat.read_index(0)</text>
+<text x="70" y="782" font-size="16" fill="#233646" font-weight="400">The backend adds metadata, document IDs, statuses and clinical terms before the</text>
+<text x="70" y="806" font-size="16" fill="#233646" font-weight="400">first model call. Upload timestamps are not medical dates.</text>
+</g>
+<polyline data-edge="true" points="418,623 418,671" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="C4" data-node="C4" data-x="876" data-y="671" data-width="516" data-height="184">
+<rect x="876" y="671" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="698" font-size="13" fill="#98621e" font-weight="700">C4</text>
+<text x="898" y="728" font-size="21" fill="#233646" font-weight="600">Why attach only server-saved viewer text?</text>
+<text x="898" y="755" font-size="13" fill="#5c6d7c" font-weight="400">chat context / selected viewer document</text>
+<text x="898" y="782" font-size="16" fill="#233646" font-weight="400">An open report is a focus hint, not a restriction on</text>
+<text x="898" y="806" font-size="16" fill="#233646" font-weight="400">search. Include it only inside member scope; never</text>
+<text x="898" y="830" font-size="16" fill="#233646" font-weight="400">accept browser drafts as saved patient evidence.</text>
+</g>
+<polyline data-edge="true" points="788,736 876,736" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="C5" data-node="C5" data-x="48" data-y="903" data-width="740" data-height="184">
+<rect x="48" y="903" width="740" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="930" font-size="13" fill="#245f81" font-weight="700">C5</text>
+<text x="70" y="960" font-size="21" fill="#233646" font-weight="600">Request a constrained next tool</text>
+<text x="70" y="987" font-size="13" fill="#5c6d7c" font-weight="400">chat tool loop + CONTRACTS + INSTRUCTIONS</text>
+<text x="70" y="1014" font-size="16" fill="#233646" font-weight="400">Use the primary provider and strict schemas. Read documents, optionally re-</text>
+<text x="70" y="1038" font-size="16" fill="#233646" font-weight="400">transcribe an original, or propose a finished answer; report text is untrusted</text>
+<text x="70" y="1062" font-size="16" fill="#233646" font-weight="400">data.</text>
+</g>
+<polyline data-edge="true" points="418,831 418,903" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="C10" data-node="C10" data-x="876" data-y="903" data-width="516" data-height="208">
+<rect x="876" y="903" width="516" height="208" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="930" font-size="13" fill="#98621e" font-weight="700">C10</text>
+<text x="898" y="960" font-size="21" fill="#233646" font-weight="600">Why proposals are not saves?</text>
+<text x="898" y="987" font-size="13" fill="#5c6d7c" font-weight="400">propose_metadata + metadata_save</text>
+<text x="898" y="1014" font-size="16" fill="#233646" font-weight="400">Backend-only metadata proposal support is gated by</text>
+<text x="898" y="1038" font-size="16" fill="#233646" font-weight="400">metadata_action. Normal UI questions do not enable it;</text>
+<text x="898" y="1062" font-size="16" fill="#233646" font-weight="400">a separate explicit, revision-checked request is</text>
+<text x="898" y="1086" font-size="16" fill="#233646" font-weight="400">required to apply changes.</text>
+</g>
+<polyline data-edge="true" points="788,968 876,968" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="C6" data-node="C6" data-x="48" data-y="1159" data-width="740" data-height="184">
+<rect x="48" y="1159" width="740" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1186" font-size="13" fill="#245f81" font-weight="700">C6</text>
+<text x="70" y="1216" font-size="21" fill="#233646" font-weight="600">Read current text by known IDs</text>
+<text x="70" y="1243" font-size="13" fill="#5c6d7c" font-weight="400">read_documents / read_original → Library.get</text>
+<text x="70" y="1270" font-size="16" fill="#233646" font-weight="400">Only scoped catalog IDs can be read. Check revision, enforce character budget,</text>
+<text x="70" y="1294" font-size="16" fill="#233646" font-weight="400">and acknowledge every batched read call. Original re-transcription is request-</text>
+<text x="70" y="1318" font-size="16" fill="#233646" font-weight="400">local, not a stored correction.</text>
+</g>
+<polyline data-edge="true" points="418,1087 418,1159" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="C7" data-node="C7" data-x="48" data-y="1391" data-width="740" data-height="184">
+<rect x="48" y="1391" width="740" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1418" font-size="13" fill="#245f81" font-weight="700">C7</text>
+<text x="70" y="1448" font-size="21" fill="#233646" font-weight="600">Validate the proposed evidence</text>
+<text x="70" y="1475" font-size="13" fill="#5c6d7c" font-weight="400">finish_answer branch + locate_quote</text>
+<text x="70" y="1502" font-size="16" fill="#233646" font-weight="400">Each patient claim cites retrieved reports, a quote that occurs in their text,</text>
+<text x="70" y="1526" font-size="16" fill="#233646" font-weight="400">and supported years. Check member identities, visible references and source</text>
+<text x="70" y="1550" font-size="16" fill="#233646" font-weight="400">revisions.</text>
+</g>
+<polyline data-edge="true" points="418,1343 418,1391" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="C8" data-node="C8" data-x="48" data-y="1623" data-width="740" data-height="184">
+<rect x="48" y="1623" width="740" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1650" font-size="13" fill="#245f81" font-weight="700">C8</text>
+<text x="70" y="1680" font-size="21" fill="#233646" font-weight="600">Review evidence, then finalize</text>
+<text x="70" y="1707" font-size="13" fill="#5c6d7c" font-weight="400">reviewed flag → second finish_answer</text>
+<text x="70" y="1734" font-size="16" fill="#233646" font-weight="400">For sourced answers, send the validated draft through one final evidence review.</text>
+<text x="70" y="1758" font-size="16" fill="#233646" font-weight="400">Add missing-documentation limits where needed; return sources and provenance</text>
+<text x="70" y="1782" font-size="16" fill="#233646" font-weight="400">only after validation.</text>
+</g>
+<polyline data-edge="true" points="418,1575 418,1623" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="C9" data-node="C9" data-x="48" data-y="1855" data-width="740" data-height="184">
+<rect x="48" y="1855" width="740" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1882" font-size="13" fill="#245f81" font-weight="700">C9</text>
+<text x="70" y="1912" font-size="21" fill="#233646" font-weight="600">Render the answer and evidence links</text>
+<text x="70" y="1939" font-size="13" fill="#5c6d7c" font-weight="400">ChatPanel + AnswerText → App.select → Viewer</text>
+<text x="70" y="1966" font-size="16" fill="#233646" font-weight="400">Display plain-language answers, explanations and limitations. Allow a small</text>
+<text x="70" y="1990" font-size="16" fill="#233646" font-weight="400">Markdown subset; open supporting saved text and original data. Mark sources</text>
+<text x="70" y="2014" font-size="16" fill="#233646" font-weight="400">changed since the answer.</text>
+</g>
+<polyline data-edge="true" points="418,1807 418,1855" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="788,1251.0 812,1251.0 812,1023 788,1023" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="900" y="1239" font-size="15" fill="#245f81" font-weight="400">Tool result → request the next action. Read</text>
+<text x="900" y="1262" font-size="15" fill="#245f81" font-weight="400">more reports as needed.</text>
+<polyline data-edge="true" points="788,1483.0 835,1483.0 835,1045 788,1045" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<text x="900" y="1471" font-size="15" fill="#98621e" font-weight="400">Invalid arguments or unsupported quote → send a</text>
+<text x="900" y="1494" font-size="15" fill="#98621e" font-weight="400">tool error so the model can correct it within</text>
+<text x="900" y="1517" font-size="15" fill="#98621e" font-weight="400">the same bounded loop.</text>
+<polyline data-edge="true" points="788,1715.0 858,1715.0 858,1067 788,1067" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="900" y="1703" font-size="15" fill="#245f81" font-weight="400">First valid sourced draft → request final</text>
+<text x="900" y="1726" font-size="15" fill="#245f81" font-weight="400">evidence review; only finish_answer is offered.</text>
+<text x="900" y="1749" font-size="15" fill="#245f81" font-weight="400">Valid reviewed output continues to C9.</text>
+<text x="48" y="2087" font-size="14" fill="#5c6d7c" font-weight="400">Zoom index: docs/code-walkthrough.md · Search a node ID such as #B6 in the source.</text>
+</svg>

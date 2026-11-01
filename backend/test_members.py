@@ -1,3 +1,5 @@
+# View: src/library/browsing-flow.svg#R5
+# Verify exact member/alias matching, collision rejection and evidence-preserving profile removal.
 """Member identity lifecycle through the real SQLite and HTTP contracts."""
 
 import json

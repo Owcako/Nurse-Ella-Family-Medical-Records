@@ -1,0 +1,706 @@
+{
+  "schema_version": 1,
+  "catalog_id": "mat-departments",
+  "catalog_version": "1.0.0",
+  "status": "backend-enforced-sqlite-schema-v2",
+  "namespace": "application-local",
+  "description": "Controlled application abbreviations, not national or hospital-issued department codes.",
+  "code_rules": {
+    "width": 8,
+    "alphabet": "lowercase ASCII letters followed by zero padding",
+    "abbreviation_pattern": "^[a-z]{2,8}$",
+    "code_pattern": "^[a-z]{2,8}0{0,6}$",
+    "padding": "right-pad the registered abbreviation with ASCII 0 to exactly 8 characters",
+    "acceptance": "Exact membership in this catalog is mandatory; matching the pattern alone is insufficient.",
+    "immutability": "Published codes are never renamed or reused. Retired entries remain readable.",
+    "ai_authority": "AI extracts the documented raw department label and source evidence. The backend alone resolves a registered code.",
+    "matching": "Unicode NFKC, trim, collapse whitespace, casefold; exact match against registered names and aliases only.",
+    "unmatched": "Keep raw label/evidence and mark unresolved. Never infer a code from age, symptoms, diagnoses, tests, or hospital name.",
+    "ambiguity": "Multiple matching codes require human clarification. Do not select a parent or nearest department as a fallback.",
+    "changes": "Human-reviewed additions/alias changes increment catalog_version; affected records require reindexing."
+  },
+  "directory_sentinels": [
+    {
+      "code": "unknown0",
+      "meaning": "Missing, ambiguous, or unmapped department; not a clinical department."
+    },
+    {
+      "code": "multi000",
+      "meaning": "More than one resolved department code; record.json retains the actual codes. Not a clinical department."
+    }
+  ],
+  "non_department_examples": [
+    "咽痛",
+    "屈光不正",
+    "验光单",
+    "眼镜处方笺",
+    "血液组"
+  ],
+  "departments": [
+    {
+      "code": "im000000",
+      "abbreviation": "im",
+      "name_en": "Internal Medicine",
+      "name_zh": "内科",
+      "aliases_zh": [
+        "普通内科",
+        "综合内科"
+      ],
+      "aliases_en": [
+        "General Internal Medicine"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "card0000",
+      "abbreviation": "card",
+      "name_en": "Cardiology",
+      "name_zh": "心内科",
+      "aliases_zh": [
+        "心血管内科",
+        "心脏内科"
+      ],
+      "aliases_en": [
+        "Cardiovascular Medicine"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "resp0000",
+      "abbreviation": "resp",
+      "name_en": "Respiratory Medicine",
+      "name_zh": "呼吸内科",
+      "aliases_zh": [
+        "呼吸科",
+        "呼吸与危重症医学科"
+      ],
+      "aliases_en": [
+        "Pulmonology",
+        "Respiratory and Critical Care Medicine"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "gastro00",
+      "abbreviation": "gastro",
+      "name_en": "Gastroenterology",
+      "name_zh": "消化内科",
+      "aliases_zh": [
+        "消化科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "neuro000",
+      "abbreviation": "neuro",
+      "name_en": "Neurology",
+      "name_zh": "神经内科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "neph0000",
+      "abbreviation": "neph",
+      "name_en": "Nephrology",
+      "name_zh": "肾内科",
+      "aliases_zh": [
+        "肾病内科",
+        "肾脏内科"
+      ],
+      "aliases_en": [
+        "Renal Medicine"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "endo0000",
+      "abbreviation": "endo",
+      "name_en": "Endocrinology",
+      "name_zh": "内分泌科",
+      "aliases_zh": [
+        "内分泌内科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "heme0000",
+      "abbreviation": "heme",
+      "name_en": "Hematology",
+      "name_zh": "血液内科",
+      "aliases_zh": [
+        "血液科"
+      ],
+      "aliases_en": [
+        "Haematology"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "rheum000",
+      "abbreviation": "rheum",
+      "name_en": "Rheumatology",
+      "name_zh": "风湿免疫科",
+      "aliases_zh": [
+        "风湿科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "geri0000",
+      "abbreviation": "geri",
+      "name_en": "Geriatric Medicine",
+      "name_zh": "老年医学科",
+      "aliases_zh": [
+        "老年科",
+        "老年病科"
+      ],
+      "aliases_en": [
+        "Geriatrics"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "surg0000",
+      "abbreviation": "surg",
+      "name_en": "Surgery",
+      "name_zh": "外科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "gsurg000",
+      "abbreviation": "gsurg",
+      "name_en": "General Surgery",
+      "name_zh": "普通外科",
+      "aliases_zh": [
+        "普外科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "ortho000",
+      "abbreviation": "ortho",
+      "name_en": "Orthopedics",
+      "name_zh": "骨科",
+      "aliases_zh": [],
+      "aliases_en": [
+        "Orthopaedics"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "nsurg000",
+      "abbreviation": "nsurg",
+      "name_en": "Neurosurgery",
+      "name_zh": "神经外科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "tsurg000",
+      "abbreviation": "tsurg",
+      "name_en": "Thoracic Surgery",
+      "name_zh": "胸外科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "csurg000",
+      "abbreviation": "csurg",
+      "name_en": "Cardiac Surgery",
+      "name_zh": "心外科",
+      "aliases_zh": [
+        "心脏外科",
+        "心血管外科"
+      ],
+      "aliases_en": [
+        "Cardiovascular Surgery"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "uro00000",
+      "abbreviation": "uro",
+      "name_en": "Urology",
+      "name_zh": "泌尿外科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "hbsurg00",
+      "abbreviation": "hbsurg",
+      "name_en": "Hepatobiliary Surgery",
+      "name_zh": "肝胆外科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "breast00",
+      "abbreviation": "breast",
+      "name_en": "Breast Surgery",
+      "name_zh": "乳腺外科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "plast000",
+      "abbreviation": "plast",
+      "name_en": "Plastic Surgery",
+      "name_zh": "整形外科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "vasc0000",
+      "abbreviation": "vasc",
+      "name_en": "Vascular Surgery",
+      "name_zh": "血管外科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "ped00000",
+      "abbreviation": "ped",
+      "name_en": "Pediatrics",
+      "name_zh": "儿科",
+      "aliases_zh": [
+        "小儿科"
+      ],
+      "aliases_en": [
+        "Paediatrics"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "pedim000",
+      "abbreviation": "pedim",
+      "name_en": "Pediatric Internal Medicine",
+      "name_zh": "小儿内科",
+      "aliases_zh": [
+        "儿内科",
+        "儿童内科",
+        "小儿内科全科"
+      ],
+      "aliases_en": [
+        "Paediatric Internal Medicine"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "pedresp0",
+      "abbreviation": "pedresp",
+      "name_en": "Pediatric Respiratory Medicine",
+      "name_zh": "小儿呼吸科",
+      "aliases_zh": [
+        "小儿呼吸内科",
+        "儿童呼吸科"
+      ],
+      "aliases_en": [
+        "Paediatric Respiratory Medicine"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "pedgi000",
+      "abbreviation": "pedgi",
+      "name_en": "Pediatric Gastroenterology",
+      "name_zh": "小儿消化科",
+      "aliases_zh": [
+        "小儿消化内科",
+        "儿童消化科"
+      ],
+      "aliases_en": [
+        "Paediatric Gastroenterology"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "pedsurg0",
+      "abbreviation": "pedsurg",
+      "name_en": "Pediatric Surgery",
+      "name_zh": "小儿外科",
+      "aliases_zh": [
+        "儿童外科"
+      ],
+      "aliases_en": [
+        "Paediatric Surgery"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "neo00000",
+      "abbreviation": "neo",
+      "name_en": "Neonatology",
+      "name_zh": "新生儿科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "chc00000",
+      "abbreviation": "chc",
+      "name_en": "Child Health",
+      "name_zh": "儿童保健科",
+      "aliases_zh": [
+        "儿保科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "obgyn000",
+      "abbreviation": "obgyn",
+      "name_en": "Obstetrics and Gynecology",
+      "name_zh": "妇产科",
+      "aliases_zh": [],
+      "aliases_en": [
+        "Obstetrics and Gynaecology",
+        "OB/GYN"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "gyn00000",
+      "abbreviation": "gyn",
+      "name_en": "Gynecology",
+      "name_zh": "妇科",
+      "aliases_zh": [],
+      "aliases_en": [
+        "Gynaecology"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "obs00000",
+      "abbreviation": "obs",
+      "name_en": "Obstetrics",
+      "name_zh": "产科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "repro000",
+      "abbreviation": "repro",
+      "name_en": "Reproductive Medicine",
+      "name_zh": "生殖医学科",
+      "aliases_zh": [
+        "生殖科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "ophth000",
+      "abbreviation": "ophth",
+      "name_en": "Ophthalmology",
+      "name_zh": "眼科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "optom000",
+      "abbreviation": "optom",
+      "name_en": "Optometry",
+      "name_zh": "眼视光科",
+      "aliases_zh": [
+        "视光科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "ent00000",
+      "abbreviation": "ent",
+      "name_en": "Otolaryngology",
+      "name_zh": "耳鼻咽喉科",
+      "aliases_zh": [
+        "耳鼻喉科",
+        "耳鼻咽喉头颈外科"
+      ],
+      "aliases_en": [
+        "ENT",
+        "Otorhinolaryngology"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "dent0000",
+      "abbreviation": "dent",
+      "name_en": "Dentistry",
+      "name_zh": "口腔科",
+      "aliases_zh": [
+        "牙科"
+      ],
+      "aliases_en": [
+        "Stomatology"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "orthod00",
+      "abbreviation": "orthod",
+      "name_en": "Orthodontics",
+      "name_zh": "口腔正畸科",
+      "aliases_zh": [
+        "正畸科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "omfs0000",
+      "abbreviation": "omfs",
+      "name_en": "Oral and Maxillofacial Surgery",
+      "name_zh": "口腔颌面外科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "derm0000",
+      "abbreviation": "derm",
+      "name_en": "Dermatology",
+      "name_zh": "皮肤科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "psych000",
+      "abbreviation": "psych",
+      "name_en": "Psychiatry",
+      "name_zh": "精神科",
+      "aliases_zh": [
+        "精神医学科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "onc00000",
+      "abbreviation": "onc",
+      "name_en": "Oncology",
+      "name_zh": "肿瘤科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "inf00000",
+      "abbreviation": "inf",
+      "name_en": "Infectious Diseases",
+      "name_zh": "感染科",
+      "aliases_zh": [
+        "感染性疾病科",
+        "传染科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "tcm00000",
+      "abbreviation": "tcm",
+      "name_en": "Traditional Chinese Medicine",
+      "name_zh": "中医科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "acu00000",
+      "abbreviation": "acu",
+      "name_en": "Acupuncture",
+      "name_zh": "针灸科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "rehab000",
+      "abbreviation": "rehab",
+      "name_en": "Rehabilitation Medicine",
+      "name_zh": "康复医学科",
+      "aliases_zh": [
+        "康复科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "emerg000",
+      "abbreviation": "emerg",
+      "name_en": "Emergency Medicine",
+      "name_zh": "急诊科",
+      "aliases_zh": [
+        "急诊医学科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "icu00000",
+      "abbreviation": "icu",
+      "name_en": "Critical Care Medicine",
+      "name_zh": "重症医学科",
+      "aliases_zh": [
+        "重症监护科"
+      ],
+      "aliases_en": [
+        "Intensive Care Medicine"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "anes0000",
+      "abbreviation": "anes",
+      "name_en": "Anesthesiology",
+      "name_zh": "麻醉科",
+      "aliases_zh": [],
+      "aliases_en": [
+        "Anaesthesiology"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "pain0000",
+      "abbreviation": "pain",
+      "name_en": "Pain Medicine",
+      "name_zh": "疼痛科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "gp000000",
+      "abbreviation": "gp",
+      "name_en": "General Practice",
+      "name_zh": "全科医学科",
+      "aliases_zh": [
+        "全科医疗科",
+        "全科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "prev0000",
+      "abbreviation": "prev",
+      "name_en": "Preventive Medicine",
+      "name_zh": "预防保健科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "checkup0",
+      "abbreviation": "checkup",
+      "name_en": "Health Examination",
+      "name_zh": "体检科",
+      "aliases_zh": [
+        "健康体检科",
+        "健康管理科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "lab00000",
+      "abbreviation": "lab",
+      "name_en": "Laboratory Medicine",
+      "name_zh": "医学检验科",
+      "aliases_zh": [
+        "检验科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "rad00000",
+      "abbreviation": "rad",
+      "name_en": "Medical Imaging",
+      "name_zh": "医学影像科",
+      "aliases_zh": [
+        "影像科",
+        "放射科"
+      ],
+      "aliases_en": [
+        "Radiology"
+      ],
+      "status": "active"
+    },
+    {
+      "code": "us000000",
+      "abbreviation": "us",
+      "name_en": "Ultrasound Medicine",
+      "name_zh": "超声医学科",
+      "aliases_zh": [
+        "超声科"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "path0000",
+      "abbreviation": "path",
+      "name_en": "Pathology",
+      "name_zh": "病理科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "nucmed00",
+      "abbreviation": "nucmed",
+      "name_en": "Nuclear Medicine",
+      "name_zh": "核医学科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "trans000",
+      "abbreviation": "trans",
+      "name_en": "Transfusion Medicine",
+      "name_zh": "输血科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "pharm000",
+      "abbreviation": "pharm",
+      "name_en": "Clinical Pharmacy",
+      "name_zh": "临床药学科",
+      "aliases_zh": [],
+      "aliases_en": [],
+      "status": "active"
+    },
+    {
+      "code": "scope000",
+      "abbreviation": "scope",
+      "name_en": "Endoscopy",
+      "name_zh": "内镜科",
+      "aliases_zh": [
+        "消化内镜科",
+        "内镜中心"
+      ],
+      "aliases_en": [],
+      "status": "active"
+    }
+  ]
+}

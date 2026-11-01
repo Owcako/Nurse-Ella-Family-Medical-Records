@@ -12,13 +12,11 @@ dist
 dist-ssr
 *.local
 .env
+
+# Keep the code walkthrough and its generator visible despite older local exclusions.
 .venv/
 data/
 __pycache__/
-.pytest_cache/
-.playwright-mcp/
-test-results/
-playwright-report/
 
 # Editor directories and files
 .vscode/*

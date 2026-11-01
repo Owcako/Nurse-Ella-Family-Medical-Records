@@ -1,3 +1,6 @@
+# View: src/import/ui-flow.svg#U12
+# Exercise human corrections and rechecks, including a source changing while AI works.
+# The expected conflict protects new text from an old check result.
 """Saved correction and explicit checking contracts, without external AI calls."""
 
 import pytest
@@ -16,7 +19,7 @@ def viewer(tmp_path):
         file = ready(library, add(library, 'viewer'))
         file = library.change(file['id'], lambda row: row.update(
             concerns=[dict(quote='saved', reason='Review this wording', start=0, end=5)]))
-        headers = {'X-Processing-Consent': client.get('/api/config').json()['disclosure']}
+        headers = {}
         yield client, library, file, headers
 
 
@@ -83,11 +86,10 @@ def test_concurrent_write_invalidates_recheck(viewer, monkeypatch, change):
         assert library.get(file['id'])['concerns'] == file['concerns']
 
 
-def test_recheck_validates_consent_revision_and_missing_text(viewer, monkeypatch):
+def test_recheck_validates_revision_and_missing_text(viewer, monkeypatch):
     client, library, file, headers = viewer
     monkeypatch.setattr(processing, 'check', lambda _: pytest.fail('Invalid request must not check'))
     url = f"/api/files/{file['id']}/recheck"
-    assert client.post(url, headers={'X-Processing-Consent': 'wrong'}, json=dict(revision=file['revision'])).status_code == 428
     assert client.post(url, headers=headers, json=dict(revision=file['revision'] - 1)).status_code == 409
     empty = library.change(file['id'], lambda row: row.update(text=None))
     assert client.post(url, headers=headers, json=dict(revision=empty['revision'])).status_code == 400

@@ -5,7 +5,10 @@ import time
 from pathlib import Path
 
 
-logger = logging.getLogger("medical_tracker.ai")
+# View: implementation-architecture.svg#O5
+# Persist diagnostics separately from HTTP console logs. Response text can include
+# sensitive medical content; the log belongs with private library data.
+logger = logging.getLogger("family_medical_records.ai")
 logger.setLevel(logging.INFO)
 logger.propagate = False
 if not logger.handlers:

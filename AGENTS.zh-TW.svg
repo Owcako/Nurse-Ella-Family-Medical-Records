@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1319" viewBox="0 0 1440 1319" role="img" aria-labelledby="title desc">
+<title id="title">從一份報告，到可以核對的回答</title><desc id="desc">依序示範主要操作；英文圖使用相同節點 ID，可以在程式註解中搜尋。 Blue cards describe the main flow; amber cards explain safeguards. Source comments use the same node IDs.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="context-stroke"/></marker></defs>
+<style>text {font-family:'Segoe UI','Microsoft JhengHei',Arial,sans-serif} text,polyline {pointer-events:none}</style>
+<rect width="100%" height="100%" fill="#f4f7fa"/>
+<text x="48" y="38" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#245f81">FAMILY MEDICAL RECORDS · VIEW 00 · 繁體中文</text>
+<text x="48" y="80" font-family="Segoe UI,Arial" font-size="30" font-weight="600" fill="#233646">從一份報告，到可以核對的回答</text>
+<text x="48" y="111" font-family="Segoe UI,Arial" font-size="16" fill="#5c6d7c">依序示範主要操作；英文圖使用相同節點 ID，可以在程式註解中搜尋。</text>
+<text x="48" y="143" font-family="Segoe UI,Arial" font-size="13" fill="#5c6d7c">Read top to bottom. Solid blue = sequence/call; dashed amber = related safeguard, not an extra processing stage.</text>
+<g id="F1" data-node="F1" data-x="48" data-y="180" data-width="740" data-height="136">
+<rect x="48" y="180" width="740" height="136" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="207" font-size="13" fill="#245f81" font-weight="700">F1</text>
+<text x="70" y="237" font-size="21" fill="#233646" font-weight="600">加入現有報告</text>
+<text x="70" y="264" font-size="13" fill="#5c6d7c" font-weight="400">ImportPanel.tsx → backend/api.py</text>
+<text x="70" y="291" font-size="16" fill="#233646" font-weight="400">直接加入照片、PDF 或文字。選擇檔案或儲存草稿後即開始處理，不再要求額外確認。</text>
+</g>
+<g id="F2" data-node="F2" data-x="48" data-y="364" data-width="740" data-height="136">
+<rect x="48" y="364" width="740" height="136" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="391" font-size="13" fill="#245f81" font-weight="700">F2</text>
+<text x="70" y="421" font-size="21" fill="#233646" font-weight="600">擷取、檢查與歸檔</text>
+<text x="70" y="448" font-size="13" fill="#5c6d7c" font-weight="400">filing.py → processing.py → storage.py</text>
+<text x="70" y="475" font-size="16" fill="#233646" font-weight="400">先保存原件，再擷取文字、標示疑點，並以原文引句支持分類。失敗狀態與不確定資訊會保留。</text>
+</g>
+<polyline data-edge="true" points="418,316 418,364" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="F3" data-node="F3" data-x="48" data-y="548" data-width="740" data-height="136">
+<rect x="48" y="548" width="740" height="136" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="575" font-size="13" fill="#245f81" font-weight="700">F3</text>
+<text x="70" y="605" font-size="21" fill="#233646" font-weight="600">核對原件並修正</text>
+<text x="70" y="632" font-size="13" fill="#5c6d7c" font-weight="400">Viewer.tsx → manual / recheck</text>
+<text x="70" y="659" font-size="16" fill="#233646" font-weight="400">人工修改只改目前文字；原件與首次擷取保留。儲存後再要求重新檢查，避免將舊結果當作新結果。</text>
+</g>
+<polyline data-edge="true" points="418,500 418,548" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="F4" data-node="F4" data-x="48" data-y="732" data-width="740" data-height="136">
+<rect x="48" y="732" width="740" height="136" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="759" font-size="13" fill="#245f81" font-weight="700">F4</text>
+<text x="70" y="789" font-size="21" fill="#233646" font-weight="600">依成員、科別或日期找報告</text>
+<text x="70" y="816" font-size="13" fill="#5c6d7c" font-weight="400">LibraryBrowser.tsx → browsing.ts / dates.ts</text>
+<text x="70" y="843" font-size="16" fill="#233646" font-weight="400">這是讀取既有資料，不需要呼叫 AI。缺少月份或不明成員維持可見，不替使用者猜測。</text>
+</g>
+<polyline data-edge="true" points="418,684 418,732" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="F5" data-node="F5" data-x="48" data-y="916" data-width="740" data-height="136">
+<rect x="48" y="916" width="740" height="136" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="943" font-size="13" fill="#245f81" font-weight="700">F5</text>
+<text x="70" y="973" font-size="21" fill="#233646" font-weight="600">用日常語言詢問紀錄</text>
+<text x="70" y="1000" font-size="13" fill="#5c6d7c" font-weight="400">ChatPanel.tsx → backend/chat.py</text>
+<text x="70" y="1027" font-size="16" fill="#233646" font-weight="400">先提供選定成員的索引，再讓模型讀取相關文字。每次問答都重新檢索，並驗證引句與資料版本。</text>
+</g>
+<polyline data-edge="true" points="418,868 418,916" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="F6" data-node="F6" data-x="48" data-y="1100" data-width="740" data-height="136">
+<rect x="48" y="1100" width="740" height="136" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1127" font-size="13" fill="#245f81" font-weight="700">F6</text>
+<text x="70" y="1157" font-size="21" fill="#233646" font-weight="600">回到來源查證</text>
+<text x="70" y="1184" font-size="13" fill="#5c6d7c" font-weight="400">Sources → App.select → Viewer</text>
+<text x="70" y="1211" font-size="16" fill="#233646" font-weight="400">從回答開啟來源與原件。引句能追溯來源，但不代表醫療結論一定正確；找不到也不代表從未發生。</text>
+</g>
+<polyline data-edge="true" points="418,1052 418,1100" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="48" y="1284" font-size="14" fill="#5c6d7c" font-weight="400">Zoom index: docs/code-walkthrough.md · Search a node ID such as #B6 in the source.</text>
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1351" viewBox="0 0 1440 1351" role="img" aria-labelledby="title desc">
+<title id="title">Browse saved records without asking AI</title><desc id="desc">A tree is a view of existing documents. It does not create clinical relationships or new patient facts. Blue cards describe the main flow; amber cards explain safeguards. Source comments use the same node IDs.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="context-stroke"/></marker></defs>
+<style>text {font-family:'Segoe UI','Microsoft JhengHei',Arial,sans-serif} text,polyline {pointer-events:none}</style>
+<rect width="100%" height="100%" fill="#f4f7fa"/>
+<text x="48" y="38" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#245f81">FAMILY MEDICAL RECORDS · VIEW 06</text>
+<text x="48" y="80" font-family="Segoe UI,Arial" font-size="30" font-weight="600" fill="#233646">Browse saved records without asking AI</text>
+<text x="48" y="111" font-family="Segoe UI,Arial" font-size="16" fill="#5c6d7c">A tree is a view of existing documents. It does not create clinical relationships or new patient facts.</text>
+<text x="48" y="143" font-family="Segoe UI,Arial" font-size="13" fill="#5c6d7c">Read top to bottom. Solid blue = sequence/call; dashed amber = related safeguard, not an extra processing stage.</text>
+<g id="R1" data-node="R1" data-x="48" data-y="180" data-width="740" data-height="160">
+<rect x="48" y="180" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="207" font-size="13" fill="#245f81" font-weight="700">R1</text>
+<text x="70" y="237" font-size="21" fill="#233646" font-weight="600">Apply the shared family-member filter</text>
+<text x="70" y="264" font-size="13" fill="#5c6d7c" font-weight="400">LibraryBrowser → memberIdentity → profiles</text>
+<text x="70" y="291" font-size="16" fill="#233646" font-weight="400">Only confirmed names that identify one profile enter that member scope. Library</text>
+<text x="70" y="315" font-size="16" fill="#233646" font-weight="400">and Chat share this selection in App.</text>
+</g>
+<g id="R5" data-node="R5" data-x="876" data-y="180" data-width="516" data-height="208">
+<rect x="876" y="180" width="516" height="208" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="207" font-size="13" fill="#98621e" font-weight="700">R5</text>
+<text x="898" y="237" font-size="21" fill="#233646" font-weight="600">Why review unfamiliar names?</text>
+<text x="898" y="264" font-size="13" fill="#5c6d7c" font-weight="400">needsMemberReview / memberReviewKey / MemberReview</text>
+<text x="898" y="291" font-size="16" fill="#233646" font-weight="400">A documented name may be correct but not managed yet.</text>
+<text x="898" y="315" font-size="16" fill="#233646" font-weight="400">Offer correction, a new profile, or defer; key</text>
+<text x="898" y="339" font-size="16" fill="#233646" font-weight="400">deferral by document and detected name so a changed</text>
+<text x="898" y="363" font-size="16" fill="#233646" font-weight="400">name is reviewed again.</text>
+</g>
+<polyline data-edge="true" points="788,245 876,245" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="R2" data-node="R2" data-x="48" data-y="436" data-width="740" data-height="160">
+<rect x="48" y="436" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="463" font-size="13" fill="#245f81" font-weight="700">R2</text>
+<text x="70" y="493" font-size="21" fill="#233646" font-weight="600">Optionally show Needs attention</text>
+<text x="70" y="520" font-size="13" fill="#5c6d7c" font-weight="400">needsAttention / unresolvedFields</text>
+<text x="70" y="547" font-size="16" fill="#233646" font-weight="400">Include missing required details, incomplete stages, failed extraction/checking,</text>
+<text x="70" y="571" font-size="16" fill="#233646" font-weight="400">concerns and noncurrent archive indexes.</text>
+</g>
+<polyline data-edge="true" points="418,340 418,436" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="R3" data-node="R3" data-x="48" data-y="644" data-width="740" data-height="160">
+<rect x="48" y="644" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="671" font-size="13" fill="#245f81" font-weight="700">R3</text>
+<text x="70" y="701" font-size="21" fill="#233646" font-weight="600">Group documented categories</text>
+<text x="70" y="728" font-size="13" fill="#5c6d7c" font-weight="400">groupFiles → FileGroup</text>
+<text x="70" y="755" font-size="16" fill="#233646" font-weight="400">Group known values as confirmed. Missing/ambiguous values stay unknown;</text>
+<text x="70" y="779" font-size="16" fill="#233646" font-weight="400">candidate labels can appear tentatively. Deduplicate each group by document ID.</text>
+</g>
+<polyline data-edge="true" points="418,596 418,644" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="R4" data-node="R4" data-x="48" data-y="852" data-width="740" data-height="160">
+<rect x="48" y="852" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="879" font-size="13" fill="#245f81" font-weight="700">R4</text>
+<text x="70" y="909" font-size="21" fill="#233646" font-weight="600">Build year and month branches</text>
+<text x="70" y="936" font-size="13" fill="#5c6d7c" font-weight="400">fileBranches → dates.parseDate</text>
+<text x="70" y="963" font-size="16" fill="#233646" font-weight="400">Sort recognized dates chronologically, preserve year-only precision in Month not</text>
+<text x="70" y="987" font-size="16" fill="#233646" font-weight="400">recorded, and retain unparseable dates in a review group.</text>
+</g>
+<polyline data-edge="true" points="418,804 418,852" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="R6" data-node="R6" data-x="876" data-y="852" data-width="516" data-height="208">
+<rect x="876" y="852" width="516" height="208" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="879" font-size="13" fill="#98621e" font-weight="700">R6</text>
+<text x="898" y="909" font-size="21" fill="#233646" font-weight="600">Why preserve date precision?</text>
+<text x="898" y="936" font-size="13" fill="#5c6d7c" font-weight="400">dates.ts + DateFields.tsx</text>
+<text x="898" y="963" font-size="16" fill="#233646" font-weight="400">Read supported printed date forms, validate calendar</text>
+<text x="898" y="987" font-size="16" fill="#233646" font-weight="400">days and allow missing month/day. Do not turn an</text>
+<text x="898" y="1011" font-size="16" fill="#233646" font-weight="400">upload date or an incomplete report date into an</text>
+<text x="898" y="1035" font-size="16" fill="#233646" font-weight="400">invented visit day.</text>
+</g>
+<polyline data-edge="true" points="788,917 876,917" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="R7" data-node="R7" data-x="48" data-y="1108" data-width="740" data-height="160">
+<rect x="48" y="1108" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1135" font-size="13" fill="#245f81" font-weight="700">R7</text>
+<text x="70" y="1165" font-size="21" fill="#233646" font-weight="600">Expand a branch and open evidence</text>
+<text x="70" y="1192" font-size="13" fill="#5c6d7c" font-weight="400">LibraryBrowser.branch → App.select</text>
+<text x="70" y="1219" font-size="16" fill="#233646" font-weight="400">Open the stable document ID. Keyboard tabs, branch expansion, restored focus and</text>
+<text x="70" y="1243" font-size="16" fill="#233646" font-weight="400">scroll support consultation use without losing the chosen scope.</text>
+</g>
+<polyline data-edge="true" points="418,1012 418,1108" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="48" y="1316" font-size="14" fill="#5c6d7c" font-weight="400">Zoom index: docs/code-walkthrough.md · Search a node ID such as #B6 in the source.</text>
+</svg>

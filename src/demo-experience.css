@@ -1,0 +1,18 @@
+.demo-experience { padding: 22px; }
+.demo-experience h2 { font-size: 21px; margin: 0 0 12px; }
+.demo-experience h2:focus { outline: none; }
+.demo-experience p { font-size: 13px; line-height: 1.6; margin: 8px 0; }
+.demo-experience ul { padding-left: 18px; margin: 14px 0; }
+.demo-experience li { margin-bottom: 12px; font-size: 13px; }
+.demo-experience li p { margin: 4px 0 0; }
+.demo-experience .demo-experience-note { font-size: 11px; }
+.demo-experience .actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+.demo-experience .actions button { min-height: 40px; padding: 8px 14px; }
+.demo-sample-cards { display: grid; gap: 10px; margin: 16px 0; }
+.demo-sample-cards button { display: flex; align-items: center; text-align: left; gap: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; }
+.demo-sample-cards button > span:nth-child(2) { flex: 1; min-width: 0; }
+.demo-sample-cards strong, .demo-sample-cards small { display: block; overflow-wrap: anywhere; }
+.demo-sample-cards small { margin-top: 5px; font-size: 11px; }
+.demo-sample-cards button > span:last-child { font-size: 11px; }
+.demo-sample-icon { font-size: 12px; padding: 10px 5px; border-radius: 6px; background: #eee8ff; color: #6243aa; }
+@media (max-width: 700px) { .demo-experience { padding: 20px; } }

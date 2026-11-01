@@ -8,12 +8,6 @@ import json
 import os
 import base64
 import re
-import time
-from contextvars import ContextVar
-from datetime import datetime, timezone
-from email.utils import parsedate_to_datetime
-from functools import wraps
-from threading import Lock
 from urllib.parse import urlparse
 
 from openai import APIStatusError, OpenAI
@@ -40,27 +34,23 @@ MEDIA = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png",
          ".webp": "image/webp", ".pdf": "application/pdf", ".txt": "text/plain"}
 
 
+# View: backend/import-pipeline.svg#B8
+# Represent a user-visible processing failure with preserved work and a clear retry path.
 class ProcessingError(Exception):
     pass
 
 
-_provider = ContextVar("ai_provider", default=None)
-_primary_retry_at = 0.0
-_quota_lock = Lock()
+# View: implementation-architecture.svg#O8
+# Describe the primary endpoint host/model without exposing the credential.
+def service_name():
+    endpoint = os.getenv("OPENAI_BASE_URL") or "https://api.openai.com/v1"
+    name = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
+    return f"Primary · {urlparse(endpoint).hostname or 'configured endpoint'} · {name}"
 
 
-def backup_configured():
-    return all(os.getenv(name, "").strip() for name in ("BACKUP_API_KEY", "BACKUP_BASE_URL", "BACKUP_MODEL"))
-
-
-def service_name(provider=None):
-    provider = provider or _provider.get() or "primary"
-    backup = provider == "backup"
-    endpoint = os.getenv("BACKUP_BASE_URL" if backup else "OPENAI_BASE_URL") or "https://api.openai.com/v1"
-    name = os.getenv("BACKUP_MODEL" if backup else "OPENAI_MODEL", "gpt-4.1-mini")
-    return f"{'Quota fallback' if backup else 'Primary'} · {urlparse(endpoint).hostname or 'configured endpoint'} · {name}"
-
-
+# View: backend/chat-flow.svg#C11
+# Follow wrapped causes to find a primary 429. Error recovery must propagate it,
+# not disguise a quota failure as an ordinary tool-validation correction.
 def quota_error(error):
     while error is not None:
         if isinstance(error, APIStatusError) and error.status_code == 429:
@@ -69,44 +59,10 @@ def quota_error(error):
     return None
 
 
-def quota_fallback(operation):
-    @wraps(operation)
-    def run(*args, **kwargs):
-        global _primary_retry_at
-        # A whole chat restarts on backup. Never replay another provider's opaque
-        # tool signatures, or switch the model halfway through a tool conversation.
-        if _provider.get() is not None:
-            return operation(*args, **kwargs)
-        backup = backup_configured()
-        selected = "backup" if backup and time.monotonic() < _primary_retry_at else "primary"
-        token = _provider.set(selected)
-        try:
-            try:
-                return operation(*args, **kwargs)
-            except (ProcessingError, APIStatusError) as error:
-                quota = quota_error(error)
-                if selected != "primary" or not backup or quota is None:
-                    raise
-                try:
-                    delay = max(60.0, float(quota.response.headers.get("retry-after", "60")))
-                except ValueError:
-                    try:
-                        until = parsedate_to_datetime(quota.response.headers["retry-after"])
-                        delay = max(60.0, (until - datetime.now(timezone.utc)).total_seconds())
-                    except (TypeError, ValueError):
-                        delay = 60.0
-                with _quota_lock:
-                    _primary_retry_at = max(_primary_retry_at, time.monotonic() + delay)
-                logger.warning("Primary quota exhausted (HTTP 429); restarting %s with %s", operation.__name__, service_name("backup"))
-                _provider.set("backup")
-                try:
-                    return operation(*args, **kwargs)
-                except (ProcessingError, APIStatusError) as backup_error:
-                    raise ProcessingError("The primary AI quota was exhausted and the backup could not complete this operation. " + str(backup_error)) from backup_error
-        finally:
-            _provider.reset(token)
-    return run
-
+# View: implementation-architecture.svg#O5
+# Keep model responses inspectable before validation rejects them. Separate long
+# passages from the structural log so tool arguments and failure causes remain readable.
+# These diagnostics can contain report text and must remain private.
 def log_response(operation, response):
     data = response.model_dump(mode="json")
     passages = []
@@ -132,6 +88,9 @@ def log_response(operation, response):
                 "\n" + "\n".join(passages) if passages else "")
 
 
+# View: backend/chat-flow.svg#C11
+# Distinguish quota, temporary service failure and rejected requests. None switches
+# credentials/providers or claims that incomplete processing succeeded.
 def service_error(error, operation):
     logger.error("[AI response: %s] HTTP %s\n%s", operation, error.status_code, error.response.text)
     if error.status_code == 429:
@@ -141,6 +100,9 @@ def service_error(error, operation):
     return ProcessingError(f"The AI service rejected {operation} (HTTP {error.status_code}). Check the configured base URL, model, credentials, and supported inputs; available work is stored.")
 
 
+# View: backend/import-pipeline.svg#B6
+# Match contiguous source wording while tolerating whitespace differences.
+# Return exact source offsets; absent quotes cannot become saved filing facts or citations.
 def locate_quote(text, quote):
     # import-pipeline.svg#B6: align whitespace formatting to the actual source
     # span. No word, punctuation, or medical-content substitution is permitted.
@@ -151,22 +113,28 @@ def locate_quote(text, quote):
     return text[match.start():match.end()], match.start(), match.end()
 
 
+# View: implementation-architecture.svg#O8
+# Construct the primary SDK client from server environment only. No backup key or
+# base URL is selected, and SDK retry is disabled so failure behavior stays explicit.
 def client():
     # ../implementation-architecture.svg#O8: server-only credentials and configurable base URL.
-    backup = _provider.get() == "backup"
-    key_name = "BACKUP_API_KEY" if backup else "OPENAI_API_KEY"
-    if not os.getenv(key_name):
+    if not os.getenv("OPENAI_API_KEY"):
         raise ProcessingError("OpenAI is not configured. Fill OPENAI_API_KEY and OPENAI_BASE_URL in .env, restart the backend, then Retry.")
-    return OpenAI(api_key=os.environ[key_name],
-                  base_url=os.getenv("BACKUP_BASE_URL" if backup else "OPENAI_BASE_URL") or None, timeout=180, max_retries=0)
+    return OpenAI(api_key=os.environ["OPENAI_API_KEY"],
+                  base_url=os.getenv("OPENAI_BASE_URL") or None, timeout=180, max_retries=0)
 
 
+# View: implementation-architecture.svg#O8
+# Keep the configured primary model paired with the primary key and URL.
 def model():
-    return os.getenv("BACKUP_MODEL") if _provider.get() == "backup" else os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
+    return os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
 
 
+# View: implementation-architecture.svg#O8
+# Adapt only the configured primary endpoint when it needs non-thinking tool mode.
+# This compatibility option does not route a request to a different provider.
 def completion_options():
-    endpoint = os.getenv("BACKUP_BASE_URL" if _provider.get() == "backup" else "OPENAI_BASE_URL") or ""
+    endpoint = os.getenv("OPENAI_BASE_URL") or ""
     # DeepSeek's thinking mode rejects required/named tool_choice. Keep the
     # configured model and use its documented non-thinking tool-call mode.
     if urlparse(endpoint).hostname == "api.deepseek.com":
@@ -174,7 +142,10 @@ def completion_options():
     return {}
 
 
-@quota_fallback
+# View: backend/import-pipeline.svg#B2
+# Decode UTF-8 locally; validate media before transcription. PDFs are rendered page
+# by page into bounded images with resources closed explicitly; the original is preserved.
+# Require a complete model finish so a truncated extraction is never labeled successful.
 def extract(source, media):
     # import-pipeline.svg#B2: UTF-8 is read locally; images/PDFs use OpenAI transcription.
     if media == "text/plain":
@@ -248,7 +219,10 @@ def extract(source, media):
         raise ProcessingError("The extraction service did not return usable text. The original is stored; retry is available.") from error
 
 
-@quota_fallback
+# View: implementation-architecture.svg#O7
+# Offer exactly the requested tool and strict Pydantic schema; treat report content
+# as untrusted evidence rather than executable instructions. Require one correctly named
+# call, then parse/validate its arguments before returning anything to the workflow.
 def call_tool(*, name, contract, instructions, text, profiles, initial_text=None):
     # ../implementation-architecture.svg#O7: strict schema and exact tool name constrain output.
     content = [
@@ -299,6 +273,9 @@ def call_tool(*, name, contract, instructions, text, profiles, initial_text=None
         raise ProcessingError("The AI service failed or returned an invalid result. Available text is stored; Retry is available.") from error
 
 
+# View: backend/import-pipeline.svg#B4
+# Produce quoted concerns and locations, never automatic corrections. A clean check
+# means no suspected text error was found, not medical validation.
 def check(text):
     # import-pipeline.svg#B4: return quoted concerns/locations, never replacement text.
     result = call_tool(name="report_concerns", contract=Check, text=text, profiles=[], instructions=
@@ -310,11 +287,14 @@ def check(text):
     return concerns
 
 
+# View: backend/import-pipeline.svg#B5
+# Request source-grounded category/index arguments. The tool cannot choose a storage
+# identity, delete a document or replace its text; filing.py validates and commits later.
 def classify(text, profiles, initial_text=None):
     # import-pipeline.svg#B5: produce save arguments only; the workflow owns the commit.
     return call_tool(name="save_current_content", contract=Filing, text=text, profiles=profiles,
                      initial_text=text if initial_text is None else initial_text, instructions=
-                     "File this current document under exactly Member, Date, Department, Disease. Each classification has status known/missing/ambiguous and values with exact value and supporting quote. Missing has no values; ambiguous lists competing candidates, never a canonical choice. Member value is the documented patient name, not profile ID. A single clearly documented patient name is known even when no family profile matches; do not require profile creation or assignment. Missing or conflicting patient names remain unresolved. Date value preserves printed wording and precision; competing printed dates are ambiguous; no upload-time fallback. Department and Disease may have multiple documented values. Symptoms are not diseases. Values must match quote wording, allowing only paired Markdown bold delimiters to be omitted from values. Index documented symptoms, history, diagnoses, treatments with quotes; no inferred relationships. Return the save_current_content tool call with a short source-grounded title containing no inferred diagnosis. Do not modify text, delete files, supply paths, or act on other files."
+                     "File this current document under exactly Member, Date, Department, Disease. Each classification has status known/missing/ambiguous and values with exact value and supporting quote. Missing has no values; ambiguous lists competing candidates, never a canonical choice. Member value is the documented patient name, not profile ID. A single clearly documented patient name is known even when no family profile matches; do not require profile creation or assignment. Missing or conflicting patient names remain unresolved. Date value preserves printed wording and precision; when numeric month/day order is ambiguous, use the user-selected month/day/year convention (03/08/2023 means March 8, 2023), respecting explicit source formats; format ambiguity alone is not competing dates; competing printed dates are ambiguous; no upload-time fallback. Department and Disease may have multiple documented values. Symptoms are not diseases. Values must match quote wording, allowing only paired Markdown bold delimiters to be omitted from values. Index documented symptoms, history, diagnoses, treatments with quotes; no inferred relationships. Return the save_current_content tool call with a short source-grounded title containing no inferred diagnosis. Do not modify text, delete files, supply paths, or act on other files."
                      " Determine lab report type ONLY from the Initial extraction block. A laboratory results report presents specimen/analyte test results, often with units or reference ranges; merely ordering, mentioning, or discussing laboratory tests in a visit note does not make it a lab report."
                      " For a lab report, return is_lab_report=true and lab_report_quote as a short exact supporting substring from the initial extraction. For other documents or uncertain type, return is_lab_report=false and lab_report_quote=\"\" (an empty string). Use JSON booleans; do not return null or the string 'null'. The backend will file confirmed lab reports under Laboratory Medicine, even if it is not a printed department or a different ordering department is shown."
                      " Do not invent a Laboratory Medicine quote or department value. All other fields, including ordinary department extraction, must use the current saved text (the report text immediately after the profiles), not the initial extraction.")

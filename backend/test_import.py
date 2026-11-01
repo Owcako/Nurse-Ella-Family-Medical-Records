@@ -1,3 +1,6 @@
+# View: backend/import-pipeline.svg#B8
+# Synthetic extraction/check/filing tests exercise stored-source retention, quoted evidence,
+# independent failures and HTTP retries without requiring a real provider.
 """Synthetic contract tests. Real report/model acceptance needs user configuration."""
 
 import io
@@ -357,12 +360,11 @@ def terminal(client, file_id):
     pytest.fail("Processing did not complete")
 
 
-def test_http_disclosure_new_text_manual_save_and_deletion(tmp_path, services):
+def test_http_new_text_without_confirmation_manual_save_and_deletion(tmp_path, services):
     app = create_app(tmp_path / "http.sqlite3")
     with TestClient(app) as client:
         config = client.get("/api/config").json()
-        headers = {"Idempotency-Key": "new-text", "X-Processing-Consent": config["disclosure"]}
-        assert client.post("/api/texts", headers={**headers, "X-Processing-Consent": "wrong"}, json=dict(title="Draft", text=TEXT)).status_code == 428
+        headers = {"Idempotency-Key": "new-text"}
         assert client.get("/api/files").json() == []
         response = client.post("/api/texts", headers=headers, json=dict(title="Draft", text=TEXT))
         assert response.status_code == 202
@@ -413,7 +415,7 @@ def test_source_save_failure_does_not_claim_pending(tmp_path, monkeypatch):
     with TestClient(app) as client:
         config = client.get("/api/config").json()
         response = client.post("/api/imports", files={"file": ("report.txt", TEXT.encode())},
-            headers={"Idempotency-Key": "upload", "X-Processing-Consent": config["disclosure"]})
+            headers={"Idempotency-Key": "upload"})
         assert response.status_code == 503
         assert "id" not in response.json()
         assert client.get("/api/files").json() == []
@@ -450,7 +452,7 @@ def test_http_uploaded_sources_keep_one_identity(tmp_path, services, monkeypatch
     app = create_app(tmp_path / "upload.sqlite3")
     with TestClient(app) as client:
         config = client.get("/api/config").json()
-        headers = {"Idempotency-Key": "same-upload", "X-Processing-Consent": config["disclosure"]}
+        headers = {"Idempotency-Key": "same-upload"}
         content = b"synthetic adapter fixture"
         result = client.post("/api/imports", headers=headers, files={"file": (filename, content, media)})
         assert result.status_code == 202

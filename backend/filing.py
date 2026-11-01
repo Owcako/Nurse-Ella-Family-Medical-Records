@@ -16,12 +16,18 @@ from .members import match_profile
 DIMENSIONS = ("member", "date", "department", "disease")
 
 
+# View: backend/import-pipeline.svg#B6
+# Normalize whitespace and paired legacy bold markers only for value matching.
+# Do not normalize clinical signs, doses, numbers or punctuation into different facts.
 def evidence_text(text):
     # Ignore paired Markdown bold delimiters only; retain all clinical punctuation.
     text = re.sub(r"(?<![\w*_])(\*\*|__)(?=\S)(.+?)(?<=\S)\1(?![\w*_])", r"\2", text, flags=re.DOTALL)
     return " ".join(text.split())
 
 
+# View: backend/import-pipeline.svg#B6
+# First locate the quote in current source text, then require the proposed value inside it.
+# Log rejected proposals for inspection; never accept a plausible-looking unsupported label.
 def source_evidence(evidence, text, category):
     try:
         quote, _, _ = processing.locate_quote(text, evidence.quote)
@@ -36,6 +42,10 @@ def source_evidence(evidence, text, category):
         raise
 
 
+# View: AGENTS.svg#F2G
+# Validate all categories and clinical index evidence before any filing commit.
+# Collapse repeated identical values, retain distinct person/date candidates as ambiguous,
+# and treat lab-report categorization as an explicit initial-text-based classification.
 def validate_filing(result, text, profiles, initial_text=None):
     # import-pipeline.svg#B6: validate evidence/cardinality; profile links are optional.
     metadata = {}
@@ -77,20 +87,33 @@ def validate_filing(result, text, profiles, initial_text=None):
     return metadata, index
 
 
+# View: implementation-architecture.svg#O4
+# Own the progression and guarded commits for one document. Processing functions return
+# values; this coordinator decides what becomes durable and which stage failed.
 class FilingWorkflow:
     def __init__(self, library):
         self.library = library
 
+    # View: AGENTS.svg#F2
+    # Claim → extract → persist text → check → classify → verify → commit.
+    # Finally refresh committed archive indexes, including when an intermediate stage fails.
     def run(self, file_id):
         token = str(uuid4())
 
+        # View: backend/import-pipeline.svg#B1
+        # Only pending work may claim a new attempt token. A duplicate executor task stops here.
         def claim(record):
             # import-pipeline.svg#B1: claim only pending work and attach an attempt token.
             if record["status"] != "pending":
                 raise Conflict("This file is already processing or filed.")
             record.update(status="processing", attempt=token, error=None)
 
+        # View: backend/import-pipeline.svg#B10
+        # Route every stage result through a transaction-bound attempt comparison.
         def update(**values):
+            # View: backend/import-pipeline.svg#B10
+            # A manual save/deletion supersedes the attempt. Stop stale writes instead of
+            # allowing late AI output to overwrite or resurrect human-controlled evidence.
             def apply(record):
                 # import-pipeline.svg#B10: stale workers must not overwrite a human save.
                 if record["attempt"] != token:
@@ -150,8 +173,12 @@ class FilingWorkflow:
             # database-schema.svg#D10: rebuild only committed archive revisions.
             self.library.index_pending()
 
+    # View: backend/import-pipeline.svg#B9
+    # Retry changes failed status back to pending on the same document, not a new upload.
     def retry(self, file_id):
         # import-pipeline.svg#B9: reuse the existing file identity; never create another row.
+        # View: backend/import-pipeline.svg#B9
+        # Pending, processing and filed rows are not restarted. Available text and source remain intact.
         def apply(record):
             if record["status"] in ("processing", "pending", "filed"):
                 return

@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="2023" viewBox="0 0 1440 2023" role="img" aria-labelledby="title desc">
+<title id="title">How saved evidence stays consistent</title><desc id="desc">Each mutation is a transaction. Indexes are rebuildable derivatives of stored reports, not another source of truth. Blue cards describe the main flow; amber cards explain safeguards. Source comments use the same node IDs.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="context-stroke"/></marker></defs>
+<style>text {font-family:'Segoe UI','Microsoft JhengHei',Arial,sans-serif} text,polyline {pointer-events:none}</style>
+<rect width="100%" height="100%" fill="#f4f7fa"/>
+<text x="48" y="38" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#245f81">FAMILY MEDICAL RECORDS · VIEW 04</text>
+<text x="48" y="80" font-family="Segoe UI,Arial" font-size="30" font-weight="600" fill="#233646">How saved evidence stays consistent</text>
+<text x="48" y="111" font-family="Segoe UI,Arial" font-size="16" fill="#5c6d7c">Each mutation is a transaction. Indexes are rebuildable derivatives of stored reports, not another source of truth.</text>
+<text x="48" y="143" font-family="Segoe UI,Arial" font-size="13" fill="#5c6d7c">Read top to bottom. Solid blue = sequence/call; dashed amber = related safeguard, not an extra processing stage.</text>
+<g id="S1" data-node="S1" data-x="48" data-y="180" data-width="740" data-height="160">
+<rect x="48" y="180" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="207" font-size="13" fill="#245f81" font-weight="700">S1</text>
+<text x="70" y="237" font-size="21" fill="#233646" font-weight="600">Open and initialize the library</text>
+<text x="70" y="264" font-size="13" fill="#5c6d7c" font-weight="400">Library.__init__ / connect / _initialize</text>
+<text x="70" y="291" font-size="16" fill="#233646" font-weight="400">Enable foreign keys, apply schema/catalogs, and migrate legacy records inside a</text>
+<text x="70" y="315" font-size="16" fill="#233646" font-weight="400">transaction. Reject newer schema versions.</text>
+</g>
+<g id="S6" data-node="S6" data-x="876" data-y="180" data-width="516" data-height="208">
+<rect x="876" y="180" width="516" height="208" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="207" font-size="13" fill="#98621e" font-weight="700">S6</text>
+<text x="898" y="237" font-size="21" fill="#233646" font-weight="600">Why backup and recover?</text>
+<text x="898" y="264" font-size="13" fill="#5c6d7c" font-weight="400">_initialize + Library.recover</text>
+<text x="898" y="291" font-size="16" fill="#233646" font-weight="400">Migration preserves and verifies source/text before</text>
+<text x="898" y="315" font-size="16" fill="#233646" font-weight="400">dropping legacy tables. Restart recovery invalidates</text>
+<text x="898" y="339" font-size="16" fill="#233646" font-weight="400">interrupted attempts but retains all available</text>
+<text x="898" y="363" font-size="16" fill="#233646" font-weight="400">evidence.</text>
+</g>
+<polyline data-edge="true" points="788,245 876,245" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="S2" data-node="S2" data-x="48" data-y="436" data-width="740" data-height="160">
+<rect x="48" y="436" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="463" font-size="13" fill="#245f81" font-weight="700">S2</text>
+<text x="70" y="493" font-size="21" fill="#233646" font-weight="600">Recognize an upload retry</text>
+<text x="70" y="520" font-size="13" fill="#5c6d7c" font-weight="400">Library.create</text>
+<text x="70" y="547" font-size="16" fill="#233646" font-weight="400">Hash source/media/origin/title and look up its unique operation key. Identical</text>
+<text x="70" y="571" font-size="16" fill="#233646" font-weight="400">replay returns its existing document.</text>
+</g>
+<polyline data-edge="true" points="418,340 418,436" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="S3" data-node="S3" data-x="876" data-y="436" data-width="516" data-height="184">
+<rect x="876" y="436" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="463" font-size="13" fill="#98621e" font-weight="700">S3</text>
+<text x="898" y="493" font-size="21" fill="#233646" font-weight="600">Why an atomic first save?</text>
+<text x="898" y="520" font-size="13" fill="#5c6d7c" font-weight="400">_new_record + _insert_document</text>
+<text x="898" y="547" font-size="16" fill="#233646" font-weight="400">Archive ownership, source BLOB, pending processing</text>
+<text x="898" y="571" font-size="16" fill="#233646" font-weight="400">state and operation identity commit together. Reject</text>
+<text x="898" y="595" font-size="16" fill="#233646" font-weight="400">reuse of a key with different content.</text>
+</g>
+<polyline data-edge="true" points="788,501 876,501" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="S4" data-node="S4" data-x="48" data-y="668" data-width="740" data-height="160">
+<rect x="48" y="668" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="695" font-size="13" fill="#245f81" font-weight="700">S4</text>
+<text x="70" y="725" font-size="21" fill="#233646" font-weight="600">Reconstruct a public document</text>
+<text x="70" y="752" font-size="13" fill="#5c6d7c" font-weight="400">_read_document / get / source / list</text>
+<text x="70" y="779" font-size="16" fill="#233646" font-weight="400">Join normalized tables into the /api/files shape. Source reads return preserved</text>
+<text x="70" y="803" font-size="16" fill="#233646" font-weight="400">bytes without rewriting temporary files.</text>
+</g>
+<polyline data-edge="true" points="418,596 418,668" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="S5" data-node="S5" data-x="48" data-y="876" data-width="740" data-height="160">
+<rect x="48" y="876" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="903" font-size="13" fill="#245f81" font-weight="700">S5</text>
+<text x="70" y="933" font-size="21" fill="#233646" font-weight="600">Apply guarded document changes</text>
+<text x="70" y="960" font-size="13" fill="#5c6d7c" font-weight="400">Library.change → _write_document</text>
+<text x="70" y="987" font-size="16" fill="#233646" font-weight="400">BEGIN IMMEDIATE serializes writers. Run the caller revision/attempt guard before</text>
+<text x="70" y="1011" font-size="16" fill="#233646" font-weight="400">committing; track document and text revisions separately.</text>
+</g>
+<polyline data-edge="true" points="418,828 418,876" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="S11" data-node="S11" data-x="876" data-y="876" data-width="516" data-height="184">
+<rect x="876" y="876" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="903" font-size="13" fill="#98621e" font-weight="700">S11</text>
+<text x="898" y="933" font-size="21" fill="#233646" font-weight="600">Why a dedicated move operation?</text>
+<text x="898" y="960" font-size="13" fill="#5c6d7c" font-weight="400">move_document</text>
+<text x="898" y="987" font-size="16" fill="#233646" font-weight="400">Generic changes cannot alter document ownership.</text>
+<text x="898" y="1011" font-size="16" fill="#233646" font-weight="400">Explicit moves check revision, processing status and</text>
+<text x="898" y="1035" font-size="16" fill="#233646" font-weight="400">patient compatibility, then invalidate both archives.</text>
+</g>
+<polyline data-edge="true" points="788,941 876,941" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="S9" data-node="S9" data-x="48" data-y="1108" data-width="740" data-height="160">
+<rect x="48" y="1108" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1135" font-size="13" fill="#245f81" font-weight="700">S9</text>
+<text x="70" y="1165" font-size="21" fill="#233646" font-weight="600">Recompute archive labels</text>
+<text x="70" y="1192" font-size="13" fill="#5c6d7c" font-weight="400">_touch_record / _record_summary</text>
+<text x="70" y="1219" font-size="16" fill="#233646" font-weight="400">Aggregate only supported patient/date/department/condition facts. Preserve</text>
+<text x="70" y="1243" font-size="16" fill="#233646" font-weight="400">missing, partial, ambiguous and conflicting states.</text>
+</g>
+<polyline data-edge="true" points="418,1036 418,1108" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="S8" data-node="S8" data-x="876" data-y="1108" data-width="516" data-height="184">
+<rect x="876" y="1108" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="1135" font-size="13" fill="#98621e" font-weight="700">S8</text>
+<text x="898" y="1165" font-size="21" fill="#233646" font-weight="600">Why exact member aliases?</text>
+<text x="898" y="1192" font-size="13" fill="#5c6d7c" font-weight="400">save_profile / _link_member / _relink_members</text>
+<text x="898" y="1219" font-size="16" fill="#233646" font-weight="400">Reject overlapping names/aliases. Relink confirmed</text>
+<text x="898" y="1243" font-size="16" fill="#233646" font-weight="400">names when profiles change; removing a profile</text>
+<text x="898" y="1267" font-size="16" fill="#233646" font-weight="400">detaches reports rather than deleting evidence.</text>
+</g>
+<polyline data-edge="true" points="788,1173 876,1173" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="S10" data-node="S10" data-x="48" data-y="1340" data-width="740" data-height="160">
+<rect x="48" y="1340" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1367" font-size="13" fill="#245f81" font-weight="700">S10</text>
+<text x="70" y="1397" font-size="21" fill="#233646" font-weight="600">Refresh the evidence index</text>
+<text x="70" y="1424" font-size="13" fill="#5c6d7c" font-weight="400">index_pending + index_jobs</text>
+<text x="70" y="1451" font-size="16" fill="#233646" font-weight="400">A durable job targets an archive revision. Build deterministic record_abstracts</text>
+<text x="70" y="1475" font-size="16" fill="#233646" font-weight="400">from committed documents; expose partial or failed indexing.</text>
+</g>
+<polyline data-edge="true" points="418,1268 418,1340" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="S7" data-node="S7" data-x="48" data-y="1548" data-width="740" data-height="160">
+<rect x="48" y="1548" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1575" font-size="13" fill="#245f81" font-weight="700">S7</text>
+<text x="70" y="1605" font-size="21" fill="#233646" font-weight="600">Remove one selected document</text>
+<text x="70" y="1632" font-size="13" fill="#5c6d7c" font-weight="400">Library.delete / _remove_or_touch</text>
+<text x="70" y="1659" font-size="16" fill="#233646" font-weight="400">Foreign-key cascades remove its source/text/state/index. Recompute a remaining</text>
+<text x="70" y="1683" font-size="16" fill="#233646" font-weight="400">archive, or remove an archive that has no documents.</text>
+</g>
+<polyline data-edge="true" points="418,1500 418,1548" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="S12" data-node="S12" data-x="48" data-y="1756" data-width="740" data-height="184">
+<rect x="48" y="1756" width="740" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1783" font-size="13" fill="#245f81" font-weight="700">S12</text>
+<text x="70" y="1813" font-size="21" fill="#233646" font-weight="600">Reset all shared demo data atomically</text>
+<text x="70" y="1840" font-size="13" fill="#5c6d7c" font-weight="400">Library.reset → DELETE medical_records / patients</text>
+<text x="70" y="1867" font-size="16" fill="#233646" font-weight="400">One transaction cascades every archive/document derivative, then removes</text>
+<text x="70" y="1891" font-size="16" fill="#233646" font-weight="400">profiles. Keep the controlled department catalog. A failed reset rolls back;</text>
+<text x="70" y="1915" font-size="16" fill="#233646" font-weight="400">queued workers find deleted identities and stop.</text>
+</g>
+<polyline data-edge="true" points="418,1708 418,1756" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="48" y="1988" font-size="14" fill="#5c6d7c" font-weight="400">Zoom index: docs/code-walkthrough.md · Search a node ID such as #B6 in the source.</text>
+</svg>

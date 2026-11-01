@@ -1,3 +1,6 @@
+# View: backend/chat-flow.svg#C7
+# Simulate tool turns to check scoped reads, fresh revisions, exact citations, bounded
+# context and visible failure. These tests validate mechanics, not real-model medical accuracy.
 """Chat trust-boundary tests through the real OpenAI SDK with an isolated transport."""
 
 import json
@@ -378,12 +381,13 @@ def test_oversized_full_context_fails_explicitly_instead_of_truncating(library, 
         chat(library, Question(message='Read my history', history=[dict(role='user', content='x' * 310000)]))
 
 
-def test_http_consent_unavailability_and_boundary_validation(tmp_path, monkeypatch):
+def test_http_chat_without_confirmation_unavailability_and_boundary_validation(tmp_path, monkeypatch):
     app = create_app(tmp_path / 'http.sqlite3')
     with TestClient(app) as client:
-        assert client.post('/api/chat', json=dict(message='Hello')).status_code == 422
-        assert client.post('/api/chat', json=dict(message='Hello'), headers={'X-Processing-Consent': 'old'}).status_code == 428
-        headers = {'X-Processing-Consent': client.get('/api/config').json()['disclosure']}
+        with monkeypatch.context() as context:
+            context.setattr('backend.api.chat', lambda library, body: dict(message='Hello'))
+            assert client.post('/api/chat', json=dict(message='Hello')).status_code == 200
+        headers = {}
         assert client.post('/api/chat', json=dict(message=' ', history=[]), headers=headers).status_code == 422
         assert client.put('/api/chat/metadata', json=dict(file_id='x', revision=1, text='replacement')).status_code == 422
 

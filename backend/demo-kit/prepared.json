@@ -1,0 +1,1170 @@
+{
+  "01_2023-03-08_Primary_Care_Visit_Note.pdf": {
+    "source_sha256": "56e8f7697598a2564d7b8c5e07f75fc0c5018a1e142f2b994c0f547954f21b4c",
+    "title": "Outpatient Visit Note - Family Medicine",
+    "text": "FICTIONAL TEST DATA - NOT A REAL PATIENT - FOR SOFTWARE TESTING ONLY\n\nRiverside General Hospital\n1200 Riverside Drive, Springfield, IL 62704 | Tel (217) 555-0140\n\nOutpatient Visit Note - Family Medicine\n\nPatient\tSMITH, JOHN\tMRN\t4471-2093\nDOB / Age\t03/14/1956 (66 y)\tSex\tMale\nDate\t03/08/2023\tProvider\tEmily Carter, MD\n\nChief Complaint\nIncreased thirst and nighttime urination for about 2 months.\n\nHistory of Present Illness\n66-year-old man presents for evaluation of polydipsia and nocturia (2-3 times per night) for approximately 2 months. Reports mild fatigue. No weight loss, chest pain, or vision changes. Home blood pressure readings have been 'around 150s' per patient. Fasting labs drawn this morning (see separate lab report).\n\nPast Medical History\nNo prior chronic conditions on record. Appendectomy (1978).\n\nMedications\nNone.\n\nAllergies\nAllergies: Sulfonamide (sulfa) antibiotics - rash.\n\nSocial / Family History\nRetired civil engineer. Former smoker, quit 1995 (15 pack-years). Alcohol 2-3 drinks/week. Father had type 2 diabetes and stroke.\n\nVital Signs\nBP 152/94 mmHg (repeat 148/92) | HR 78 regular | Temp 98.2 F | SpO2 97% RA | Height 175 cm | Weight 84 kg | BMI 27.4\n\nPhysical Exam\nWell-appearing. Heart regular rate and rhythm, no murmur. Lungs clear. Feet: intact sensation to monofilament, pulses palpable.\n\nAssessment\n1. Type 2 diabetes mellitus, newly diagnosed (HbA1c 8.4%, fasting glucose 168 mg/dL).\n2. Essential hypertension.\n3. Hyperlipidemia (LDL 142 mg/dL).\n\nPlan\n1. Start metformin 500 mg by mouth twice daily with meals.\n2. Start lisinopril 10 mg by mouth once daily.\n3. Start atorvastatin 20 mg by mouth nightly.\n4. Diabetes education referral; dietary counseling given.\n5. Annual diabetic eye exam referral.\n6. Repeat HbA1c and BMP in 3 months.\n\nElectronically signed by Emily Carter, MD on 03/08/2023 16:42\n\nRiverside General Hospital | SMITH, JOHN MRN 4471-2093 Page 1 | FICTIONAL TEST DATA",
+    "metadata": {
+      "member": {
+        "status": "known",
+        "values": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "date": {
+        "status": "known",
+        "values": [
+          {
+            "value": "03/08/2023",
+            "quote": "03/08/2023"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "03/08/2023",
+            "quote": "03/08/2023"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "department": {
+        "status": "known",
+        "values": [
+          {
+            "value": "Family Medicine",
+            "quote": "Family Medicine"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "Family Medicine",
+            "quote": "Family Medicine"
+          }
+        ],
+        "provenance": "documented",
+        "mapping_status": "unresolved"
+      },
+      "disease": {
+        "status": "known",
+        "values": [
+          {
+            "value": "Type 2 diabetes mellitus, newly diagnosed",
+            "quote": "Type 2 diabetes mellitus, newly diagnosed"
+          },
+          {
+            "value": "Essential hypertension",
+            "quote": "Essential hypertension"
+          },
+          {
+            "value": "Hyperlipidemia",
+            "quote": "Hyperlipidemia"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "Type 2 diabetes mellitus, newly diagnosed",
+            "quote": "Type 2 diabetes mellitus, newly diagnosed"
+          },
+          {
+            "value": "Essential hypertension",
+            "quote": "Essential hypertension"
+          },
+          {
+            "value": "Hyperlipidemia",
+            "quote": "Hyperlipidemia"
+          }
+        ],
+        "provenance": "documented"
+      }
+    },
+    "index": {
+      "symptoms": [
+        {
+          "value": "Increased thirst",
+          "quote": "Increased thirst"
+        },
+        {
+          "value": "nighttime urination",
+          "quote": "nighttime urination"
+        },
+        {
+          "value": "polydipsia",
+          "quote": "polydipsia"
+        },
+        {
+          "value": "nocturia",
+          "quote": "nocturia"
+        },
+        {
+          "value": "mild fatigue",
+          "quote": "mild fatigue"
+        }
+      ],
+      "history": [
+        {
+          "value": "Appendectomy (1978)",
+          "quote": "Appendectomy (1978)"
+        },
+        {
+          "value": "Sulfonamide (sulfa) antibiotics - rash",
+          "quote": "Sulfonamide (sulfa) antibiotics - rash"
+        },
+        {
+          "value": "Former smoker, quit 1995 (15 pack-years)",
+          "quote": "Former smoker, quit 1995 (15 pack-years)"
+        },
+        {
+          "value": "Father had type 2 diabetes and stroke",
+          "quote": "Father had type 2 diabetes and stroke"
+        }
+      ],
+      "diagnoses": [
+        {
+          "value": "Type 2 diabetes mellitus, newly diagnosed",
+          "quote": "Type 2 diabetes mellitus, newly diagnosed"
+        },
+        {
+          "value": "Essential hypertension",
+          "quote": "Essential hypertension"
+        },
+        {
+          "value": "Hyperlipidemia",
+          "quote": "Hyperlipidemia"
+        }
+      ],
+      "treatments": [
+        {
+          "value": "metformin 500 mg by mouth twice daily with meals",
+          "quote": "metformin 500 mg by mouth twice daily with meals"
+        },
+        {
+          "value": "lisinopril 10 mg by mouth once daily",
+          "quote": "lisinopril 10 mg by mouth once daily"
+        },
+        {
+          "value": "atorvastatin 20 mg by mouth nightly",
+          "quote": "atorvastatin 20 mg by mouth nightly"
+        },
+        {
+          "value": "Diabetes education referral",
+          "quote": "Diabetes education referral"
+        },
+        {
+          "value": "dietary counseling",
+          "quote": "dietary counseling"
+        },
+        {
+          "value": "Annual diabetic eye exam referral",
+          "quote": "Annual diabetic eye exam referral"
+        }
+      ]
+    },
+    "concerns": [],
+    "check_status": "checked"
+  },
+  "02_2023-03-08_Lab_Report.pdf": {
+    "source_sha256": "dc60d9aeb3ab2cb6335008c93d55921a2a9e0c49793f046b45b55747aea8d7df",
+    "title": "Riverside General Hospital Laboratory Report",
+    "text": "FICTIONAL TEST DATA - NOT A REAL PATIENT - FOR SOFTWARE TESTING ONLY\n\nRiverside General Hospital\n1200 Riverside Drive, Springfield, IL 62704 | Tel (217) 555-0140\n\nLaboratory Report\n\nPatient\tSMITH, JOHN\tMRN\t4471-2093\nDOB / Age\t03/14/1956 (66 y)\tSex\tMale\nDate\t03/08/2023\tOrdering\tEmily Carter, MD\n\nCollected: 03/08/2023 08:15 (fasting) Reported: 03/08/2023 13:20 Accession: L23-0308-5512\n\nTest\tResult\tFlag\tUnits\tReference Range\nComprehensive Metabolic Panel\nGlucose, fasting\t168\tH\tmg/dL\t70 - 99\nBUN\t16\t\tmg/dL\t7 - 20\nCreatinine\t1.10\t\tmg/dL\t0.70 - 1.30\neGFR (CKD-EPI 2021)\t74\t\tmL/min/1.73m2\t>= 60\nSodium\t139\t\tmmol/L\t136 - 145\nPotassium\t4.3\t\tmmol/L\t3.5 - 5.1\nChloride\t102\t\tmmol/L\t98 - 107\nCO2\t25\t\tmmol/L\t22 - 29\nCalcium\t9.4\t\tmg/dL\t8.6 - 10.3\nAlbumin\t4.1\t\tg/dL\t3.5 - 5.0\nALT\t28\t\tU/L\t7 - 56\nAST\t24\t\tU/L\t10 - 40\nHemoglobin A1c\nHbA1c\t8.4\tH\t%\t4.0 - 5.6\nLipid Panel (fasting)\nTotal cholesterol\t228\tH\tmg/dL\t< 200\nTriglycerides\t225\tH\tmg/dL\t< 150\nHDL cholesterol\t41\t\tmg/dL\t> 40\nLDL cholesterol (calc)\t142\tH\tmg/dL\t< 100\nUrine\nUrine albumin/creatinine ratio\t22\t\tmg/g\t< 30\n\nComment: HbA1c >= 6.5% is consistent with diabetes mellitus.\n\nElectronically signed by Laboratory Medical Director, R. Patel, MD on 03/08/2023 13:20\n\nRiverside General Hospital | SMITH, JOHN MRN 4471-2093\tPage 1 | FICTIONAL TEST DATA",
+    "metadata": {
+      "member": {
+        "status": "known",
+        "values": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "date": {
+        "status": "known",
+        "values": [
+          {
+            "value": "03/08/2023",
+            "quote": "03/08/2023"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "03/08/2023",
+            "quote": "03/08/2023"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "department": {
+        "status": "known",
+        "values": [
+          {
+            "value": "Laboratory Medicine",
+            "quote": "Laboratory Report",
+            "source": "initial_text"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "Laboratory Medicine",
+            "quote": "Laboratory Report",
+            "source": "initial_text"
+          }
+        ],
+        "provenance": "ai_classified",
+        "mapping_status": "resolved"
+      },
+      "disease": {
+        "status": "missing",
+        "values": [],
+        "candidates": [],
+        "provenance": "documented"
+      }
+    },
+    "index": {
+      "symptoms": [],
+      "history": [],
+      "diagnoses": [],
+      "treatments": []
+    },
+    "concerns": [],
+    "check_status": "checked"
+  },
+  "03_2024-09-15_Chest_Xray_Report.pdf": {
+    "source_sha256": "d1f522cc457ae1b4742d3ef1cd3a5f2ed67e430c744b07c3df19f8f554c3a996",
+    "title": "Radiology Report - Chest X-Ray, 2 Views",
+    "text": "FICTIONAL TEST DATA - NOT A REAL PATIENT - FOR SOFTWARE TESTING ONLY\n\nRiverside General Hospital\n1200 Riverside Drive, Springfield, IL 62704 | Tel (217) 555-0140\n\nRadiology Report - Chest X-Ray, 2 Views\n\nPatient\tSMITH, JOHN\tMRN\t4471-2093\nDOB / Age\t03/14/1956 (68 y)\tSex\tMale\nDate\t09/15/2024\tOrdering\tED - Michael Torres, MD\n\nClinical Indication\nFever, productive cough, and shortness of breath for 3 days.\n\nTechnique\nPA and lateral views of the chest.\n\nComparison\nNone available.\n\nFindings\nFocal airspace consolidation in the right lower lobe with air bronchograms. Small right costophrenic angle blunting, possible trace effusion. Left lung clear. Heart size normal. No pneumothorax. Degenerative changes of the thoracic spine.\n\nImpression\n1. Right lower lobe consolidation, consistent with pneumonia in the appropriate clinical setting.\n2. Possible trace right pleural effusion.\n3. Recommend follow-up radiograph in 4-6 weeks to document resolution.\n\nElectronically signed by Radiologist: Susan Nguyen, MD on 09/15/2024 11:05\n\nRiverside General Hospital | SMITH, JOHN MRN 4471-2093\tPage 1 | FICTIONAL TEST DATA",
+    "metadata": {
+      "member": {
+        "status": "known",
+        "values": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "Patient\tSMITH, JOHN\tMRN"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "Patient\tSMITH, JOHN\tMRN"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "date": {
+        "status": "known",
+        "values": [
+          {
+            "value": "09/15/2024",
+            "quote": "Date\t09/15/2024"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "09/15/2024",
+            "quote": "Date\t09/15/2024"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "department": {
+        "status": "known",
+        "values": [
+          {
+            "value": "Radiology",
+            "quote": "Radiology Report - Chest X-Ray, 2 Views"
+          },
+          {
+            "value": "ED",
+            "quote": "Ordering\tED - Michael Torres, MD"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "Radiology",
+            "quote": "Radiology Report - Chest X-Ray, 2 Views"
+          },
+          {
+            "value": "ED",
+            "quote": "Ordering\tED - Michael Torres, MD"
+          }
+        ],
+        "provenance": "documented",
+        "mapping_status": "unresolved"
+      },
+      "disease": {
+        "status": "known",
+        "values": [
+          {
+            "value": "pneumonia",
+            "quote": "consistent with pneumonia in the appropriate clinical setting."
+          },
+          {
+            "value": "Degenerative changes of the thoracic spine",
+            "quote": "Degenerative changes of the thoracic spine."
+          }
+        ],
+        "candidates": [
+          {
+            "value": "pneumonia",
+            "quote": "consistent with pneumonia in the appropriate clinical setting."
+          },
+          {
+            "value": "Degenerative changes of the thoracic spine",
+            "quote": "Degenerative changes of the thoracic spine."
+          }
+        ],
+        "provenance": "documented"
+      }
+    },
+    "index": {
+      "symptoms": [
+        {
+          "value": "Fever",
+          "quote": "Fever, productive cough, and shortness of breath for 3 days."
+        },
+        {
+          "value": "productive cough",
+          "quote": "Fever, productive cough, and shortness of breath for 3 days."
+        },
+        {
+          "value": "shortness of breath",
+          "quote": "Fever, productive cough, and shortness of breath for 3 days."
+        }
+      ],
+      "history": [],
+      "diagnoses": [
+        {
+          "value": "Right lower lobe consolidation",
+          "quote": "Right lower lobe consolidation, consistent with pneumonia in the appropriate clinical setting."
+        },
+        {
+          "value": "pneumonia",
+          "quote": "consistent with pneumonia in the appropriate clinical setting."
+        },
+        {
+          "value": "Possible trace right pleural effusion",
+          "quote": "Possible trace right pleural effusion."
+        },
+        {
+          "value": "Degenerative changes of the thoracic spine",
+          "quote": "Degenerative changes of the thoracic spine."
+        }
+      ],
+      "treatments": [
+        {
+          "value": "PA and lateral views of the chest",
+          "quote": "PA and lateral views of the chest."
+        },
+        {
+          "value": "follow-up radiograph",
+          "quote": "Recommend follow-up radiograph in 4-6 weeks to document resolution."
+        }
+      ]
+    },
+    "concerns": [],
+    "check_status": "checked"
+  },
+  "04_2024-09-15_Lab_Report.pdf": {
+    "source_sha256": "4ece284cf53ddd6ed90b61c9c505c366ae81efc3c2921e50da79309f6bcc6a63",
+    "title": "Laboratory Report - Emergency Department",
+    "text": "FICTIONAL TEST DATA - NOT A REAL PATIENT - FOR SOFTWARE TESTING ONLY\n\nRiverside General Hospital\n1200 Riverside Drive, Springfield, IL 62704 | Tel (217) 555-0140\n\nLaboratory Report - Emergency Department\n\nPatient\tSMITH, JOHN\tMRN\t4471-2093\nDOB / Age\t03/14/1956 (68 y)\tSex\tMale\nDate\t09/15/2024\tOrdering\tED - Michael Torres, MD\n\nCollected: 09/15/2024 10:02 (non-fasting)\tReported: 09/15/2024 11:30\tAccession: L24-0915-0871\n\nTest\tResult\tFlag\tUnits\tReference Range\nComplete Blood Count\nWBC\t14.8\tH\tx10^3/uL\t4.0 - 11.0\nNeutrophils\t86\tH\t%\t40 - 75\nHemoglobin\t13.6\t\tg/dL\t13.5 - 17.5\nPlatelets\t268\t\tx10^3/uL\t150 - 400\nInflammatory Markers\nC-reactive protein (CRP)\t96\tH\tmg/L\t< 10\nProcalcitonin\t0.9\tH\tng/mL\t< 0.25\nBasic Metabolic Panel\nGlucose\t245\tH\tmg/dL\t70 - 140 (random)\nBUN\t22\tH\tmg/dL\t7 - 20\nCreatinine\t1.12\t\tmg/dL\t0.70 - 1.30\neGFR (CKD-EPI 2021)\t70\t\tmL/min/1.73m2\t>= 60\nSodium\t136\t\tmmol/L\t136 - 145\nPotassium\t4.1\t\tmmol/L\t3.5 - 5.1\nOther\nLactate\t1.4\t\tmmol/L\t0.5 - 2.0\nHbA1c\t7.4\tH\t%\t4.0 - 5.6\nBlood culture x2\tNo growth at 5 days\t\t\tFinal 09/20/2024\n\nElectronically signed by Laboratory Medical Director, R. Patel, MD on 09/15/2024 11:30\n\nRiverside General Hospital | SMITH, JOHN MRN 4471-2093\tPage 1 | FICTIONAL TEST DATA",
+    "metadata": {
+      "member": {
+        "status": "known",
+        "values": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "date": {
+        "status": "known",
+        "values": [
+          {
+            "value": "09/15/2024",
+            "quote": "09/15/2024"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "09/15/2024",
+            "quote": "09/15/2024"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "department": {
+        "status": "known",
+        "values": [
+          {
+            "value": "Laboratory Medicine",
+            "quote": "Laboratory Report - Emergency Department",
+            "source": "initial_text"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "Laboratory Medicine",
+            "quote": "Laboratory Report - Emergency Department",
+            "source": "initial_text"
+          }
+        ],
+        "provenance": "ai_classified",
+        "mapping_status": "resolved"
+      },
+      "disease": {
+        "status": "missing",
+        "values": [],
+        "candidates": [],
+        "provenance": "documented"
+      }
+    },
+    "index": {
+      "symptoms": [],
+      "history": [],
+      "diagnoses": [],
+      "treatments": []
+    },
+    "concerns": [],
+    "check_status": "checked"
+  },
+  "05_2024-09-19_Discharge_Summary.pdf": {
+    "source_sha256": "ae1577ea359f2d376a26139cb5cae55879304ddee4e3036dae0ebdcabbcaf73c",
+    "title": "Hospital Discharge Summary",
+    "text": "FICTIONAL TEST DATA - NOT A REAL PATIENT - FOR SOFTWARE TESTING ONLY\n\nRiverside General Hospital\n1200 Riverside Drive, Springfield, IL 62704 | Tel (217) 555-0140\n\nHospital Discharge Summary\n\nPatient\tSMITH, JOHN\tMRN\t4471-2093\nDOB / Age\t03/14/1956 (68 y)\tSex\tMale\nDate\t09/19/2024\tAttending\tDavid Kim, MD (Hospitalist)\n\nAdmission: 09/15/2024 Discharge: 09/19/2024 Length of stay: 4 nights Disposition: Home\n\nPrincipal Diagnosis\nCommunity-acquired pneumonia, right lower lobe.\n\nSecondary Diagnoses\nType 2 diabetes mellitus with hyperglycemia; essential hypertension; hyperlipidemia.\n\nAllergies\nAllergies: Sulfonamide (sulfa) antibiotics - rash.\n\nHospital Course\n68-year-old man with type 2 diabetes and hypertension presented with 3 days of fever (Tmax 38.9 C / 102.0 F), productive cough, and dyspnea. SpO2 91% on room air on arrival. Chest X-ray showed right lower lobe consolidation. WBC 14.8, CRP 96. CURB-65 score 1; admitted for oxygen requirement.\n\nTreated with ceftriaxone 1 g IV daily and azithromycin 500 mg IV daily. Required 2 L nasal cannula oxygen for 48 hours, weaned to room air on hospital day 3. Afebrile since 09/17. Blood cultures negative.\n\nDiabetes: Metformin was held on admission due to acute illness and IV contrast consideration; glucose managed with insulin lispro sliding scale (range 160-250 mg/dL). Metformin resumed at discharge. Lisinopril and atorvastatin continued throughout.\n\nCondition at Discharge\nStable. SpO2 96% RA, Temp 98.4 F, BP 134/82, HR 84.\n\nDischarge Medications\nNEW: Amoxicillin-clavulanate 875/125 mg by mouth twice daily x 5 days (last dose 09/24/2024)\nRESUMED: Metformin 500 mg by mouth twice daily\nCONTINUE: Lisinopril 10 mg by mouth daily\nCONTINUE: Atorvastatin 20 mg by mouth nightly\nSTOPPED: Insulin lispro sliding scale (inpatient only)\n\nFollow-up\n1. Primary care (Dr. Emily Carter) within 1-2 weeks.\n2. Repeat chest X-ray in 4-6 weeks.\n3. Return to ED for fever > 101 F, worsening shortness of breath, or chest pain.\n4. Pneumococcal vaccine recommended once recovered.\n\nElectronically signed by David Kim, MD on 09/19/2024 14:10\n\nRiverside General Hospital | SMITH, JOHN MRN 4471-2093 Page 1 | FICTIONAL TEST DATA",
+    "metadata": {
+      "member": {
+        "status": "known",
+        "values": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "date": {
+        "status": "known",
+        "values": [
+          {
+            "value": "09/19/2024",
+            "quote": "Date\t09/19/2024"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "09/19/2024",
+            "quote": "Date\t09/19/2024"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "department": {
+        "status": "missing",
+        "values": [],
+        "candidates": [],
+        "provenance": "documented",
+        "mapping_status": "unresolved"
+      },
+      "disease": {
+        "status": "known",
+        "values": [
+          {
+            "value": "Community-acquired pneumonia, right lower lobe",
+            "quote": "Community-acquired pneumonia, right lower lobe"
+          },
+          {
+            "value": "Type 2 diabetes mellitus with hyperglycemia",
+            "quote": "Type 2 diabetes mellitus with hyperglycemia"
+          },
+          {
+            "value": "essential hypertension",
+            "quote": "essential hypertension"
+          },
+          {
+            "value": "hyperlipidemia",
+            "quote": "hyperlipidemia"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "Community-acquired pneumonia, right lower lobe",
+            "quote": "Community-acquired pneumonia, right lower lobe"
+          },
+          {
+            "value": "Type 2 diabetes mellitus with hyperglycemia",
+            "quote": "Type 2 diabetes mellitus with hyperglycemia"
+          },
+          {
+            "value": "essential hypertension",
+            "quote": "essential hypertension"
+          },
+          {
+            "value": "hyperlipidemia",
+            "quote": "hyperlipidemia"
+          }
+        ],
+        "provenance": "documented"
+      }
+    },
+    "index": {
+      "symptoms": [
+        {
+          "value": "fever",
+          "quote": "fever"
+        },
+        {
+          "value": "productive cough",
+          "quote": "productive cough"
+        },
+        {
+          "value": "dyspnea",
+          "quote": "dyspnea"
+        },
+        {
+          "value": "rash",
+          "quote": "rash"
+        }
+      ],
+      "history": [
+        {
+          "value": "type 2 diabetes",
+          "quote": "type 2 diabetes"
+        },
+        {
+          "value": "hypertension",
+          "quote": "hypertension"
+        },
+        {
+          "value": "Sulfonamide (sulfa) antibiotics - rash",
+          "quote": "Sulfonamide (sulfa) antibiotics - rash"
+        }
+      ],
+      "diagnoses": [
+        {
+          "value": "Community-acquired pneumonia, right lower lobe",
+          "quote": "Community-acquired pneumonia, right lower lobe"
+        },
+        {
+          "value": "Type 2 diabetes mellitus with hyperglycemia",
+          "quote": "Type 2 diabetes mellitus with hyperglycemia"
+        },
+        {
+          "value": "essential hypertension",
+          "quote": "essential hypertension"
+        },
+        {
+          "value": "hyperlipidemia",
+          "quote": "hyperlipidemia"
+        }
+      ],
+      "treatments": [
+        {
+          "value": "ceftriaxone 1 g IV daily",
+          "quote": "ceftriaxone 1 g IV daily"
+        },
+        {
+          "value": "azithromycin 500 mg IV daily",
+          "quote": "azithromycin 500 mg IV daily"
+        },
+        {
+          "value": "2 L nasal cannula oxygen",
+          "quote": "2 L nasal cannula oxygen"
+        },
+        {
+          "value": "insulin lispro sliding scale",
+          "quote": "insulin lispro sliding scale"
+        },
+        {
+          "value": "Amoxicillin-clavulanate 875/125 mg by mouth twice daily",
+          "quote": "Amoxicillin-clavulanate 875/125 mg by mouth twice daily"
+        },
+        {
+          "value": "Metformin 500 mg by mouth twice daily",
+          "quote": "Metformin 500 mg by mouth twice daily"
+        },
+        {
+          "value": "Lisinopril 10 mg by mouth daily",
+          "quote": "Lisinopril 10 mg by mouth daily"
+        },
+        {
+          "value": "Atorvastatin 20 mg by mouth nightly",
+          "quote": "Atorvastatin 20 mg by mouth nightly"
+        },
+        {
+          "value": "Pneumococcal vaccine",
+          "quote": "Pneumococcal vaccine"
+        }
+      ]
+    },
+    "concerns": [],
+    "check_status": "checked"
+  },
+  "06_2024-10-17_Followup_Chest_Xray_Report.pdf": {
+    "source_sha256": "f4553853cbaac172d368ca0b035c9415bdf35d9c6e725ff38b20bd050750154f",
+    "title": "Radiology Report - Chest X-Ray, 2 Views",
+    "text": "FICTIONAL TEST DATA - NOT A REAL PATIENT - FOR SOFTWARE TESTING ONLY\n\nRiverside General Hospital\n1200 Riverside Drive, Springfield, IL 62704 | Tel (217) 555-0140\n\nRadiology Report - Chest X-Ray, 2 Views\n\nPatient\tSMITH, JOHN\tMRN\t4471-2093\nDOB / Age\t03/14/1956 (68 y)\tSex\tMale\nDate\t10/17/2024\tOrdering\tEmily Carter, MD\n\nClinical Indication\nFollow-up of right lower lobe pneumonia treated 09/2024. Asymptomatic.\n\nComparison\nChest X-ray 09/15/2024.\n\nFindings\nInterval resolution of the previously seen right lower lobe consolidation. Costophrenic angles are sharp. No new opacity. Heart size normal.\n\nImpression\nResolved right lower lobe pneumonia. No acute cardiopulmonary abnormality.\n\nElectronically signed by Radiologist: Susan Nguyen, MD on 10/17/2024 09:48\n\nRiverside General Hospital | SMITH, JOHN MRN 4471-2093\tPage 1 | FICTIONAL TEST DATA",
+    "metadata": {
+      "member": {
+        "status": "known",
+        "values": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "date": {
+        "status": "known",
+        "values": [
+          {
+            "value": "10/17/2024",
+            "quote": "10/17/2024"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "10/17/2024",
+            "quote": "10/17/2024"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "department": {
+        "status": "known",
+        "values": [
+          {
+            "value": "Radiology",
+            "quote": "Radiology"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "Radiology",
+            "quote": "Radiology"
+          }
+        ],
+        "provenance": "documented",
+        "mapping_status": "resolved"
+      },
+      "disease": {
+        "status": "known",
+        "values": [
+          {
+            "value": "right lower lobe pneumonia",
+            "quote": "right lower lobe pneumonia"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "right lower lobe pneumonia",
+            "quote": "right lower lobe pneumonia"
+          }
+        ],
+        "provenance": "documented"
+      }
+    },
+    "index": {
+      "symptoms": [],
+      "history": [
+        {
+          "value": "right lower lobe pneumonia treated 09/2024",
+          "quote": "right lower lobe pneumonia treated 09/2024"
+        }
+      ],
+      "diagnoses": [
+        {
+          "value": "Resolved right lower lobe pneumonia",
+          "quote": "Resolved right lower lobe pneumonia"
+        }
+      ],
+      "treatments": []
+    },
+    "concerns": [],
+    "check_status": "checked"
+  },
+  "07_2026-02-03_ECG_Report.pdf": {
+    "source_sha256": "5ecca9759abc85b4835b910244a4bad23eff65541a34a5b726618c4d527d4160",
+    "title": "12-Lead Electrocardiogram Report",
+    "text": "FICTIONAL TEST DATA - NOT A REAL PATIENT - FOR SOFTWARE TESTING ONLY\n\nRiverside General Hospital\n1200 Riverside Drive, Springfield, IL 62704 | Tel (217) 555-0140\n\n12-Lead Electrocardiogram Report\n\nPatient\tSMITH, JOHN\tMRN\t4471-2093\nDOB / Age\t03/14/1956 (69 y)\tSex\tMale\nDate\t02/03/2026\tOrdering\tRachel Adams, MD (Cardiology)\n\nAcquired: 02/03/2026 09:40\n\nMeasurements\nTest\tResult\tFlag\tUnits\tReference Range\nVentricular rate\t118\tH\tbpm\t60 - 100\nPR interval\tN/A (no P waves)\t\tms\t120 - 200\nQRS duration\t92\t\tms\t< 120\nQT / QTc (Bazett)\t320 / 449\t\tms\tQTc < 450\nQRS axis\t+30\t\tdegrees\t-30 to +90\n\nInterpretation\nAtrial fibrillation with rapid ventricular response. Irregularly irregular rhythm, no discernible P waves. Normal QRS duration. No acute ST-segment changes. Compared with no prior ECG on file.\n\nElectronically signed by Rachel Adams, MD on 02/03/2026 10:05\n\nRiverside General Hospital | SMITH, JOHN MRN 4471-2093\tPage 1 | FICTIONAL TEST DATA",
+    "metadata": {
+      "member": {
+        "status": "known",
+        "values": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "date": {
+        "status": "known",
+        "values": [
+          {
+            "value": "02/03/2026",
+            "quote": "02/03/2026"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "02/03/2026",
+            "quote": "02/03/2026"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "department": {
+        "status": "known",
+        "values": [
+          {
+            "value": "Cardiology",
+            "quote": "Cardiology"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "Cardiology",
+            "quote": "Cardiology"
+          }
+        ],
+        "provenance": "documented",
+        "mapping_status": "resolved"
+      },
+      "disease": {
+        "status": "known",
+        "values": [
+          {
+            "value": "Atrial fibrillation",
+            "quote": "Atrial fibrillation"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "Atrial fibrillation",
+            "quote": "Atrial fibrillation"
+          }
+        ],
+        "provenance": "documented"
+      }
+    },
+    "index": {
+      "symptoms": [],
+      "history": [],
+      "diagnoses": [
+        {
+          "value": "Atrial fibrillation with rapid ventricular response",
+          "quote": "Atrial fibrillation with rapid ventricular response"
+        }
+      ],
+      "treatments": []
+    },
+    "concerns": [],
+    "check_status": "checked"
+  },
+  "08_2026-02-03_Lab_Report.pdf": {
+    "source_sha256": "01510a58e4da618af637e8837c63297930afd74e69b8db0c165d7e82205ab194",
+    "title": "Laboratory Report",
+    "text": "FICTIONAL TEST DATA - NOT A REAL PATIENT - FOR SOFTWARE TESTING ONLY\n\nRiverside General Hospital\n1200 Riverside Drive, Springfield, IL 62704 | Tel (217) 555-0140\n\nLaboratory Report\n\nPatient\tSMITH, JOHN\tMRN\t4471-2093\nDOB / Age\t03/14/1956 (69 y)\tSex\tMale\nDate\t02/03/2026\tOrdering\tRachel Adams, MD (Cardiology)\n\nCollected: 02/03/2026 09:55\tReported: 02/03/2026 12:15\tAccession: L26-0203-3340\n\nTest\tResult\tFlag\tUnits\tReference Range\nComplete Blood Count\nWBC\t7.2\t\tx10^3/uL\t4.0 - 11.0\nHemoglobin\t14.1\t\tg/dL\t13.5 - 17.5\nPlatelets\t242\t\tx10^3/uL\t150 - 400\nBasic Metabolic Panel\nGlucose\t132\tH\tmg/dL\t70 - 140 (random)\nBUN\t19\t\tmg/dL\t7 - 20\nCreatinine\t1.18\t\tmg/dL\t0.70 - 1.30\neGFR (CKD-EPI 2021)\t65\t\tmL/min/1.73m2\t>= 60\nSodium\t140\t\tmmol/L\t136 - 145\nPotassium\t4.5\t\tmmol/L\t3.5 - 5.1\nMagnesium\t2.0\t\tmg/dL\t1.7 - 2.4\nCardiac / Thyroid\nTroponin I, high-sensitivity\t9\t\tng/L\t< 22\nBNP\t180\tH\tpg/mL\t< 100\nTSH\t2.1\t\tmIU/L\t0.4 - 4.0\nCoagulation\nPT\t12.4\t\tsec\t11.0 - 13.5\nINR\t1.0\t\t\t0.9 - 1.1\nDiabetes / Lipids\nHbA1c\t6.9\tH\t%\t4.0 - 5.6\nLDL cholesterol (calc)\t78\t\tmg/dL\t< 100\n\nComment: eGFR decreased compared with 03/08/2023 (74). Interpret in clinical context.\n\nElectronically signed by Laboratory Medical Director, R. Patel, MD on 02/03/2026 12:15\n\nRiverside General Hospital | SMITH, JOHN MRN 4471-2093\tPage 1 | FICTIONAL TEST DATA",
+    "metadata": {
+      "member": {
+        "status": "known",
+        "values": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "date": {
+        "status": "known",
+        "values": [
+          {
+            "value": "02/03/2026",
+            "quote": "02/03/2026"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "02/03/2026",
+            "quote": "02/03/2026"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "department": {
+        "status": "known",
+        "values": [
+          {
+            "value": "Laboratory Medicine",
+            "quote": "Laboratory Report",
+            "source": "initial_text"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "Laboratory Medicine",
+            "quote": "Laboratory Report",
+            "source": "initial_text"
+          }
+        ],
+        "provenance": "ai_classified",
+        "mapping_status": "resolved"
+      },
+      "disease": {
+        "status": "missing",
+        "values": [],
+        "candidates": [],
+        "provenance": "documented"
+      }
+    },
+    "index": {
+      "symptoms": [],
+      "history": [],
+      "diagnoses": [],
+      "treatments": []
+    },
+    "concerns": [
+      {
+        "quote": "Glucose\t132\tH\tmg/dL\t70 - 140 (random)",
+        "reason": "The glucose result of 132 mg/dL is flagged as high (H) despite falling within the printed reference range of 70 - 140 mg/dL.",
+        "start": 569,
+        "end": 606
+      }
+    ],
+    "check_status": "checked"
+  },
+  "09_2026-02-03_Echocardiogram_Report.pdf": {
+    "source_sha256": "bad62f64a3913e6e2a8d54049985755ff4f840f867e9bdf5d1935d5e0acfa2cf",
+    "title": "Transthoracic Echocardiogram Report",
+    "text": "FICTIONAL TEST DATA - NOT A REAL PATIENT - FOR SOFTWARE TESTING ONLY\n\nRiverside General Hospital\n1200 Riverside Drive, Springfield, IL 62704 | Tel (217) 555-0140\n\nTransthoracic Echocardiogram Report\n\nPatient\tSMITH, JOHN\tMRN\t4471-2093\nDOB / Age\t03/14/1956 (69 y)\tSex\tMale\nDate\t02/03/2026\tOrdering\tRachel Adams, MD (Cardiology)\n\nRhythm during study: atrial fibrillation, HR 96-110 bpm. Image quality: good.\n\nMeasurements\n\nTest\tResult\tFlag\tUnits\tReference Range\nLV ejection fraction (biplane)\t55\t\t%\t52 - 72\nLV end-diastolic diameter\t5.0\t\tcm\t4.2 - 5.8\nInterventricular septum\t1.1\t\tcm\t0.6 - 1.0\nLeft atrial volume index\t38\tH\tmL/m2\t< 34\nRV systolic pressure (est.)\t32\t\tmmHg\t< 35\n\nFindings\nNormal left ventricular size with low-normal systolic function. Mild concentric LV hypertrophy. Left atrium mildly dilated. Mild mitral regurgitation. Aortic valve trileaflet without stenosis. No pericardial effusion. No intracardiac thrombus seen (TTE not sensitive for LA appendage thrombus).\n\nImpression\n1. LVEF 55%, low-normal.\n2. Mildly dilated left atrium.\n3. Mild LV hypertrophy, consistent with hypertensive heart disease.\n4. Mild mitral regurgitation.\n\nElectronically signed by Rachel Adams, MD on 02/03/2026 15:30\n\nRiverside General Hospital | SMITH, JOHN MRN 4471-2093\tPage 1 | FICTIONAL TEST DATA",
+    "metadata": {
+      "member": {
+        "status": "known",
+        "values": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "date": {
+        "status": "known",
+        "values": [
+          {
+            "value": "02/03/2026",
+            "quote": "Date\t02/03/2026"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "02/03/2026",
+            "quote": "Date\t02/03/2026"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "department": {
+        "status": "known",
+        "values": [
+          {
+            "value": "Cardiology",
+            "quote": "Cardiology"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "Cardiology",
+            "quote": "Cardiology"
+          }
+        ],
+        "provenance": "documented",
+        "mapping_status": "resolved"
+      },
+      "disease": {
+        "status": "known",
+        "values": [
+          {
+            "value": "atrial fibrillation",
+            "quote": "atrial fibrillation"
+          },
+          {
+            "value": "hypertensive heart disease",
+            "quote": "hypertensive heart disease"
+          },
+          {
+            "value": "mitral regurgitation",
+            "quote": "mitral regurgitation"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "atrial fibrillation",
+            "quote": "atrial fibrillation"
+          },
+          {
+            "value": "hypertensive heart disease",
+            "quote": "hypertensive heart disease"
+          },
+          {
+            "value": "mitral regurgitation",
+            "quote": "mitral regurgitation"
+          }
+        ],
+        "provenance": "documented"
+      }
+    },
+    "index": {
+      "symptoms": [],
+      "history": [],
+      "diagnoses": [
+        {
+          "value": "atrial fibrillation",
+          "quote": "atrial fibrillation"
+        },
+        {
+          "value": "Mildly dilated left atrium",
+          "quote": "Mildly dilated left atrium"
+        },
+        {
+          "value": "Mild LV hypertrophy, consistent with hypertensive heart disease",
+          "quote": "Mild LV hypertrophy, consistent with hypertensive heart disease"
+        },
+        {
+          "value": "Mild mitral regurgitation",
+          "quote": "Mild mitral regurgitation"
+        }
+      ],
+      "treatments": []
+    },
+    "concerns": [],
+    "check_status": "checked"
+  },
+  "10_2026-02-03_Cardiology_Visit_Note.pdf": {
+    "source_sha256": "fa4fdfccef5315dfc297a873c13342ac0ff08db79f28d8559ab12be53c7ce5cf",
+    "title": "Outpatient Visit Note - Cardiology",
+    "text": "FICTIONAL TEST DATA - NOT A REAL PATIENT - FOR SOFTWARE TESTING ONLY\n\nRiverside General Hospital\n1200 Riverside Drive, Springfield, IL 62704 | Tel (217) 555-0140\n\nOutpatient Visit Note - Cardiology\n\nPatient\tSMITH, JOHN\tMRN\t4471-2093\nDOB / Age\t03/14/1956 (69 y)\tSex\tMale\nDate\t02/03/2026\tProvider\tRachel Adams, MD\n\nReason for Visit\nPalpitations and fatigue for 1 week; referred by Dr. Emily Carter for irregular pulse.\n\nHistory of Present Illness\n69-year-old man with type 2 diabetes, hypertension, and hyperlipidemia; hospitalized 09/2024 for community-acquired pneumonia (resolved). Reports 1 week of intermittent palpitations, reduced exercise tolerance, and fatigue. No syncope, chest pain, or focal neurologic symptoms. ECG today shows atrial fibrillation with rapid ventricular response.\n\nCurrent Medications (before this visit)\nMetformin 500 mg twice daily; lisinopril 10 mg daily; atorvastatin 20 mg nightly.\n\nAllergies\nAllergies: Sulfonamide (sulfa) antibiotics - rash.\n\nVital Signs\nBP 138/86 mmHg | HR 118 irregularly irregular | SpO2 97% RA | Weight 82 kg\n\nData Reviewed\nECG: AF with RVR, rate 118. Echo: LVEF 55%, mildly dilated LA. Labs: TSH 2.1 (normal), hs-troponin 9 (normal), BNP 180, creatinine 1.18, eGFR 65, HbA1c 6.9%.\n\nAssessment\n1. Atrial fibrillation, new onset, rapid ventricular response, hemodynamically stable.\n   CHA₂DS₂-VASc = 3 (age 65-74 = 1, hypertension = 1, diabetes = 1). HAS-BLED = 1.\n2. Type 2 diabetes, improved control (HbA1c 8.4% in 2023 -> 6.9% now).\n3. Hypertension.\n4. Mildly reduced kidney function (eGFR 65, down from 74 in 2023).\n\nPlan\n1. Start apixaban 5 mg by mouth twice daily for stroke prevention (no dose-reduction criteria met: age < 80, weight > 60 kg, creatinine < 1.5).\n2. Start metoprolol succinate 50 mg by mouth once daily for rate control.\n3. Continue metformin, lisinopril, atorvastatin.\n4. Avoid NSAIDs while on anticoagulation.\n5. Return in 4 weeks with repeat ECG; consider cardioversion if symptoms persist.\n6. Recheck renal function in 3 months.\n\nCurrent Medication List (after this visit)\nMetformin 500 mg twice daily\nLisinopril 10 mg daily\nAtorvastatin 20 mg nightly\nApixaban 5 mg twice daily (NEW)\n\nRiverside General Hospital | SMITH, JOHN MRN 4471-2093 Page 1 | FICTIONAL TEST DATA\n\nFICTIONAL TEST DATA - NOT A REAL PATIENT - FOR SOFTWARE TESTING ONLY\n\nMetoprolol succinate 50 mg daily (NEW)\n\nElectronically signed by Rachel Adams, MD on 02/03/2026 17:20\n\nRiverside General Hospital | SMITH, JOHN MRN 4471-2093 Page 2 | FICTIONAL TEST DATA",
+    "metadata": {
+      "member": {
+        "status": "known",
+        "values": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "SMITH, JOHN",
+            "quote": "SMITH, JOHN"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "date": {
+        "status": "known",
+        "values": [
+          {
+            "value": "02/03/2026",
+            "quote": "02/03/2026"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "02/03/2026",
+            "quote": "02/03/2026"
+          }
+        ],
+        "provenance": "documented"
+      },
+      "department": {
+        "status": "known",
+        "values": [
+          {
+            "value": "Cardiology",
+            "quote": "Cardiology"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "Cardiology",
+            "quote": "Cardiology"
+          }
+        ],
+        "provenance": "documented",
+        "mapping_status": "resolved"
+      },
+      "disease": {
+        "status": "known",
+        "values": [
+          {
+            "value": "Atrial fibrillation",
+            "quote": "Atrial fibrillation"
+          },
+          {
+            "value": "Type 2 diabetes",
+            "quote": "Type 2 diabetes"
+          },
+          {
+            "value": "Hypertension",
+            "quote": "Hypertension"
+          },
+          {
+            "value": "hyperlipidemia",
+            "quote": "hyperlipidemia"
+          }
+        ],
+        "candidates": [
+          {
+            "value": "Atrial fibrillation",
+            "quote": "Atrial fibrillation"
+          },
+          {
+            "value": "Type 2 diabetes",
+            "quote": "Type 2 diabetes"
+          },
+          {
+            "value": "Hypertension",
+            "quote": "Hypertension"
+          },
+          {
+            "value": "hyperlipidemia",
+            "quote": "hyperlipidemia"
+          }
+        ],
+        "provenance": "documented"
+      }
+    },
+    "index": {
+      "symptoms": [
+        {
+          "value": "Palpitations",
+          "quote": "Palpitations"
+        },
+        {
+          "value": "fatigue",
+          "quote": "fatigue"
+        },
+        {
+          "value": "irregular pulse",
+          "quote": "irregular pulse"
+        },
+        {
+          "value": "reduced exercise tolerance",
+          "quote": "reduced exercise tolerance"
+        }
+      ],
+      "history": [
+        {
+          "value": "type 2 diabetes, hypertension, and hyperlipidemia",
+          "quote": "type 2 diabetes, hypertension, and hyperlipidemia"
+        },
+        {
+          "value": "hospitalized 09/2024 for community-acquired pneumonia (resolved)",
+          "quote": "hospitalized 09/2024 for community-acquired pneumonia (resolved)"
+        }
+      ],
+      "diagnoses": [
+        {
+          "value": "Atrial fibrillation, new onset, rapid ventricular response, hemodynamically stable.",
+          "quote": "Atrial fibrillation, new onset, rapid ventricular response, hemodynamically stable."
+        },
+        {
+          "value": "Type 2 diabetes, improved control",
+          "quote": "Type 2 diabetes, improved control"
+        },
+        {
+          "value": "Hypertension",
+          "quote": "Hypertension"
+        },
+        {
+          "value": "Mildly reduced kidney function",
+          "quote": "Mildly reduced kidney function"
+        }
+      ],
+      "treatments": [
+        {
+          "value": "Metformin 500 mg twice daily",
+          "quote": "Metformin 500 mg twice daily"
+        },
+        {
+          "value": "lisinopril 10 mg daily",
+          "quote": "lisinopril 10 mg daily"
+        },
+        {
+          "value": "atorvastatin 20 mg nightly",
+          "quote": "atorvastatin 20 mg nightly"
+        },
+        {
+          "value": "apixaban 5 mg by mouth twice daily",
+          "quote": "apixaban 5 mg by mouth twice daily"
+        },
+        {
+          "value": "metoprolol succinate 50 mg by mouth once daily",
+          "quote": "metoprolol succinate 50 mg by mouth once daily"
+        },
+        {
+          "value": "cardioversion",
+          "quote": "cardioversion"
+        }
+      ]
+    },
+    "concerns": [],
+    "check_status": "checked"
+  }
+}

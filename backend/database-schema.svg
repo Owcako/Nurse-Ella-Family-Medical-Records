@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1666" viewBox="0 0 1440 1666" role="img" aria-labelledby="title desc">
+<title id="title">Data ownership and derived evidence</title><desc id="desc">Read the relationship arrows, not a clinical timeline. Each document owns its five independent 1:1 components. Blue cards describe the main flow; amber cards explain safeguards. Source comments use the same node IDs.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="context-stroke"/></marker></defs>
+<style>text {font-family:'Segoe UI','Microsoft JhengHei',Arial,sans-serif} text,polyline {pointer-events:none}</style>
+<rect width="100%" height="100%" fill="#f4f7fa"/>
+<text x="48" y="38" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#245f81">FAMILY MEDICAL RECORDS · VIEW 05</text>
+<text x="48" y="80" font-family="Segoe UI,Arial" font-size="30" font-weight="600" fill="#233646">Data ownership and derived evidence</text>
+<text x="48" y="111" font-family="Segoe UI,Arial" font-size="16" fill="#5c6d7c">Read the relationship arrows, not a clinical timeline. Each document owns its five independent 1:1 components.</text>
+<text x="48" y="143" font-family="Segoe UI,Arial" font-size="13" fill="#5c6d7c">Read top to bottom. Solid blue = sequence/call; dashed amber = related safeguard, not an extra processing stage.</text>
+<g id="D1" data-node="D1" data-x="48" data-y="180" data-width="650" data-height="184">
+<rect x="48" y="180" width="650" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="207" font-size="13" fill="#245f81" font-weight="700">D1</text>
+<text x="70" y="237" font-size="21" fill="#233646" font-weight="600">Family identity</text>
+<text x="70" y="264" font-size="13" fill="#5c6d7c" font-weight="400">patients</text>
+<text x="70" y="291" font-size="16" fill="#233646" font-weight="400">One managed family member can own many medical_records. Names and</text>
+<text x="70" y="315" font-size="16" fill="#233646" font-weight="400">aliases help match documented patient names; these are not login</text>
+<text x="70" y="339" font-size="16" fill="#233646" font-weight="400">accounts.</text>
+</g>
+<g id="D2" data-node="D2" data-x="48" data-y="429" data-width="650" data-height="184">
+<rect x="48" y="429" width="650" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="456" font-size="13" fill="#245f81" font-weight="700">D2</text>
+<text x="70" y="486" font-size="21" fill="#233646" font-weight="600">Organizational archive</text>
+<text x="70" y="513" font-size="13" fill="#5c6d7c" font-weight="400">medical_records + record_departments / record_diseases</text>
+<text x="70" y="540" font-size="16" fill="#233646" font-weight="400">One archive owns many documents. A patient link may be absent; labels</text>
+<text x="70" y="564" font-size="16" fill="#233646" font-weight="400">keep their provenance and uncertainty. Department/condition link</text>
+<text x="70" y="588" font-size="16" fill="#233646" font-weight="400">tables provide lookups.</text>
+</g>
+<g id="D3" data-node="D3" data-x="48" data-y="678" data-width="650" data-height="184">
+<rect x="48" y="678" width="650" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="705" font-size="13" fill="#245f81" font-weight="700">D3</text>
+<text x="70" y="735" font-size="21" fill="#233646" font-weight="600">Stable document identity</text>
+<text x="70" y="762" font-size="13" fill="#5c6d7c" font-weight="400">documents</text>
+<text x="70" y="789" font-size="16" fill="#233646" font-weight="400">Every document references one archive. Unique operation keys protect</text>
+<text x="70" y="813" font-size="16" fill="#233646" font-weight="400">retries; fingerprints detect conflicting content; revisions guard</text>
+<text x="70" y="837" font-size="16" fill="#233646" font-weight="400">edits.</text>
+</g>
+<g id="D9" data-node="D9" data-x="48" data-y="927" data-width="650" data-height="160">
+<rect x="48" y="927" width="650" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="954" font-size="13" fill="#245f81" font-weight="700">D9</text>
+<text x="70" y="984" font-size="21" fill="#233646" font-weight="600">Archive evidence summary</text>
+<text x="70" y="1011" font-size="13" fill="#5c6d7c" font-weight="400">record_abstracts</text>
+<text x="70" y="1038" font-size="16" fill="#233646" font-weight="400">One deterministic evidence index per archive, at based_on_revision.</text>
+<text x="70" y="1062" font-size="16" fill="#233646" font-weight="400">Despite its name, this is not an AI-written visit narrative.</text>
+</g>
+<g id="D10" data-node="D10" data-x="48" data-y="1152" data-width="650" data-height="160">
+<rect x="48" y="1152" width="650" height="160" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="70" y="1179" font-size="13" fill="#98621e" font-weight="700">D10</text>
+<text x="70" y="1209" font-size="21" fill="#233646" font-weight="600">Durable invalidation</text>
+<text x="70" y="1236" font-size="13" fill="#5c6d7c" font-weight="400">index_jobs</text>
+<text x="70" y="1263" font-size="16" fill="#233646" font-weight="400">One target/indexed revision and pending/failed/current job per</text>
+<text x="70" y="1287" font-size="16" fill="#233646" font-weight="400">archive. Interrupted rebuilds remain visible and retryable.</text>
+</g>
+<g id="D11" data-node="D11" data-x="48" data-y="1377" data-width="650" data-height="184">
+<rect x="48" y="1377" width="650" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="70" y="1404" font-size="13" fill="#98621e" font-weight="700">D11</text>
+<text x="70" y="1434" font-size="21" fill="#233646" font-weight="600">Controlled department catalog</text>
+<text x="70" y="1461" font-size="13" fill="#5c6d7c" font-weight="400">departments + backend/catalogs/departments.json</text>
+<text x="70" y="1488" font-size="16" fill="#233646" font-weight="400">record_departments links to registered department codes. Exact</text>
+<text x="70" y="1512" font-size="16" fill="#233646" font-weight="400">normalized aliases resolve labels; unsupported text cannot invent a</text>
+<text x="70" y="1536" font-size="16" fill="#233646" font-weight="400">code.</text>
+</g>
+<g id="D4" data-node="D4" data-x="900" data-y="180" data-width="492" data-height="160">
+<rect x="900" y="180" width="492" height="160" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="922" y="207" font-size="13" fill="#98621e" font-weight="700">D4</text>
+<text x="922" y="237" font-size="21" fill="#233646" font-weight="600">Immutable original</text>
+<text x="922" y="264" font-size="13" fill="#5c6d7c" font-weight="400">document_sources</text>
+<text x="922" y="291" font-size="16" fill="#233646" font-weight="400">SHA-256 plus original BLOB; a database trigger</text>
+<text x="922" y="315" font-size="16" fill="#233646" font-weight="400">rejects overwriting the preserved source.</text>
+</g>
+<g id="D5" data-node="D5" data-x="900" data-y="395" data-width="492" data-height="184">
+<rect x="900" y="395" width="492" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="922" y="422" font-size="13" fill="#245f81" font-weight="700">D5</text>
+<text x="922" y="452" font-size="21" fill="#233646" font-weight="600">Initial and current text</text>
+<text x="922" y="479" font-size="13" fill="#5c6d7c" font-weight="400">document_texts</text>
+<text x="922" y="506" font-size="16" fill="#233646" font-weight="400">First extraction is write-once. Current text is</text>
+<text x="922" y="530" font-size="16" fill="#233646" font-weight="400">editable; text_revision changes only when that text</text>
+<text x="922" y="554" font-size="16" fill="#233646" font-weight="400">changes.</text>
+</g>
+<g id="D6" data-node="D6" data-x="900" data-y="634" data-width="492" data-height="160">
+<rect x="900" y="634" width="492" height="160" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="922" y="661" font-size="13" fill="#98621e" font-weight="700">D6</text>
+<text x="922" y="691" font-size="21" fill="#233646" font-weight="600">Independent processing outcomes</text>
+<text x="922" y="718" font-size="13" fill="#5c6d7c" font-weight="400">document_processing</text>
+<text x="922" y="745" font-size="16" fill="#233646" font-weight="400">Attempt, stage, extraction/check states, concerns,</text>
+<text x="922" y="769" font-size="16" fill="#233646" font-weight="400">checked text revision and errors can differ.</text>
+</g>
+<g id="D7" data-node="D7" data-x="900" data-y="849" data-width="492" data-height="160">
+<rect x="900" y="849" width="492" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="922" y="876" font-size="13" fill="#245f81" font-weight="700">D7</text>
+<text x="922" y="906" font-size="21" fill="#233646" font-weight="600">Supported classifications</text>
+<text x="922" y="933" font-size="13" fill="#5c6d7c" font-weight="400">document_metadata</text>
+<text x="922" y="960" font-size="16" fill="#233646" font-weight="400">Values, candidates, source quotes, provenance and</text>
+<text x="922" y="984" font-size="16" fill="#233646" font-weight="400">catalog version. Ambiguity is stored data.</text>
+</g>
+<g id="D8" data-node="D8" data-x="900" data-y="1064" data-width="492" data-height="160">
+<rect x="900" y="1064" width="492" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="922" y="1091" font-size="13" fill="#245f81" font-weight="700">D8</text>
+<text x="922" y="1121" font-size="21" fill="#233646" font-weight="600">Document retrieval material</text>
+<text x="922" y="1148" font-size="13" fill="#5c6d7c" font-weight="400">document_indexes</text>
+<text x="922" y="1175" font-size="16" fill="#233646" font-weight="400">Clinical terms/classifications refer to a saved</text>
+<text x="922" y="1199" font-size="16" fill="#233646" font-weight="400">text revision. Human edits drop stale AI terms.</text>
+</g>
+<polyline data-edge="true" points="373.0,364 373.0,429" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="387.0" y="402" font-size="14" fill="#245f81" font-weight="400">1 → many</text>
+<polyline data-edge="true" points="373.0,613 373.0,678" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="387.0" y="651" font-size="14" fill="#245f81" font-weight="400">1 → many</text>
+<polyline data-edge="true" points="698,770.0 812,770.0 812,260.0 900,260.0" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="698,770.0 812,770.0 812,487.0 900,487.0" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="698,770.0 812,770.0 812,714.0 900,714.0" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="698,770.0 812,770.0 812,929.0 900,929.0" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="698,770.0 812,770.0 812,1144.0 900,1144.0" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="900" y="164" font-size="13" fill="#245f81" font-weight="700">EACH DOCUMENT → ONE ROW IN EACH TABLE</text>
+<polyline data-edge="true" points="48,521.0 24,521.0 24,1007.0 48,1007.0" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline data-edge="true" points="48,521.0 24,521.0 24,1232.0 48,1232.0" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="48" y="1626" font-size="14" fill="#5c6d7c" font-weight="400">Source and initial-text immutability are database constraints. Cascades follow ownership; indexes can be rebuilt from evidence.</text>
+</svg>

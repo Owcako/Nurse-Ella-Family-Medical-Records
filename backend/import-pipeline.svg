@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1815" viewBox="0 0 1440 1815" role="img" aria-labelledby="title desc">
+<title id="title">How one upload becomes a filed document</title><desc id="desc">Start after source bytes are committed. The right column explains failure paths and concurrency guards. Blue cards describe the main flow; amber cards explain safeguards. Source comments use the same node IDs.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="context-stroke"/></marker></defs>
+<style>text {font-family:'Segoe UI','Microsoft JhengHei',Arial,sans-serif} text,polyline {pointer-events:none}</style>
+<rect width="100%" height="100%" fill="#f4f7fa"/>
+<text x="48" y="38" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#245f81">FAMILY MEDICAL RECORDS · VIEW 03</text>
+<text x="48" y="80" font-family="Segoe UI,Arial" font-size="30" font-weight="600" fill="#233646">How one upload becomes a filed document</text>
+<text x="48" y="111" font-family="Segoe UI,Arial" font-size="16" fill="#5c6d7c">Start after source bytes are committed. The right column explains failure paths and concurrency guards.</text>
+<text x="48" y="143" font-family="Segoe UI,Arial" font-size="13" fill="#5c6d7c">Read top to bottom. Solid blue = sequence/call; dashed amber = related safeguard, not an extra processing stage.</text>
+<g id="B1" data-node="B1" data-x="48" data-y="180" data-width="740" data-height="160">
+<rect x="48" y="180" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="207" font-size="13" fill="#245f81" font-weight="700">B1</text>
+<text x="70" y="237" font-size="21" fill="#233646" font-weight="600">Claim one pending document</text>
+<text x="70" y="264" font-size="13" fill="#5c6d7c" font-weight="400">api.schedule → FilingWorkflow.run / claim</text>
+<text x="70" y="291" font-size="16" fill="#233646" font-weight="400">One executor processes filings serially. A fresh attempt token identifies this</text>
+<text x="70" y="315" font-size="16" fill="#233646" font-weight="400">particular run.</text>
+</g>
+<g id="B10" data-node="B10" data-x="876" data-y="180" data-width="516" data-height="184">
+<rect x="876" y="180" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="207" font-size="13" fill="#98621e" font-weight="700">B10</text>
+<text x="898" y="237" font-size="21" fill="#233646" font-weight="600">Why an attempt token?</text>
+<text x="898" y="264" font-size="13" fill="#5c6d7c" font-weight="400">FilingWorkflow.run.update → Library.change</text>
+<text x="898" y="291" font-size="16" fill="#233646" font-weight="400">A human save clears the token; deletion removes the</text>
+<text x="898" y="315" font-size="16" fill="#233646" font-weight="400">row. Every stage checks it before writing, so an old</text>
+<text x="898" y="339" font-size="16" fill="#233646" font-weight="400">worker cannot overwrite or resurrect a document.</text>
+</g>
+<polyline data-edge="true" points="788,245 876,245" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="B2" data-node="B2" data-x="48" data-y="412" data-width="740" data-height="160">
+<rect x="48" y="412" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="439" font-size="13" fill="#245f81" font-weight="700">B2</text>
+<text x="70" y="469" font-size="21" fill="#233646" font-weight="600">Decode text or transcribe images</text>
+<text x="70" y="496" font-size="13" fill="#5c6d7c" font-weight="400">processing.extract</text>
+<text x="70" y="523" font-size="16" fill="#233646" font-weight="400">UTF-8 text is read locally. Validate photo contents; reject encrypted/oversized</text>
+<text x="70" y="547" font-size="16" fill="#233646" font-weight="400">PDFs; render PDF pages for primary-provider image transcription.</text>
+</g>
+<polyline data-edge="true" points="418,340 418,412" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="B8" data-node="B8" data-x="876" data-y="412" data-width="516" data-height="184">
+<rect x="876" y="412" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="439" font-size="13" fill="#98621e" font-weight="700">B8</text>
+<text x="898" y="469" font-size="21" fill="#233646" font-weight="600">Why keep a failed-stage result?</text>
+<text x="898" y="496" font-size="13" fill="#5c6d7c" font-weight="400">FilingWorkflow.run exception handlers</text>
+<text x="898" y="523" font-size="16" fill="#233646" font-weight="400">Record which stage failed. Preserve source and any</text>
+<text x="898" y="547" font-size="16" fill="#233646" font-weight="400">committed text, then expose Retry instead of</text>
+<text x="898" y="571" font-size="16" fill="#233646" font-weight="400">pretending that extraction or filing finished.</text>
+</g>
+<polyline data-edge="true" points="788,477 876,477" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="B3" data-node="B3" data-x="48" data-y="644" data-width="740" data-height="160">
+<rect x="48" y="644" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="671" font-size="13" fill="#245f81" font-weight="700">B3</text>
+<text x="70" y="701" font-size="21" fill="#233646" font-weight="600">Save initial and current text</text>
+<text x="70" y="728" font-size="13" fill="#5c6d7c" font-weight="400">run.update → Library._write_document</text>
+<text x="70" y="755" font-size="16" fill="#233646" font-weight="400">Store the first extraction separately from editable text. Retrying with existing</text>
+<text x="70" y="779" font-size="16" fill="#233646" font-weight="400">text skips another transcription.</text>
+</g>
+<polyline data-edge="true" points="418,572 418,644" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="B12" data-node="B12" data-x="876" data-y="644" data-width="516" data-height="184">
+<rect x="876" y="644" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="671" font-size="13" fill="#98621e" font-weight="700">B12</text>
+<text x="898" y="701" font-size="21" fill="#233646" font-weight="600">Why recover after a restart?</text>
+<text x="898" y="728" font-size="13" fill="#5c6d7c" font-weight="400">api.lifespan → Library.recover</text>
+<text x="898" y="755" font-size="16" fill="#233646" font-weight="400">The queue lives in one process. Interrupted</text>
+<text x="898" y="779" font-size="16" fill="#233646" font-weight="400">pending/processing rows become failed with explicit</text>
+<text x="898" y="803" font-size="16" fill="#233646" font-weight="400">Retry; the app does not claim they are still running.</text>
+</g>
+<polyline data-edge="true" points="788,709 876,709" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="B4" data-node="B4" data-x="48" data-y="876" data-width="740" data-height="160">
+<rect x="48" y="876" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="903" font-size="13" fill="#245f81" font-weight="700">B4</text>
+<text x="70" y="933" font-size="21" fill="#233646" font-weight="600">Check suspected text errors</text>
+<text x="70" y="960" font-size="13" fill="#5c6d7c" font-weight="400">processing.check → report_concerns</text>
+<text x="70" y="987" font-size="16" fill="#233646" font-weight="400">A strict tool returns quoted passages and reasons, never replacement text.</text>
+<text x="70" y="1011" font-size="16" fill="#233646" font-weight="400">locate_quote records exact character offsets.</text>
+</g>
+<polyline data-edge="true" points="418,804 418,876" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="B11" data-node="B11" data-x="876" data-y="876" data-width="516" data-height="184">
+<rect x="876" y="876" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="903" font-size="13" fill="#98621e" font-weight="700">B11</text>
+<text x="898" y="933" font-size="21" fill="#233646" font-weight="600">Why can filing continue?</text>
+<text x="898" y="960" font-size="13" fill="#5c6d7c" font-weight="400">run checking exception handler</text>
+<text x="898" y="987" font-size="16" fill="#233646" font-weight="400">Checking and filing answer different questions. A</text>
+<text x="898" y="1011" font-size="16" fill="#233646" font-weight="400">failed check remains visible while independently valid</text>
+<text x="898" y="1035" font-size="16" fill="#233646" font-weight="400">classification can still be saved.</text>
+</g>
+<polyline data-edge="true" points="788,941 876,941" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="B5" data-node="B5" data-x="48" data-y="1108" data-width="740" data-height="184">
+<rect x="48" y="1108" width="740" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1135" font-size="13" fill="#245f81" font-weight="700">B5</text>
+<text x="70" y="1165" font-size="21" fill="#233646" font-weight="600">Propose categories and clinical index</text>
+<text x="70" y="1192" font-size="13" fill="#5c6d7c" font-weight="400">processing.classify → save_current_content</text>
+<text x="70" y="1219" font-size="16" fill="#233646" font-weight="400">Ask for member/date/department/condition plus documented symptoms, history,</text>
+<text x="70" y="1243" font-size="16" fill="#233646" font-weight="400">diagnoses and treatments. Initial extraction is used separately for lab-report</text>
+<text x="70" y="1267" font-size="16" fill="#233646" font-weight="400">type.</text>
+</g>
+<polyline data-edge="true" points="418,1036 418,1108" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="B6" data-node="B6" data-x="48" data-y="1340" data-width="740" data-height="160">
+<rect x="48" y="1340" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1367" font-size="13" fill="#245f81" font-weight="700">B6</text>
+<text x="70" y="1397" font-size="21" fill="#233646" font-weight="600">Verify every proposed fact</text>
+<text x="70" y="1424" font-size="13" fill="#5c6d7c" font-weight="400">validate_filing + source_evidence + locate_quote</text>
+<text x="70" y="1451" font-size="16" fill="#233646" font-weight="400">Quotes must occur in saved text and values must occur in those quotes. Distinct</text>
+<text x="70" y="1475" font-size="16" fill="#233646" font-weight="400">people/dates stay ambiguous; exact aliases can identify a family profile.</text>
+</g>
+<polyline data-edge="true" points="418,1292 418,1340" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="B7" data-node="B7" data-x="48" data-y="1548" data-width="740" data-height="160">
+<rect x="48" y="1548" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1575" font-size="13" fill="#245f81" font-weight="700">B7</text>
+<text x="70" y="1605" font-size="21" fill="#233646" font-weight="600">Commit the filed result</text>
+<text x="70" y="1632" font-size="13" fill="#5c6d7c" font-weight="400">run.update → Library.change → index_pending</text>
+<text x="70" y="1659" font-size="16" fill="#233646" font-weight="400">Commit metadata and document index with filed status. Resolve catalog department</text>
+<text x="70" y="1683" font-size="16" fill="#233646" font-weight="400">codes and deterministically refresh the archive evidence index.</text>
+</g>
+<polyline data-edge="true" points="418,1500 418,1548" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="B9" data-node="B9" data-x="876" data-y="1548" data-width="516" data-height="184">
+<rect x="876" y="1548" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="1575" font-size="13" fill="#98621e" font-weight="700">B9</text>
+<text x="898" y="1605" font-size="21" fill="#233646" font-weight="600">Why Retry uses the same ID</text>
+<text x="898" y="1632" font-size="13" fill="#5c6d7c" font-weight="400">api.retry → FilingWorkflow.retry</text>
+<text x="898" y="1659" font-size="16" fill="#233646" font-weight="400">Only a failed row returns to pending. Reusing its</text>
+<text x="898" y="1683" font-size="16" fill="#233646" font-weight="400">identity preserves evidence links and avoids duplicate</text>
+<text x="898" y="1707" font-size="16" fill="#233646" font-weight="400">documents; available text is retained.</text>
+</g>
+<polyline data-edge="true" points="788,1613 876,1613" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<text x="48" y="1780" font-size="14" fill="#5c6d7c" font-weight="400">Zoom index: docs/code-walkthrough.md · Search a node ID such as #B6 in the source.</text>
+</svg>

@@ -5,10 +5,15 @@ import unicodedata
 from pathlib import Path
 
 
+# View: backend/database-schema.svg#D11
+# Load the versioned controlled catalog. Fail startup if one normalized alias maps
+# to multiple departments; silently choosing one would corrupt filing.
 CATALOG = json.loads((Path(__file__).parent / "catalogs" / "departments.json").read_text(encoding="utf-8"))
 VERSION = CATALOG["catalog_version"]
 
 
+# View: backend/database-schema.svg#D11
+# Normalize Unicode, whitespace and case for exact catalog aliases, not semantic inference.
 def normalize(value):
     return " ".join(unicodedata.normalize("NFKC", value).split()).casefold()
 
@@ -22,6 +27,8 @@ for entry in CATALOG["departments"]:
         LABELS[label] = entry["code"]
 
 
+# View: backend/database-schema.svg#D11
+# Return a registered code or None. The model cannot manufacture a valid department code.
 def resolve(label):
     # database-schema.svg#D11: exact registered aliases only; no translation or guessing.
     return LABELS.get(normalize(label))

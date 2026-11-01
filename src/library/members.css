@@ -1,0 +1,19 @@
+.brand-home { display: flex; text-decoration: none; color: inherit; border-radius: 12px; }
+.dropdown-action { margin-top: 6px; border-top: 1px solid var(--line); border-radius: 0 0 8px 8px; color: #594777; font-weight: 600; }
+.member-onboarding { margin: 0 0 18px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: #f7f3ff; }
+.member-onboarding p { font-size: 12px; line-height: 1.8; margin: 0 0 12px; }
+.member-onboarding button { width: 100%; font-size: 13px; min-height: 44px; }
+.member-manager { width: min(560px, calc(100vw - 28px)); max-height: calc(100svh - 40px); padding: 0; }
+.member-manager-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+.member-manager-heading h2 { margin: 0; }
+.member-manager-heading button { font-size: 12px; }
+.member-manager-body { padding: 18px 20px; max-height: calc(100svh - 140px); overflow-y: auto; }
+.member-manager-help { color: var(--muted); font-size: 13px; line-height: 1.8; margin: 0 0 16px; }
+.member-manager-list { display: grid; gap: 12px; margin-top: 18px; }
+.managed-member { padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: white; }
+.managed-member strong { display: block; overflow-wrap: anywhere; }
+.managed-member small { display: block; margin-top: 4px; }
+.managed-member p { color: var(--muted); font-size: 12px; overflow-wrap: anywhere; margin: 10px 0 0; }
+.managed-member-actions { display: flex; gap: 8px; margin-top: 14px; }
+.managed-member-actions button { font-size: 12px; }
+@media (min-width: 701px) { .phone-navigation { display: none; } }

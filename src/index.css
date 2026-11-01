@@ -1,3 +1,6 @@
+/* View: src/import/ui-flow.svg#U14
+Shared document typography and control defaults underpin both browser and phone views.
+*/
 :root {
   font-family: 'Segoe UI', sans-serif;
   color: #253f37;

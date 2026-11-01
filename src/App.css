@@ -1,3 +1,7 @@
+/* View: src/import/ui-flow.svg#U9
+Base presentation for library rows, source previews, editor controls and dialogs.
+Styles do not alter source/text provenance; workspace.css supplies the current panel layout.
+*/
 .site-header { min-height: 95px; display: flex; justify-content: space-between; align-items: center; padding: 20px 4vw; border-bottom: 1px solid #dfe4da; background: #fcfcf8; gap: 16px; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand, .brand > div { min-width: 0; }
@@ -74,7 +78,7 @@
 .file-branch > summary:focus-visible { outline: 3px solid #bb883e; outline-offset: 2px; }
 .branch-arrow { font-size: 21px; line-height: 1; width: 12px; flex-shrink: 0; }
 .file-branch[open] > summary > .branch-arrow { transform: rotate(90deg); }
-.branch-folder { color: #8d794c; font-size: 23px; line-height: 1; }
+.branch-folder { color: #8d794c; width: 20px; height: 20px; flex-shrink: 0; }
 .branch-label { overflow-wrap: anywhere; min-width: 0; }
 .branch-count { font-size: 11px; color: #748078; margin-left: auto; }
 .branch-contents { border-left: 1px solid #d9e0d3; padding-left: 14px; margin-left: 13px; }

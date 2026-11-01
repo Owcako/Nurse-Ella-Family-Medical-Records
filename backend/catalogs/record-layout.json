@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "status": "sqlite-only-implemented; filesystem-names-retained-for-future-reference",
+  "decision_status": {
+    "directory_and_file_naming": "confirmed-future-reference",
+    "department_code_catalog": "confirmed-and-enforced",
+    "storage_backend": "sqlite-only",
+    "current_implementation": "SQLite schema v2: patients -> medical_records -> documents; no physical record folders",
+    "scope": "SQLite is the only authoritative store. Directory naming remains a future export/storage reference, not parallel persistence.",
+    "index_invalidation_requirement": "Archive mutations atomically update index_jobs.target_revision and mark existing record_abstracts stale. Rebuild from committed document evidence; errors remain visible."
+  },
+  "root": "data/records",
+  "patient_folder": {
+    "pattern": "<patient_slug>",
+    "slug_pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+    "max_length": 32,
+    "assignment": "Unique user-confirmed English name or romanized name. AI must not invent or transliterate it automatically.",
+    "identity": "Stable p_<32 lowercase hexadecimal UUID> in patient.json; the slug is a readable name, not identity.",
+    "collisions": "Reject a duplicate slug and request a distinct user-confirmed name.",
+    "metadata_file": "patient.json",
+    "unassigned_bucket": "_unassigned",
+    "unassigned_semantics": "A collection of independent unresolved records, never an implied single patient. No patient.json for this bucket."
+  },
+  "record_folder": {
+    "pattern": "<date>-<department_code>-<record_id>",
+    "date_formats": [
+      "yyyy-mm-dd",
+      "yyyy-mm",
+      "yyyy"
+    ],
+    "unknown_date": "date-unknown",
+    "date_policy": "Use confirmed printed date/precision or explicitly user-supplied date with provenance. Never substitute upload time.",
+    "department_catalog": "backend/catalogs/departments.json",
+    "department_width": 8,
+    "department_policy": "Any missing/ambiguous/unmapped classification uses unknown0; otherwise one distinct resolved code uses that code, and two or more distinct resolved codes use multi000.",
+    "record_id_pattern": "^r_[0-9a-f]{32}$",
+    "grouping": "Similar dates/departments do not automatically establish the same visit. Separate record IDs prevent same-day collisions; grouping requires confirmation.",
+    "rename": "Patient/date/department corrections may move or rename the folder; stable identities and source evidence are preserved."
+  },
+  "files": {
+    "record_metadata": "record.json",
+    "abstract": "__abstract.json",
+    "document_folder": "documents/<document_id>",
+    "document_id_pattern": "^d_[0-9a-f]{32}$",
+    "raw": "raw.<jpg|png|webp|pdf|txt>",
+    "initial_text": "text.initial.txt",
+    "current_text": "text.current.txt",
+    "document_metadata": "document.json",
+    "original_filename": "Preserved as a Unicode metadata value only; never used as a generated path.",
+    "encoding": "UTF-8 for text and JSON; medical source content may retain any language.",
+    "missing_text": "No fabricated empty extraction files when extraction fails; retain raw source and explicit failure state."
+  },
+  "filesystem_index_invalidation_reference": {
+    "status": "inactive-future-reference; no filesystem markers created",
+    "queue_root": "data/index-pending",
+    "marker": "<record_id>.json",
+    "marker_fields": [
+      "record_id",
+      "target_revision",
+      "operation",
+      "reason"
+    ],
+    "operations": [
+      "upsert",
+      "delete"
+    ],
+    "reasons": [
+      "document_added",
+      "text_extracted",
+      "text_saved",
+      "classification_changed",
+      "abstract_updated",
+      "record_moved",
+      "record_deleted",
+      "department_catalog_changed"
+    ],
+    "protocol": "Persist marker before commit; commit record.json revision last; index the committed revision; clear only the exact processed marker version under the record lock.",
+    "recovery": "Compare filesystem revisions/hashes and catalog versions with indexed state at startup/reconciliation; recreate missing work.",
+    "external_intake": "Files manually placed in data/inbox use the same import/commit/invalidation flow.",
+    "catalog_provenance": "Persist department_catalog_version in record metadata and index; catalog remapping requires an explicit revision and reindex marker."
+  },
+  "index_invalidation": {
+    "status": "implemented-in-sqlite",
+    "queue_table": "index_jobs",
+    "abstract_table": "record_abstracts",
+    "protocol": "Mutation and pending target_revision commit together. Rebuild the committed archive, store based_on_revision, mark exactly that revision current. Startup and completed workflow/manual/profile/move/delete operations refresh pending jobs.",
+    "completeness": "Current job means the saved revision was indexed. Abstract status partial means some documents lack complete clinical extraction; never present it as a complete medical summary."
+  },
+  "identity_compatibility": "Current SQLite IDs remain existing UUID strings to preserve links. Proposed p_/r_/d_ filesystem prefixes are not applied to existing IDs."
+}

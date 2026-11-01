@@ -1,38 +1,162 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1160" viewBox="0 0 1280 1160" role="img" aria-labelledby="title desc">
-<title id="title">Frontend / import and recovery interactions</title><desc id="desc">React owns drafts and presentation. Backend receipts and polling own what may be presented as stored or filed. Node IDs match architecture comments in the implementation.</desc>
-<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
-<style>text {font-family: 'Segoe UI', Arial, sans-serif; fill:#203c36;} .code {font-family: Consolas, monospace; font-size:12px;fill:#61736d;} .body {font-size:16px;} .id {font-size:12px;font-weight:700;letter-spacing:1px;fill:#376b55;} .label {font-size:13px;fill:#61736d;}</style>
-<rect width="100%" height="100%" fill="#f8faf7"/>
-<text x="40" y="44" font-size="12" letter-spacing="2" fill="#376b55">MEDICAL ACTIVITY TRACKER / IMPLEMENTED DRAFT</text>
-<text x="40" y="84" font-size="30" font-weight="600">Frontend / import and recovery interactions</text>
-<text x="40" y="113" font-size="15" fill="#61736d">React owns drafts and presentation. Backend receipts and polling own what may be presented as stored or filed.</text>
-<g id="U1" data-node="U1" data-x="40" data-y="145" data-width="350" data-height="165"><rect x="40" y="145" width="350" height="165" rx="12" fill="#ffffff" stroke="#cddbd1"/><text x="60" y="169" class="id">U1</text><text x="60" y="196" font-size="20" font-weight="600">Select existing files</text><text x="60" y="215" class="code">ImportPanel.pick / file onChange</text><text x="60" y="236" class="body">Standard photo/PDF/text file picker</text><text x="60" y="260" class="body">One operation key per independent file</text></g>
-<g id="U2" data-node="U2" data-x="465" data-y="145" data-width="350" data-height="165"><rect x="465" y="145" width="350" height="165" rx="12" fill="#ffffff" stroke="#cddbd1"/><text x="485" y="169" class="id">U2</text><text x="485" y="196" font-size="20" font-weight="600">Compose a new text draft</text><text x="485" y="215" class="code">ImportPanel state / explicit Save</text><text x="485" y="236" class="body">Keep unsaved title and text locally</text><text x="485" y="260" class="body">No API submission before Save</text></g>
-<g id="U3" data-node="U3" data-x="40" data-y="370" data-width="350" data-height="165"><rect x="40" y="370" width="350" height="165" rx="12" fill="#ffffff" stroke="#cddbd1"/><text x="60" y="394" class="id">U3</text><text x="60" y="421" font-size="20" font-weight="600">Processing disclosure</text><text x="60" y="440" class="code">ImportPanel.submit; App.consent</text><text x="60" y="461" class="body">Compare service revision in sessionStorage</text><text x="60" y="485" class="body">Cancel keeps the action unsubmitted</text></g>
-<g id="U4" data-node="U4" data-x="465" data-y="370" data-width="350" data-height="165"><rect x="465" y="370" width="350" height="165" rx="12" fill="#ffffff" stroke="#cddbd1"/><text x="485" y="394" class="id">U4</text><text x="485" y="421" font-size="20" font-weight="600">Submit through shared HTTP</text><text x="485" y="440" class="code">api.request; ImportPanel.submit</text><text x="485" y="461" class="body">Consent + stable operation keys</text><text x="485" y="485" class="body">Backend errors stay visible and retryable</text></g>
-<g id="U5" data-node="U5" data-x="890" data-y="370" data-width="350" data-height="165"><rect x="890" y="370" width="350" height="165" rx="12" fill="#ffffff" stroke="#cddbd1"/><text x="910" y="394" class="id">U5</text><text x="910" y="421" font-size="20" font-weight="600">Apply confirmed state</text><text x="910" y="440" class="code">App.updated / refresh</text><text x="910" y="461" class="body">Use mutation receipts; poll every 1.8 s</text><text x="910" y="485" class="body">Stored, failed, and filed stay distinct</text></g>
-<g id="U6" data-node="U6" data-x="890" data-y="595" data-width="350" data-height="165"><rect x="890" y="595" width="350" height="165" rx="12" fill="#ffffff" stroke="#cddbd1"/><text x="910" y="619" class="id">U6</text><text x="910" y="646" font-size="20" font-weight="600">Browse and inspect evidence</text><text x="910" y="665" class="code">App grouping; Viewer / PdfSource</text><text x="910" y="686" class="body">Four dimensions over the same file IDs</text><text x="910" y="710" class="body">PDF.js pages/zoom; originals and flags</text></g>
-<g id="U11" data-node="U11" data-x="465" data-y="595" data-width="350" data-height="165"><rect x="465" y="595" width="350" height="165" rx="12" fill="#ffffff" stroke="#cddbd1"/><text x="485" y="619" class="id">U11</text><text x="485" y="646" font-size="20" font-weight="600">Select / return / navigate</text><text x="485" y="665" class="code">App.select / hash / leave</text><text x="485" y="686" class="body">Stable file link; retain browse filters</text><text x="485" y="710" class="body">Warn before abandoning unsaved edits</text></g>
-<g id="U7" data-node="U7" data-x="40" data-y="595" data-width="350" data-height="165"><rect x="40" y="595" width="350" height="165" rx="12" fill="#ffffff" stroke="#cddbd1"/><text x="60" y="619" class="id">U7</text><text x="60" y="646" font-size="20" font-weight="600">Save a manual correction</text><text x="60" y="665" class="code">Viewer.beginEdit / save -&gt; PUT /manual</text><text x="60" y="686" class="body">Capture editor revision; polling keeps draft</text><text x="60" y="710" class="body">Failed Save retains the local draft</text></g>
-<g id="U8" data-node="U8" data-x="40" data-y="820" data-width="350" data-height="165"><rect x="40" y="820" width="350" height="165" rx="12" fill="#ffffff" stroke="#cddbd1"/><text x="60" y="844" class="id">U8</text><text x="60" y="871" font-size="20" font-weight="600">Retry processing</text><text x="60" y="890" class="code">Viewer.retry -&gt; POST /retry</text><text x="60" y="911" class="body">Renew consent when service changes</text><text x="60" y="935" class="body">Reuse the same backend file identity</text></g>
-<g id="U9" data-node="U9" data-x="465" data-y="820" data-width="350" data-height="165"><rect x="465" y="820" width="350" height="165" rx="12" fill="#ffffff" stroke="#cddbd1"/><text x="485" y="844" class="id">U9</text><text x="485" y="871" font-size="20" font-weight="600">Delete from app controls</text><text x="485" y="890" class="code">Viewer.remove -&gt; DELETE /files/:id</text><text x="485" y="911" class="body">Confirm named target; await backend</text><text x="485" y="935" class="body">Only then remove it from local views</text></g>
-<g id="U10" data-node="U10" data-x="890" data-y="820" data-width="350" data-height="165"><rect x="890" y="820" width="350" height="165" rx="12" fill="#ffffff" stroke="#cddbd1"/><text x="910" y="844" class="id">U10</text><text x="910" y="871" font-size="20" font-weight="600">Manage family profiles</text><text x="910" y="890" class="code">App.saveProfile -&gt; /profiles</text><text x="910" y="911" class="body">Create/correct names and printed aliases</text><text x="910" y="935" class="body">Refresh profiles after confirmed save</text></g>
-<polyline points="215,310 215,370" fill="none" stroke="#376b55" stroke-width="2" marker-end="url(#arrow)"/>
-<polyline points="640,310 640,340 260,340 260,370" fill="none" stroke="#376b55" stroke-width="2" marker-end="url(#arrow)"/>
-<text x="450" y="328" class="label" style="paint-order:stroke;stroke:#f8faf7;stroke-width:6;stroke-linejoin:round">Save</text>
-<polyline points="390,452 465,452" fill="none" stroke="#376b55" stroke-width="2" marker-end="url(#arrow)"/>
-<text x="401" y="437" class="label" style="paint-order:stroke;stroke:#f8faf7;stroke-width:6;stroke-linejoin:round">accept</text>
-<polyline points="815,452 890,452" fill="none" stroke="#376b55" stroke-width="2" marker-end="url(#arrow)"/>
-<text x="827" y="437" class="label" style="paint-order:stroke;stroke:#f8faf7;stroke-width:6;stroke-linejoin:round">receipt</text>
-<polyline points="1065,535 1065,595" fill="none" stroke="#376b55" stroke-width="2" marker-end="url(#arrow)"/>
-<text x="1080" y="570" class="label" style="paint-order:stroke;stroke:#f8faf7;stroke-width:6;stroke-linejoin:round">saved state</text>
-<polyline points="890,677 815,677" fill="none" stroke="#376b55" stroke-width="2" marker-end="url(#arrow)"/>
-<text x="830" y="662" class="label" style="paint-order:stroke;stroke:#f8faf7;stroke-width:6;stroke-linejoin:round">select</text>
-<polyline points="465,677 390,677" fill="none" stroke="#376b55" stroke-width="2" marker-end="url(#arrow)"/>
-<text x="407" y="662" class="label" style="paint-order:stroke;stroke:#f8faf7;stroke-width:6;stroke-linejoin:round">edit</text>
-<polyline points="1240,710 1260,710 1260,790 215,790 215,820" fill="none" stroke="#376b55" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
-<text x="1040" y="783" class="label" style="paint-order:stroke;stroke:#f8faf7;stroke-width:6;stroke-linejoin:round">processing failed</text>
-<text x="40" y="1060" font-size="14" fill="#61736d">U7-U10 send their explicit mutations through U4; U5 applies the actual result and refreshes the shared views.</text>
-<text x="40" y="1085" font-size="14" fill="#61736d">Original/initial text remain separate from editor drafts. Source reads use the same file identity.</text>
-<text x="40" y="1110" font-size="14" fill="#61736d">Current draft: no chat integration or Recheck action. The diagrams do not represent future PRD behavior as implemented.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="2487" viewBox="0 0 1440 2487" role="img" aria-labelledby="title desc">
+<title id="title">Browser actions, saved receipts, and safe editing</title><desc id="desc">The UI keeps drafts locally. Backend receipts, rather than button clicks, establish what is saved. Blue cards describe the main flow; amber cards explain safeguards. Source comments use the same node IDs.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="context-stroke"/></marker></defs>
+<style>text {font-family:'Segoe UI','Microsoft JhengHei',Arial,sans-serif} text,polyline {pointer-events:none}</style>
+<rect width="100%" height="100%" fill="#f4f7fa"/>
+<text x="48" y="38" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#245f81">FAMILY MEDICAL RECORDS · VIEW 02</text>
+<text x="48" y="80" font-family="Segoe UI,Arial" font-size="30" font-weight="600" fill="#233646">Browser actions, saved receipts, and safe editing</text>
+<text x="48" y="111" font-family="Segoe UI,Arial" font-size="16" fill="#5c6d7c">The UI keeps drafts locally. Backend receipts, rather than button clicks, establish what is saved.</text>
+<text x="48" y="143" font-family="Segoe UI,Arial" font-size="13" fill="#5c6d7c">Read top to bottom. Solid blue = sequence/call; dashed amber = related safeguard, not an extra processing stage.</text>
+<g id="U16" data-node="U16" data-x="48" data-y="180" data-width="740" data-height="184">
+<rect x="48" y="180" width="740" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="207" font-size="13" fill="#245f81" font-weight="700">U16</text>
+<text x="70" y="237" font-size="21" fill="#233646" font-weight="600">Acknowledge the demo-only notice</text>
+<text x="70" y="264" font-size="13" fill="#5c6d7c" font-weight="400">DemoNotice.tsx → App.demoAcknowledged</text>
+<text x="70" y="291" font-size="16" fill="#233646" font-weight="400">At each page opening, explain synthetic data, paid Gemini processing, server</text>
+<text x="70" y="315" font-size="16" fill="#233646" font-weight="400">retention and medical limitations. Require a checked acknowledgement before</text>
+<text x="70" y="339" font-size="16" fill="#233646" font-weight="400">Continue; keep controls fixed while only the content area scrolls.</text>
+</g>
+<g id="U1" data-node="U1" data-x="48" data-y="412" data-width="740" data-height="160">
+<rect x="48" y="412" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="439" font-size="13" fill="#245f81" font-weight="700">U1</text>
+<text x="70" y="469" font-size="21" fill="#233646" font-weight="600">Choose existing files</text>
+<text x="70" y="496" font-size="13" fill="#5c6d7c" font-weight="400">ImportPanel.pick + browser file input</text>
+<text x="70" y="523" font-size="16" fill="#233646" font-weight="400">Photo, PDF and text options set accepted extensions. Each selected file has its</text>
+<text x="70" y="547" font-size="16" fill="#233646" font-weight="400">own operation key and upload request.</text>
+</g>
+<polyline data-edge="true" points="418,364 418,412" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="U4" data-node="U4" data-x="876" data-y="412" data-width="516" data-height="184">
+<rect x="876" y="412" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="439" font-size="13" fill="#98621e" font-weight="700">U4</text>
+<text x="898" y="469" font-size="21" fill="#233646" font-weight="600">Why stable upload keys?</text>
+<text x="898" y="496" font-size="13" fill="#5c6d7c" font-weight="400">ImportPanel.submit → Library.create</text>
+<text x="898" y="523" font-size="16" fill="#233646" font-weight="400">A response may be lost after saving. Retrying the same</text>
+<text x="898" y="547" font-size="16" fill="#233646" font-weight="400">operation key retrieves the existing row instead of</text>
+<text x="898" y="571" font-size="16" fill="#233646" font-weight="400">storing another copy.</text>
+</g>
+<polyline data-edge="true" points="788,477 876,477" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="U2" data-node="U2" data-x="48" data-y="644" data-width="740" data-height="160">
+<rect x="48" y="644" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="671" font-size="13" fill="#245f81" font-weight="700">U2</text>
+<text x="70" y="701" font-size="21" fill="#233646" font-weight="600">Or compose a text draft</text>
+<text x="70" y="728" font-size="13" fill="#5c6d7c" font-weight="400">ImportPanel new-draft state</text>
+<text x="70" y="755" font-size="16" fill="#233646" font-weight="400">Title and text stay in browser state until Save and file. Failed submission</text>
+<text x="70" y="779" font-size="16" fill="#233646" font-weight="400">retains the draft.</text>
+</g>
+<polyline data-edge="true" points="418,572 418,644" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="U3" data-node="U3" data-x="48" data-y="852" data-width="740" data-height="160">
+<rect x="48" y="852" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="879" font-size="13" fill="#245f81" font-weight="700">U3</text>
+<text x="70" y="909" font-size="21" fill="#233646" font-weight="600">Submit immediately and receive a saved identity</text>
+<text x="70" y="936" font-size="13" fill="#5c6d7c" font-weight="400">ImportPanel.submit → /imports or /texts</text>
+<text x="70" y="963" font-size="16" fill="#233646" font-weight="400">There is no processing-confirmation gate. A successful upload receipt opens the</text>
+<text x="70" y="987" font-size="16" fill="#233646" font-weight="400">saved document while background stages continue.</text>
+</g>
+<polyline data-edge="true" points="418,804 418,852" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="U5" data-node="U5" data-x="876" data-y="852" data-width="516" data-height="184">
+<rect x="876" y="852" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="879" font-size="13" fill="#98621e" font-weight="700">U5</text>
+<text x="898" y="909" font-size="21" fill="#233646" font-weight="600">Why poll with a mutation counter?</text>
+<text x="898" y="936" font-size="13" fill="#5c6d7c" font-weight="400">App.refresh + refresh timer</text>
+<text x="898" y="963" font-size="16" fill="#233646" font-weight="400">Refresh roughly every 1.8 seconds. Ignore an older</text>
+<text x="898" y="987" font-size="16" fill="#233646" font-weight="400">read that began before a local save/delete, preventing</text>
+<text x="898" y="1011" font-size="16" fill="#233646" font-weight="400">stale snapshots from undoing the visible result.</text>
+</g>
+<polyline data-edge="true" points="788,917 876,917" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="U6" data-node="U6" data-x="48" data-y="1084" data-width="740" data-height="160">
+<rect x="48" y="1084" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1111" font-size="13" fill="#245f81" font-weight="700">U6</text>
+<text x="70" y="1141" font-size="21" fill="#233646" font-weight="600">Browse and select the same document</text>
+<text x="70" y="1168" font-size="13" fill="#5c6d7c" font-weight="400">App.select + LibraryBrowser + browsing.ts</text>
+<text x="70" y="1195" font-size="16" fill="#233646" font-weight="400">Keep a stable document ID in the hash, preserve member filters, and restore</text>
+<text x="70" y="1219" font-size="16" fill="#233646" font-weight="400">focus/scroll when returning to the tree.</text>
+</g>
+<polyline data-edge="true" points="418,1012 418,1084" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="U13" data-node="U13" data-x="876" data-y="1084" data-width="516" data-height="184">
+<rect x="876" y="1084" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="1111" font-size="13" fill="#98621e" font-weight="700">U13</text>
+<text x="898" y="1141" font-size="21" fill="#233646" font-weight="600">Why review an unmatched name?</text>
+<text x="898" y="1168" font-size="13" fill="#5c6d7c" font-weight="400">MemberReview → MemberForm / Viewer</text>
+<text x="898" y="1195" font-size="16" fill="#233646" font-weight="400">A printed patient name is not an account. Ask whether</text>
+<text x="898" y="1219" font-size="16" fill="#233646" font-weight="400">to correct it, create a member with aliases, or defer;</text>
+<text x="898" y="1243" font-size="16" fill="#233646" font-weight="400">do not merge people by similarity.</text>
+</g>
+<polyline data-edge="true" points="788,1149 876,1149" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="U9" data-node="U9" data-x="48" data-y="1316" data-width="740" data-height="160">
+<rect x="48" y="1316" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1343" font-size="13" fill="#245f81" font-weight="700">U9</text>
+<text x="70" y="1373" font-size="21" fill="#233646" font-weight="600">Inspect source beside saved text</text>
+<text x="70" y="1400" font-size="13" fill="#5c6d7c" font-weight="400">Viewer + PdfSource</text>
+<text x="70" y="1427" font-size="16" fill="#233646" font-weight="400">Images support zoom; PDFs support pages, selectable text and resize-aware</text>
+<text x="70" y="1451" font-size="16" fill="#233646" font-weight="400">rendering. Raw-data links remain available if preview fails.</text>
+</g>
+<polyline data-edge="true" points="418,1244 418,1316" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="U14" data-node="U14" data-x="876" data-y="1316" data-width="516" data-height="184">
+<rect x="876" y="1316" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="1343" font-size="13" fill="#98621e" font-weight="700">U14</text>
+<text x="898" y="1373" font-size="21" fill="#233646" font-weight="600">Why isolate presentation?</text>
+<text x="898" y="1400" font-size="13" fill="#5c6d7c" font-weight="400">Workspace + GlassScene + Dropdown</text>
+<text x="898" y="1427" font-size="16" fill="#233646" font-weight="400">Persist panel sizes, support keyboard controls and</text>
+<text x="898" y="1451" font-size="16" fill="#233646" font-weight="400">reduced motion, and keep report/chat text out of the</text>
+<text x="898" y="1475" font-size="16" fill="#233646" font-weight="400">decorative WebGL capture.</text>
+</g>
+<polyline data-edge="true" points="788,1381 876,1381" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="U7" data-node="U7" data-x="48" data-y="1548" data-width="740" data-height="160">
+<rect x="48" y="1548" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1575" font-size="13" fill="#245f81" font-weight="700">U7</text>
+<text x="70" y="1605" font-size="21" fill="#233646" font-weight="600">Edit and save explicit corrections</text>
+<text x="70" y="1632" font-size="13" fill="#5c6d7c" font-weight="400">Viewer.beginEdit / save → api.manual</text>
+<text x="70" y="1659" font-size="16" fill="#233646" font-weight="400">Send the revision originally opened for editing. Save current text and details,</text>
+<text x="70" y="1683" font-size="16" fill="#233646" font-weight="400">preserve initial/original data, and mark changed-text checks stale.</text>
+</g>
+<polyline data-edge="true" points="418,1476 418,1548" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="U11" data-node="U11" data-x="876" data-y="1548" data-width="516" data-height="184">
+<rect x="876" y="1548" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="1575" font-size="13" fill="#98621e" font-weight="700">U11</text>
+<text x="898" y="1605" font-size="21" fill="#233646" font-weight="600">Why guard dirty drafts?</text>
+<text x="898" y="1632" font-size="13" fill="#5c6d7c" font-weight="400">Viewer.beforeAction / leave + App navigation guards</text>
+<text x="898" y="1659" font-size="16" fill="#233646" font-weight="400">Changing documents, checking, browser navigation and</text>
+<text x="898" y="1683" font-size="16" fill="#233646" font-weight="400">reload can discard a draft. Resolve Save/Discard/Stay</text>
+<text x="898" y="1707" font-size="16" fill="#233646" font-weight="400">and retain the draft if saving fails.</text>
+</g>
+<polyline data-edge="true" points="788,1613 876,1613" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="U12" data-node="U12" data-x="48" data-y="1780" data-width="740" data-height="160">
+<rect x="48" y="1780" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="1807" font-size="13" fill="#245f81" font-weight="700">U12</text>
+<text x="70" y="1837" font-size="21" fill="#233646" font-weight="600">Recheck the saved text</text>
+<text x="70" y="1864" font-size="13" fill="#5c6d7c" font-weight="400">Viewer.recheck → api.recheck</text>
+<text x="70" y="1891" font-size="16" fill="#233646" font-weight="400">Save edits first. Run checking outside the write transaction; compare the</text>
+<text x="70" y="1915" font-size="16" fill="#233646" font-weight="400">revision again before attaching results.</text>
+</g>
+<polyline data-edge="true" points="418,1708 418,1780" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="U8" data-node="U8" data-x="876" data-y="1780" data-width="516" data-height="184">
+<rect x="876" y="1780" width="516" height="184" rx="14" fill="#fff6e9" stroke="#dcbb83"/>
+<text x="898" y="1807" font-size="13" fill="#98621e" font-weight="700">U8</text>
+<text x="898" y="1837" font-size="21" fill="#233646" font-weight="600">Why expose Retry separately?</text>
+<text x="898" y="1864" font-size="13" fill="#5c6d7c" font-weight="400">Viewer.retry → /files/{id}/retry</text>
+<text x="898" y="1891" font-size="16" fill="#233646" font-weight="400">A processing failure is different from a suspected</text>
+<text x="898" y="1915" font-size="16" fill="#233646" font-weight="400">text error. Retry resumes the same stored document</text>
+<text x="898" y="1939" font-size="16" fill="#233646" font-weight="400">instead of creating a new upload.</text>
+</g>
+<polyline data-edge="true" points="788,1845 876,1845" fill="none" stroke="#98621e" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<g id="U10" data-node="U10" data-x="48" data-y="2012" data-width="740" data-height="160">
+<rect x="48" y="2012" width="740" height="160" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="2039" font-size="13" fill="#245f81" font-weight="700">U10</text>
+<text x="70" y="2069" font-size="21" fill="#233646" font-weight="600">Delete only after explicit confirmation</text>
+<text x="70" y="2096" font-size="13" fill="#5c6d7c" font-weight="400">Viewer.remove → api.delete → Library.delete</text>
+<text x="70" y="2123" font-size="16" fill="#233646" font-weight="400">Delete this document and its derivatives. Return to the tree only after the</text>
+<text x="70" y="2147" font-size="16" fill="#233646" font-weight="400">server confirms; archive siblings remain intact.</text>
+</g>
+<polyline data-edge="true" points="418,1940 418,2012" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<g id="U15" data-node="U15" data-x="48" data-y="2220" data-width="740" data-height="184">
+<rect x="48" y="2220" width="740" height="184" rx="14" fill="#ffffff" stroke="#bfccd8"/>
+<text x="70" y="2247" font-size="13" fill="#245f81" font-weight="700">U15</text>
+<text x="70" y="2277" font-size="21" fill="#233646" font-weight="600">Reset the shared demo library</text>
+<text x="70" y="2304" font-size="13" fill="#5c6d7c" font-weight="400">Library footer → App.resetLibrary → /library/reset</text>
+<text x="70" y="2331" font-size="16" fill="#233646" font-weight="400">Ask for confirmation, then atomically remove all reports, original bytes, saved</text>
+<text x="70" y="2355" font-size="16" fill="#233646" font-weight="400">text, indexes and members. Clear local chat/drafts only after success; canceling</text>
+<text x="70" y="2379" font-size="16" fill="#233646" font-weight="400">or failure retains them. Stop old uploads and ignore late callbacks.</text>
+</g>
+<polyline data-edge="true" points="418,2172 418,2220" fill="none" stroke="#245f81" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="48" y="2452" font-size="14" fill="#5c6d7c" font-weight="400">Zoom index: docs/code-walkthrough.md · Search a node ID such as #B6 in the source.</text>
 </svg>

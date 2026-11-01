@@ -1,0 +1,24 @@
+/* View: src/import/ui-flow.svg#U5 — visible waits without layout shifts or fake progress. */
+.loading-spinner { width: 18px; height: 18px; flex-shrink: 0; vertical-align: middle; animation: loading-turn .85s linear infinite; }
+.loading-status { display: inline-flex; align-items: center; gap: 9px; color: var(--muted, #77738b); font-size: 13px; line-height: 1.6; }
+.loading-center { display: flex; flex-direction: column; justify-content: center; min-height: 180px; padding: 24px; text-align: center; }
+.loading-center .loading-spinner, .loading-overlay .loading-spinner { width: 36px; height: 36px; color: var(--accent, #6243ff); }
+.loading-region { position: relative; }
+.loading-overlay { position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 24px; border-radius: inherit; background: #f5f2ffdb; backdrop-filter: blur(2px); text-align: center; color: #48405f; }
+.busy-controls { display: contents; border: 0; margin: 0; padding: 0; min-width: 0; }
+.busy-controls[inert] { pointer-events: none; }
+.viewer > .loading-center { position: sticky; top: 0; z-index: 4; flex-shrink: 0; border-radius: 12px; background: #f5f2ffed; }
+button > .loading-spinner { width: 16px; height: 16px; margin-right: 7px; }
+.import-menu > summary[aria-disabled=true] { cursor: wait; opacity: .65; }
+.image-scroll.loading-region { min-height: 180px; }
+.source-frame { width: 100%; min-height: 300px; }
+.viewer.loading-region { height: 100%; min-height: 0; padding: 0; overflow: hidden; }
+.viewer-content { flex: 1; min-height: 0; overflow: auto; padding: 25px 24px; scrollbar-width: thin; scrollbar-color: #c5bde3 transparent; }
+.viewer .loading-overlay { border-radius: 0; }
+.chat-pane .loading-overlay { border-radius: 12px; }
+.library-browser { flex: 1; }
+.library-browser:has(.loading-center) { display: flex; flex-direction: column; }
+.library-browser:has(.loading-center) #browse-results { flex: 1; display: grid; align-content: center; }
+@media (max-width: 700px) { .viewer-content { padding: 20px; } }
+@keyframes loading-turn { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .loading-spinner { animation: none; } }

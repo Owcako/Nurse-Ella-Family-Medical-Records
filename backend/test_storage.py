@@ -1,3 +1,6 @@
+# View: backend/library-storage.svg#S5
+# Temporary SQLite libraries verify atomic uploads, immutable evidence, revision guards,
+# archive indexes and deletion boundaries. Tests never edit the demonstration library.
 """Hierarchy, migration and preservation tests; no AI service calls."""
 
 import hashlib

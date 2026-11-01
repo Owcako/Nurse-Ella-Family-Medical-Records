@@ -17,15 +17,24 @@ from . import departments
 from .members import match_profile, normalized_name
 
 
+# View: backend/library-storage.svg#S5
+# Signal a stale or inconsistent mutation; callers must reopen/review rather than overwrite.
 class Conflict(Exception):
     pass
 
 
+# View: backend/database-schema.svg#D3
+# Generate archive-operation timestamps in UTC. These are not documented medical dates.
 def now():
     return datetime.now(timezone.utc).isoformat()
 
 
+# View: implementation-architecture.svg#O6
+# Own SQLite persistence and derived archive indexes. Every public document view is
+# reconstructed from normalized tables; source bytes remain inside the database.
 class Library:
+    # View: backend/library-storage.svg#S1
+    # Create the library directory and initialize schema/catalogs before accepting records.
     def __init__(self, path: Path):
         # library-storage.svg#S1: schema owns relationships, source, text and state separately.
         self.path = path
@@ -33,6 +42,9 @@ class Library:
         self.migration_backup = None
         self._initialize()
 
+    # View: backend/library-storage.svg#S5
+    # Enable foreign keys for every connection. Commit only if the whole operation
+    # succeeds, roll back exceptions, and always release the database handle.
     @contextmanager
     def connect(self):
         db = sqlite3.connect(self.path, timeout=30)
@@ -44,6 +56,10 @@ class Library:
         finally:
             db.close()
 
+    # View: backend/library-storage.svg#S1
+    # Apply schema/catalog changes transactionally. Before migrating legacy JSON rows,
+    # create a consistent backup and verify copied text, bytes and row counts. Unsupported
+    # future schema versions stop startup rather than risk destructive interpretation.
     def _initialize(self):
         with self.connect() as db:
             db.execute("BEGIN IMMEDIATE")
@@ -110,6 +126,9 @@ class Library:
                 raise RuntimeError("Library relationship validation failed.")
             db.execute("PRAGMA user_version=2")
 
+    # View: backend/database-schema.svg#D2
+    # Create one organizational archive, with an optional existing patient. Explicit
+    # user labels have separate provenance from labels later aggregated from documents.
     def _new_record(self, db, title, patient_id=None, created=None, explicit=False):
         if patient_id and not db.execute("SELECT 1 FROM patients WHERE id=?", (patient_id,)).fetchone():
             raise KeyError(patient_id)
@@ -122,6 +141,9 @@ class Library:
             title, "user_supplied" if explicit else "documents", stamp, stamp))
         return record_id
 
+    # View: backend/library-storage.svg#S3
+    # Insert document identity and immutable source in the same transaction as derived
+    # state, then invalidate its owning archive for deterministic reindexing.
     def _insert_document(self, db, data, record_id, operation, fingerprint, source, filename):
         db.execute("INSERT INTO documents VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                    (data["id"], record_id, operation, fingerprint, data["title"], filename,
@@ -131,28 +153,39 @@ class Library:
         self._write_document(db, data)
         self._touch_record(db, record_id, "document_added")
 
+    # View: backend/library-storage.svg#S2
+    # Compare a repeated operation key and fingerprint under BEGIN IMMEDIATE.
+    # A valid replay returns the same document; conflicting content is rejected before
+    # creating another archive, source, or pending task.
     def create(self, *, operation, source, title, media, origin, record_id=None):
         # library-storage.svg#S2: replay the same operation, never create another archive/document.
-        fingerprint = hashlib.sha256(source + media.encode() + origin.encode() + title.encode()).hexdigest()
         with self.connect() as db:
             db.execute("BEGIN IMMEDIATE")
-            old = db.execute("SELECT id, record_id, fingerprint FROM documents WHERE operation=?", (operation,)).fetchone()
-            if old:
-                if old["fingerprint"] != fingerprint or record_id and old["record_id"] != record_id:
-                    raise Conflict("This upload operation already belongs to different content or archive.")
-                return self._read_document(db, old["id"])
-            if record_id and not db.execute("SELECT 1 FROM medical_records WHERE id=?", (record_id,)).fetchone():
-                raise KeyError(record_id)
-            # library-storage.svg#S3: parent, immutable source and pending document commit together.
-            record_id = record_id or self._new_record(db, title)
-            data = dict(id=str(uuid4()), title=title, media=media, origin=origin, created=now(), revision=1,
-                        status="pending", stage="source", error=None, initial_text=None, text=None,
-                        text_origin=origin, check_status="pending", check_error=None, concerns=[], metadata=None,
-                        index=None, index_status="missing", attempt=None, extraction_status="pending", extraction_error=None)
-            self._insert_document(db, data, record_id, operation, fingerprint, source,
-                                  title if origin == "imported" else None)
-            return self._read_document(db, data["id"])
+            return self._create(db, operation=operation, source=source, title=title, media=media, origin=origin, record_id=record_id)
 
+    def _create(self, db, *, operation, source, title, media, origin, record_id=None):
+        fingerprint = hashlib.sha256(source + media.encode() + origin.encode() + title.encode()).hexdigest()
+        old = db.execute("SELECT id, record_id, fingerprint FROM documents WHERE operation=?", (operation,)).fetchone()
+        if old:
+            if old["fingerprint"] != fingerprint or record_id and old["record_id"] != record_id:
+                raise Conflict("This upload operation already belongs to different content or archive.")
+            return self._read_document(db, old["id"])
+        if record_id and not db.execute("SELECT 1 FROM medical_records WHERE id=?", (record_id,)).fetchone():
+            raise KeyError(record_id)
+        # library-storage.svg#S3: parent, immutable source and pending document commit together.
+        record_id = record_id or self._new_record(db, title)
+        data = dict(id=str(uuid4()), title=title, media=media, origin=origin, created=now(), revision=1,
+                    status="pending", stage="source", error=None, initial_text=None, text=None,
+                    text_origin=origin, check_status="pending", check_error=None, concerns=[], metadata=None,
+                    index=None, index_status="missing", attempt=None, extraction_status="pending", extraction_error=None)
+        self._insert_document(db, data, record_id, operation, fingerprint, source,
+                              title if origin == "imported" else None)
+        return self._read_document(db, data["id"])
+
+    # View: backend/database-schema.svg#D5
+    # Split a document snapshot into current/initial text, independent processing state,
+    # metadata and index tables. Advance text revision only on actual text changes; retain
+    # the revision checked by old results. Resolve only registered department aliases.
     def _write_document(self, db, data):
         old = db.execute("SELECT * FROM document_texts WHERE document_id=?", (data["id"],)).fetchone()
         text_revision = (old["revision"] if old else 0) + int((old["current_text"] if old else None) != data["text"])
@@ -191,6 +224,9 @@ class Library:
             (data["id"], json.dumps(content) if content is not None else None, text_revision,
              data.get("index_status", "current" if content is not None else "missing")))
 
+    # View: backend/library-storage.svg#S4
+    # Join authoritative tables to preserve the stable /api/files response contract.
+    # Attach a current archive summary rather than storing a second mutable file record.
     def _read_document(self, db, file_id):
         row = db.execute("""SELECT d.*, t.initial_text, t.current_text, t.text_origin, t.revision AS text_revision,
             p.status, p.stage, p.attempt, p.error, p.extraction_status, p.extraction_error,
@@ -211,27 +247,38 @@ class Library:
                     index=json.loads(row["content_json"]) if row["content_json"] else None, index_status=row["index_status"],
                     department_catalog_version=row["department_catalog_version"], archive=self._record_summary(db, row["record_id"]))
 
+    # View: backend/library-storage.svg#S4
+    # Read one stable document ID; a missing/deleted report raises instead of returning a substitute.
     def get(self, file_id):
         # library-storage.svg#S4: compose the public document view from authoritative tables.
         with self.connect() as db:
             return self._read_document(db, file_id)
 
+    # View: backend/database-schema.svg#D4
+    # Fetch the immutable original BLOB for this identity. No extracted text can replace it.
     def _source(self, db, file_id):
         row = db.execute("SELECT content FROM document_sources WHERE document_id=?", (file_id,)).fetchone()
         if not row:
             raise KeyError(file_id)
         return row[0]
 
+    # View: backend/library-storage.svg#S4
+    # Read original bytes without a temporary exported file or an AI request.
     def source(self, file_id):
         # library-storage.svg#S4: source reads do not unpack or modify a file on disk.
         with self.connect() as db:
             return self._source(db, file_id)
 
+    # View: backend/library-storage.svg#S4
+    # Return document snapshots in archive insertion order; browsing builds medical-date groups separately.
     def list(self):
         # library-storage.svg#S4: existing evidence links continue to resolve document IDs.
         with self.connect() as db:
             return [self._read_document(db, row[0]) for row in db.execute("SELECT id FROM documents ORDER BY rowid DESC").fetchall()]
 
+    # View: backend/library-storage.svg#S5
+    # Lock the write transaction, load the current snapshot, and run the caller guard/edit.
+    # Protect identity/ownership fields, increment revision and invalidate the archive atomically.
     def change(self, file_id, edit):
         # library-storage.svg#S5: workflow/editor guards run before normalized writes commit.
         with self.connect() as db:
@@ -246,6 +293,10 @@ class Library:
             self._touch_record(db, data["record_id"], "document_changed")
             return self._read_document(db, file_id)
 
+    # View: backend/library-storage.svg#S9
+    # Recompute archive labels and lookup links from committed document classifications.
+    # Keep partial/missing/ambiguous/conflicting states visible; enqueue indexing at the new
+    # archive revision instead of inventing an integrated clinical narrative.
     def _touch_record(self, db, record_id, reason):
         record = db.execute("SELECT * FROM medical_records WHERE id=?", (record_id,)).fetchone()
         docs = db.execute("""SELECT d.id, d.title, m.classifications_json FROM documents d
@@ -253,6 +304,9 @@ class Library:
         metadata = [json.loads(row["classifications_json"]) if row["classifications_json"] else {} for row in docs]
         known_patients = {row[0] for row in db.execute("SELECT id FROM patients")}
 
+        # View: backend/library-storage.svg#S9
+        # A single value is known only if every participating document supports it.
+        # Multiple supported values remain ambiguous; incomplete agreement remains partial.
         def consensus(key, attribute):
             values = set()
             complete = bool(metadata)
@@ -297,6 +351,9 @@ class Library:
             state='pending', reason=excluded.reason, error=NULL, updated_at=excluded.updated_at""", (record_id, revision, reason, now()))
         db.execute("UPDATE record_abstracts SET status='stale' WHERE record_id=?", (record_id,))
 
+    # View: backend/library-storage.svg#S9
+    # Combine archive state, patient label, department/disease links and index status.
+    # A clearly printed name can be displayed even before a managed family profile exists.
     def _record_summary(self, db, record_id):
         row = db.execute("""SELECT r.*, p.name AS patient_name, j.state AS index_state,
             j.indexed_revision, j.error AS index_error,
@@ -324,6 +381,8 @@ class Library:
         result["diseases"] = [item[0] for item in db.execute("SELECT value FROM record_diseases WHERE record_id=? ORDER BY value", (record_id,))]
         return result
 
+    # View: backend/database-schema.svg#D2
+    # Query archive lookup links with bound parameters; this does not perform model-based retrieval.
     def records(self, patient_id=None, department_code=None, disease=None):
         with self.connect() as db:
             sql = "SELECT r.id FROM medical_records r WHERE 1=1"
@@ -336,6 +395,8 @@ class Library:
                     args.append(value)
             return [self._record_summary(db, row[0]) for row in db.execute(sql + " ORDER BY r.created_at DESC", args).fetchall()]
 
+    # View: backend/database-schema.svg#D9
+    # Read an archive with its actual document list and revision-labeled evidence summary.
     def record(self, record_id):
         with self.connect() as db:
             result = self._record_summary(db, record_id)
@@ -346,6 +407,8 @@ class Library:
             result["abstract"] = dict(content=json.loads(abstract["content_json"]), based_on_revision=abstract["based_on_revision"], status=abstract["status"]) if abstract else None
             return result
 
+    # View: backend/database-schema.svg#D2
+    # Create and invalidate an explicitly requested archive within one transaction.
     def create_record(self, title, patient_id=None):
         with self.connect() as db:
             db.execute("BEGIN IMMEDIATE")
@@ -353,6 +416,9 @@ class Library:
             self._touch_record(db, record_id, "record_created")
         return self.record(record_id)
 
+    # View: backend/library-storage.svg#S11
+    # Move only a stable, nonprocessing document after checking patient compatibility.
+    # Retain its document ID/source and touch both old/new archives so evidence links survive.
     def move_document(self, file_id, record_id, revision):
         with self.connect() as db:
             db.execute("BEGIN IMMEDIATE")
@@ -377,6 +443,9 @@ class Library:
             self._touch_record(db, record_id, "document_moved")
             return self._read_document(db, file_id)
 
+    # View: backend/library-storage.svg#S10
+    # Rebuild deterministic evidence indexes from committed documents, without calling AI.
+    # Mark a job current only for its target revision; retain failed jobs for later recovery.
     def index_pending(self):
         # database-schema.svg#D10: deterministic indexing uses saved content, never AI calls.
         with self.connect() as db:
@@ -407,6 +476,9 @@ class Library:
                     db.execute("UPDATE index_jobs SET state='failed', error=?, updated_at=? WHERE record_id=?",
                                ("Index refresh failed: " + type(error).__name__, now(), record_id))
 
+    # View: backend/library-storage.svg#S6
+    # A dead process cannot finish its in-memory queue. Invalidate interrupted attempts
+    # and expose an explicit Retry state while preserving originals and already-saved text.
     def recover(self):
         # library-storage.svg#S6: restart retains originals and marks interrupted stages retryable.
         for document in self.list():
@@ -414,12 +486,17 @@ class Library:
                 self.change(document["id"], lambda item: item.update(status="failed", attempt=None,
                             error="Processing was interrupted. The original is stored; choose Retry."))
 
+    # View: backend/library-storage.svg#S7
+    # Keep an archive and refresh it if siblings remain; remove only an empty archive.
     def _remove_or_touch(self, db, record_id):
         if db.execute("SELECT 1 FROM documents WHERE record_id=?", (record_id,)).fetchone():
             self._touch_record(db, record_id, "document_removed")
         else:
             db.execute("DELETE FROM medical_records WHERE id=?", (record_id,))
 
+    # View: backend/library-storage.svg#S7
+    # Delete this document and its owned derivatives by foreign-key cascade.
+    # Sibling reports are outside that deletion boundary.
     def delete(self, file_id):
         # library-storage.svg#S7: cascade only this document; siblings keep their evidence.
         with self.connect() as db:
@@ -428,12 +505,61 @@ class Library:
             db.execute("DELETE FROM documents WHERE id=?", (file_id,))
             self._remove_or_touch(db, document["record_id"])
 
+    # View: backend/library-storage.svg#S12
+    # Delete archives and their owned evidence, then family profiles in one transaction.
+    # Catalogs remain available for the next import. Deleted identities invalidate queued
+    # workers, so late stage results cannot resurrect the previous demo's documents.
+    def reset(self):
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            db.execute("DELETE FROM medical_records")
+            db.execute("DELETE FROM patients")
+
+    def import_demo(self, profiles, sources, *, reset=False):
+        # Publish the whole kit together. A failed restore keeps the previous library;
+        # deleted document IDs invalidate old workers through their existing guards.
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            if reset:
+                db.execute("DELETE FROM medical_records")
+                db.execute("DELETE FROM patients")
+            for profile in profiles:
+                names = {normalized_name(value) for value in [profile["name"], *profile["aliases"]]}
+                existing = db.execute("SELECT name, aliases_json FROM patients").fetchall()
+                if any(names.intersection(normalized_name(value) for value in [row["name"], *json.loads(row["aliases_json"])]) for row in existing):
+                    continue
+                db.execute("INSERT INTO patients VALUES (?, ?, NULL, ?, ?)",
+                           (str(uuid4()), profile["name"], json.dumps(profile["aliases"]), now()))
+            documents = []
+            for source in sources:
+                existing = db.execute("SELECT id FROM documents WHERE operation=?", (source["operation"],)).fetchone()
+                data = self._create(db, **{key: value for key, value in source.items() if key != "prepared"})
+                preset = source.get("prepared")
+                # Prepared fixtures apply only to new demo imports. Never replace an
+                # existing document's edits, immutable extraction, or in-flight work.
+                if preset and not existing:
+                    data.update(title=preset["title"], text=preset["text"], initial_text=preset["text"],
+                                text_origin="demo_prepared", metadata=preset["metadata"], index=preset["index"],
+                                concerns=preset["concerns"], check_status=preset["check_status"],
+                                status="filed", stage="complete", extraction_status="extracted", index_status="current")
+                    data["revision"] += 1
+                    self._write_document(db, data)
+                    self._touch_record(db, data["record_id"], "demo_prepared")
+                documents.append(data)
+            self._relink_members(db)
+            return [self._read_document(db, document["id"]) for document in documents]
+
+    # View: backend/library-storage.svg#S8
+    # Read managed family names/aliases from patients; these are organizational identities.
     def profiles(self):
         # library-storage.svg#S8: public profile identity is backed by patients, not duplicate JSON.
         with self.connect() as db:
             return [dict(id=row["id"], name=row["name"], slug=row["slug"], aliases=json.loads(row["aliases_json"]))
                     for row in db.execute("SELECT * FROM patients ORDER BY created_at, id")]
 
+    # View: backend/library-storage.svg#S8
+    # Reject overlapping normalized names/aliases before saving a profile. Relink exact
+    # confirmed document names and invalidate affected archives without changing original text.
     def save_profile(self, profile, profile_id=None):
         # library-storage.svg#S8: update in place; REPLACE would destroy referenced identities.
         existing_id = profile_id is not None
@@ -458,6 +584,9 @@ class Library:
                 self._touch_record(db, row[0], "patient_changed")
         return dict(id=profile_id, name=profile["name"], aliases=profile["aliases"], slug=slug)
 
+    # View: backend/library-storage.svg#S8
+    # Only a confirmed single patient name may link to a profile. Remove stale IDs
+    # and use exact unique names/aliases; ambiguous candidates never acquire ownership.
     def _link_member(self, db, metadata):
         profiles = [dict(id=row["id"], name=row["name"], aliases=json.loads(row["aliases_json"]))
                     for row in db.execute("SELECT * FROM patients")]
@@ -470,6 +599,9 @@ class Library:
             if profile:
                 value["profile_id"] = profile["id"]
 
+    # View: backend/library-storage.svg#S8
+    # After profile changes, rewrite only changed member links and advance affected
+    # document/archive revisions so old source snapshots are visibly stale.
     def _relink_members(self, db):
         affected = set()
         for row in db.execute("SELECT document_id, classifications_json FROM document_metadata WHERE classifications_json IS NOT NULL").fetchall():
@@ -486,6 +618,9 @@ class Library:
             self._touch_record(db, record_id, "member_link_changed")
         return affected
 
+    # View: backend/library-storage.svg#S8
+    # Detach the removed profile, relink remaining exact identities and refresh indexes.
+    # Deleting a member is not permission to delete that person's stored medical reports.
     def delete_profile(self, profile_id):
         with self.connect() as db:
             db.execute("BEGIN IMMEDIATE")

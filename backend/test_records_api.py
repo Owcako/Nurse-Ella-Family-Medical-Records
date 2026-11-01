@@ -1,3 +1,5 @@
+# View: backend/library-storage.svg#S11
+# Check archive/document API compatibility and ownership moves without rewriting original bytes.
 """Exercise archive contracts through HTTP without contacting an AI provider."""
 
 from fastapi.testclient import TestClient
@@ -46,7 +48,7 @@ def test_explicit_attachment_uses_existing_archive(tmp_path, monkeypatch):
         # Keep work pending: this test checks intake ownership, not AI extraction.
         monkeypatch.setattr(app.state.executor, "submit", lambda *_args: None)
         archive = client.post("/api/records", json=dict(title="Visit")).json()
-        headers = {"Idempotency-Key": "text", "X-Processing-Consent": client.get("/api/config").json()["disclosure"]}
+        headers = {"Idempotency-Key": "text"}
         body = dict(title="Note", text="Document text", record_id=archive["id"])
         text = client.post("/api/texts", json=body, headers=headers)
         assert text.status_code == 202
